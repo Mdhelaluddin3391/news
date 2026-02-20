@@ -1,3 +1,103 @@
+// Fake API layer simulating asynchronous backend calls
+// Uses mock data from mock-data.js and returns Promises with delays
+
+import { categories, articles, userProfile } from './mock-data.js';
+
+const randomDelay = (min = 200, max = 800) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
+const simulateDelay = (ms) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
+// Helper to clone objects so callers don't accidentally mutate module state
+const clone = (obj) => JSON.parse(JSON.stringify(obj));
+
+export const fetchCategories = async () => {
+  await simulateDelay(randomDelay());
+  return clone(categories);
+};
+
+export const fetchTrendingNews = async () => {
+  await simulateDelay(randomDelay());
+  return clone(articles.filter((a) => a.is_trending));
+};
+
+export const fetchBreakingNews = async () => {
+  await simulateDelay(randomDelay());
+  return clone(articles.filter((a) => a.is_breaking));
+};
+
+export const fetchNewsByCategory = async (slug) => {
+  await simulateDelay(randomDelay());
+  return clone(articles.filter((a) => a.category_slug === slug));
+};
+
+export const fetchArticleById = async (id) => {
+  await simulateDelay(randomDelay());
+  const found = articles.find((a) => String(a.id) === String(id));
+  if (!found) return null;
+  // simulate incrementing view count in-memory
+  found.views += 1;
+  return clone(found);
+};
+
+export const searchNews = async (q) => {
+  await simulateDelay(randomDelay());
+  const term = String(q || '').trim().toLowerCase();
+  if (!term) return [];
+  const results = articles.filter((a) => {
+    return (
+      a.title.toLowerCase().includes(term) ||
+      a.excerpt.toLowerCase().includes(term) ||
+      a.content.toLowerCase().includes(term)
+    );
+  });
+  return clone(results);
+};
+
+export const fetchRelatedArticles = async (articleId, limit = 3) => {
+  await simulateDelay(randomDelay());
+  const current = articles.find((a) => String(a.id) === String(articleId));
+  if (!current) return [];
+  const related = articles
+    .filter((a) => a.category_slug === current.category_slug && a.id !== current.id)
+    .slice(0, limit);
+  return clone(related);
+};
+
+// Simple auth simulation: returns a fake token when email matches
+export const loginUser = async ({ email }) => {
+  await simulateDelay(randomDelay());
+  if (String(email).toLowerCase() === String(userProfile.email).toLowerCase()) {
+    return { success: true, token: 'fake-jwt-token', profile: clone(userProfile) };
+  }
+  return { success: false, message: 'Invalid credentials' };
+};
+
+export const fetchUserProfile = async () => {
+  await simulateDelay(randomDelay());
+  return clone(userProfile);
+};
+
+export const saveArticleForUser = async (articleId) => {
+  await simulateDelay(randomDelay());
+  if (!userProfile.saved_articles.includes(articleId)) {
+    userProfile.saved_articles.push(articleId);
+  }
+  return clone(userProfile);
+};
+
+export const removeSavedArticleForUser = async (articleId) => {
+  await simulateDelay(randomDelay());
+  userProfile.saved_articles = userProfile.saved_articles.filter((id) => id !== articleId);
+  return clone(userProfile);
+};
+
+export const fetchSavedArticles = async () => {
+  await simulateDelay(randomDelay());
+  const saved = articles.filter((a) => userProfile.saved_articles.includes(a.id));
+  return clone(saved);
+};
 /**
  * API Utility Module
  * Backend se data fetch karega

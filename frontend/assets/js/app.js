@@ -1,3 +1,69 @@
+// Component loader and common frontend utilities
+// Usage: import { initComponents } from './assets/js/app.js';
+// Then call initComponents() on DOMContentLoaded.
+
+export const loadComponent = async (url, placeholderId) => {
+  const placeholder = document.getElementById(placeholderId);
+  if (!placeholder) return null;
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to load component: ${url}`);
+    const html = await res.text();
+    placeholder.innerHTML = html;
+
+    // Execute any inline scripts inside the loaded component
+    const scripts = placeholder.querySelectorAll('script');
+    scripts.forEach((oldScript) => {
+      const newScript = document.createElement('script');
+      if (oldScript.src) {
+        newScript.src = oldScript.src;
+        newScript.async = false;
+      } else {
+        newScript.textContent = oldScript.textContent;
+      }
+      document.body.appendChild(newScript);
+      document.body.removeChild(newScript);
+    });
+    return placeholder;
+  } catch (err) {
+    console.error(err);
+    placeholder.innerHTML = '';
+    return null;
+  }
+};
+
+export const initComponents = async () => {
+  // Paths assume components exist at /components relative to site root
+  // If serving files from a subpath, adjust the paths accordingly in pages.
+  await loadComponent('/components/navbar.html', 'navbar-placeholder');
+  await loadComponent('/components/footer.html', 'footer-placeholder');
+    // Notify listeners that components are loaded
+    try {
+        const evt = new CustomEvent('components:ready');
+        window.dispatchEvent(evt);
+    } catch (e) {
+        // ignore if CustomEvent fails in some environments
+        console.warn('components:ready dispatch failed', e);
+    }
+};
+
+// Utility: get query param by name
+export const getQueryParam = (name) => {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+};
+
+// Auto-initialize when loaded as a module in a page
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    // pages can call initComponents() themselves if they need control
+    // but auto-call here keeps behavior convenient for static pages
+    initComponents().catch((e) => console.warn('initComponents failed', e));
+  });
+}
+
+// Load component initializers (populate sidebar, wire search) when module is imported
+import './components-init.js';
 /**
  * Main App Module
  * Sab kuch initialize aur manage karega

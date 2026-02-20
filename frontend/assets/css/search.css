@@ -1,3 +1,15 @@
+@import url('/assets/css/global.css');
+
+/* Search results page */
+.search-header{padding:18px 0}
+.search-query{font-size:18px;color:var(--muted);margin-bottom:8px}
+.result-item{padding:12px;border-bottom:1px solid #f0f0f0}
+.result-title a{color:inherit;text-decoration:none}
+.result-excerpt{color:#333}
+
+@media (max-width:900px){
+  .result-item{padding:10px}
+}
 :root {
     --primary-color: #1a365d;
     --secondary-color: #d32f2f;

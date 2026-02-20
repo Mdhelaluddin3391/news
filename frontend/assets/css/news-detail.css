@@ -1,3 +1,19 @@
+@import url('/assets/css/global.css');
+
+/* News detail specific styles */
+.article-header{padding:18px 0}
+.article-category{color:var(--secondary-color);font-weight:700}
+.article-title{font-family:var(--font-serif);font-size:32px;margin:8px 0}
+.article-meta{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);margin-bottom:12px}
+.article-content{line-height:1.75}
+.author-section{display:flex;gap:12px;padding:16px;border-top:1px solid #eee;margin-top:18px}
+.author-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover}
+.comments-section .comment{display:flex;gap:12px;padding:12px 0;border-top:1px solid #f0f0f0}
+
+@media (max-width:900px){
+  .article-title{font-size:22px}
+  .author-section{flex-direction:column;align-items:flex-start}
+}
 :root {
     --primary-color: #1a365d;
     --secondary-color: #d32f2f;

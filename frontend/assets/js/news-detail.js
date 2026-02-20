@@ -1,3 +1,53 @@
+import { initComponents, getQueryParam } from './app.js';
+import { fetchArticleById, fetchRelatedArticles } from './api-adapter.js';
+
+const renderRelated = (items) => {
+  if (!items || items.length === 0) return '<p>No related articles.</p>';
+  return items
+    .map(
+      (r) => `
+      <div class="related-article">
+        <img src="${r.image}" alt="${r.title}" class="related-image">
+        <div class="related-content">
+          <a href="/news-detail.html?id=${r.id}"><h4>${r.title}</h4></a>
+          <div class="related-category">${r.category_slug.toUpperCase()}</div>
+        </div>
+      </div>
+    `
+    )
+    .join('');
+};
+
+const init = async () => {
+  await initComponents();
+  const id = getQueryParam('id');
+  if (!id) {
+    window.location.href = '/404.html';
+    return;
+  }
+  const article = await fetchArticleById(id);
+  if (!article) {
+    window.location.href = '/404.html';
+    return;
+  }
+
+  const titleEl = document.getElementById('article-title');
+  const catEl = document.getElementById('article-category');
+  const imgEl = document.querySelector('#article-content').previousElementSibling; // find featured image above content
+  const contentEl = document.getElementById('article-content');
+
+  if (titleEl) titleEl.textContent = article.title;
+  if (catEl) catEl.textContent = article.category_slug.toUpperCase();
+  if (imgEl && imgEl.tagName === 'IMG') imgEl.src = article.image;
+  if (contentEl) contentEl.innerHTML = `<p><strong>${article.excerpt}</strong></p><p>${article.content}</p>`;
+
+  // Related
+  const related = await fetchRelatedArticles(article.id, 4);
+  const relatedPlaceholder = document.getElementById('related-placeholder');
+  if (relatedPlaceholder) relatedPlaceholder.innerHTML = renderRelated(related);
+};
+
+document.addEventListener('DOMContentLoaded', init);
 /**
  * News Detail Page Module
  * Single article ko load aur display karega

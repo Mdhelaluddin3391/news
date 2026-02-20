@@ -26,58 +26,15 @@
         </div>
     </div>
 
-    <!-- Main Header with Logo -->
-    <header>
-        <div class="container main-header">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div>
-                        <div class="logo-text">Global News Network</div>
-                        <div class="logo-tagline">Trusted News Worldwide</div>
-                    </div>
-                </a>
-                <div class="ad-banner">
-                    Advertisement Banner - 728x90
-                </div>
-            </div>
-        </div>
+    <!-- Componentized Header / Navigation -->
+    <div id="navbar-placeholder"></div>
 
-        <!-- Navigation -->
-        <nav>
-            <div class="container navbar">
-                <ul class="nav-links">
-                    <li class="active"><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="world.html">World</a></li>
-                    <li><a href="politics.html">Politics</a></li>
-                    <li><a href="business.html">Business</a></li>
-                    <li><a href="technology.html">Technology</a></li>
-                    <li><a href="health.html">Health</a></li>
-                    <li><a href="sports.html">Sports</a></li>
-                    <li><a href="entertainment.html">Entertainment</a></li>
-                    <li><a href="science.html">Science</a></li>
-                </ul>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search news...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Breaking News Ticker -->
+    <!-- Breaking News Ticker (dynamic) -->
     <div class="breaking-news">
         <div class="container breaking-news-content">
             <div class="breaking-label">BREAKING NEWS</div>
             <div class="news-ticker">
-                <div class="news-ticker-content">
-                    • Global Climate Summit reaches historic agreement on carbon emissions • Tech giant unveils revolutionary AI assistant • Major earthquake hits coastal region, rescue operations underway • Stock markets reach all-time high amid economic optimism
-                </div>
+                <div id="breaking-placeholder" class="news-ticker-content">Loading breaking news...</div>
             </div>
         </div>
     </div>
@@ -160,46 +117,10 @@
 
         <!-- Right Column - Sidebar -->
         <div class="right-column">
-            <!-- Trending News -->
+            <!-- Trending News (dynamic) -->
             <section class="sidebar-section">
                 <h3 class="sidebar-title">TRENDING NOW</h3>
-                <div class="trending-news">
-                    <div class="trending-news-item">
-                        <div class="trending-number">01</div>
-                        <div class="trending-content">
-                            <h4>Major Political Scandal Rocks Capital</h4>
-                            <div class="trending-category">POLITICS</div>
-                        </div>
-                    </div>
-                    <div class="trending-news-item">
-                        <div class="trending-number">02</div>
-                        <div class="trending-content">
-                            <h4>Revolutionary Battery Technology Announced</h4>
-                            <div class="trending-category">TECHNOLOGY</div>
-                        </div>
-                    </div>
-                    <div class="trending-news-item">
-                        <div class="trending-number">03</div>
-                        <div class="trending-content">
-                            <h4>Film Festival Announces This Year's Winners</h4>
-                            <div class="trending-category">ENTERTAINMENT</div>
-                        </div>
-                    </div>
-                    <div class="trending-news-item">
-                        <div class="trending-number">04</div>
-                        <div class="trending-content">
-                            <h4>New Study Reveals Benefits of Mediterranean Diet</h4>
-                            <div class="trending-category">HEALTH</div>
-                        </div>
-                    </div>
-                    <div class="trending-news-item">
-                        <div class="trending-number">05</div>
-                        <div class="trending-content">
-                            <h4>Central Bank Announces Interest Rate Decision</h4>
-                            <div class="trending-category">BUSINESS</div>
-                        </div>
-                    </div>
-                </div>
+                <div id="trending-placeholder" class="trending-news">Loading...</div>
             </section>
 
             <!-- Categories -->
@@ -231,63 +152,9 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Global News Network</h3>
-                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
-                    <div class="social-icons" style="margin-top: 20px;">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="careers.html">Careers</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>News Categories</h3>
-                    <ul class="footer-links">
-                        <li><a href="world.html">World News</a></li>
-                        <li><a href="politics.html">Politics</a></li>
-                        <li><a href="business.html">Business & Finance</a></li>
-                        <li><a href="technology.html">Technology</a></li>
-                        <li><a href="health.html">Health & Wellness</a></li>
-                        <li><a href="sports.html">Sports</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Contact Info</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-map-marker-alt"></i> 123 News Street, Media City, MC 10001</li>
-                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
-                        <li><i class="fas fa-envelope"></i> info@globalnewsnetwork.com</li>
-                        <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                &copy; 2023 Global News Network. All rights reserved. | Designed with professionalism and integrity
-            </div>
-        </div>
-    </footer>
+    <!-- Componentized Footer -->
+    <div id="footer-placeholder"></div>
 
-    <script src="assets/js/api.js"></script>
-    <script src="assets/js/components.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script type="module" src="/assets/js/index.js"></script>
 </body>
 </html>

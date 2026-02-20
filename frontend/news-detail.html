@@ -27,54 +27,13 @@
         </div>
     </div>
 
-    <!-- Main Header with Logo -->
-    <header>
-        <div class="container main-header">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div>
-                        <div class="logo-text">Global News Network</div>
-                        <div class="logo-tagline">Trusted News Worldwide</div>
-                    </div>
-                </a>
-                <div class="ad-banner">
-                    Advertisement Banner - 728x90
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <nav>
-            <div class="container navbar">
-                <ul class="nav-links">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="world.html">World</a></li>
-                    <li><a href="politics.html">Politics</a></li>
-                    <li><a href="business.html">Business</a></li>
-                    <li class="active"><a href="technology.html">Technology</a></li>
-                    <li><a href="health.html">Health</a></li>
-                    <li><a href="sports.html">Sports</a></li>
-                    <li><a href="entertainment.html">Entertainment</a></li>
-                    <li><a href="science.html">Science</a></li>
-                </ul>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search news...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </nav>
-    </header>
+    <!-- Componentized Header / Navigation -->
+    <div id="navbar-placeholder"></div>
 
     <!-- Article Header -->
     <div class="container article-header">
-        <div class="article-category">TECHNOLOGY</div>
-        <h1 class="article-title">AI Model Surpasses Human Performance in Creative Problem Solving Tasks</h1>
+        <div id="article-category" class="article-category">TECHNOLOGY</div>
+        <h1 id="article-title" class="article-title">Loading article…</h1>
         
         <div class="article-meta">
             <div class="meta-item">
@@ -123,7 +82,7 @@
             <div class="image-caption">Researchers demonstrate the new AI system solving complex creative problems (Image: Unsplash)</div>
             
             <!-- Article Content -->
-            <div class="article-content">
+            <div id="article-content" class="article-content">
                 <p><strong>In a groundbreaking development, researchers at NeuroMind AI have created an artificial intelligence system that outperforms humans in creative problem-solving tasks, challenging long-held assumptions about the limits of machine intelligence.</strong></p>
                 
                 <p>The AI, named "CreativeSolve," achieved scores 15% higher than human experts across a battery of tests designed to measure creative thinking, including inventing novel solutions to open-ended problems, generating original story ideas, and developing innovative product designs.</p>
@@ -303,27 +262,7 @@
             <!-- Related Articles -->
             <div class="sidebar-section">
                 <h3 class="sidebar-title">RELATED ARTICLES</h3>
-                <div class="related-article">
-                    <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Quantum Computing" class="related-image">
-                    <div class="related-content">
-                        <h4>Quantum Computing Breakthrough Brings Error-Free Calculation Closer</h4>
-                        <div class="related-category">TECHNOLOGY</div>
-                    </div>
-                </div>
-                <div class="related-article">
-                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Ethics" class="related-image">
-                    <div class="related-content">
-                        <h4>Global AI Ethics Framework Approved by United Nations Council</h4>
-                        <div class="related-category">WORLD</div>
-                    </div>
-                </div>
-                <div class="related-article">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Art" class="related-image">
-                    <div class="related-content">
-                        <h4>AI-Generated Artwork Sells for Record $2.9 Million at Auction</h4>
-                        <div class="related-category">ENTERTAINMENT</div>
-                    </div>
-                </div>
+                <div id="related-placeholder"></div>
             </div>
             
             <!-- Trending Articles -->
@@ -380,8 +319,8 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
+    <!-- Componentized Footer -->
+    <div id="footer-placeholder"></div>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
@@ -435,9 +374,6 @@
         </div>
     </footer>
 
-    <script src="assets/js/api.js"></script>
-    <script src="assets/js/components.js"></script>
-    <script src="assets/js/utils.js"></script>
-    <script src="assets/js/news-detail.js"></script>
+    <script type="module" src="/assets/js/news-detail.js"></script>
 </body>
 </html>

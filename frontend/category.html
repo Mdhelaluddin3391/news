@@ -6,9 +6,7 @@
     <title>Technology News - Global News Network</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        
-    </style>
+    <link rel="stylesheet" href="/assets/css/category.css">
 </head>
 <body>
     <!-- Top Bar with Date and Social Links -->
@@ -28,55 +26,14 @@
         </div>
     </div>
 
-    <!-- Main Header with Logo -->
-    <header>
-        <div class="container main-header">
-            <div class="header-content">
-                <a href="index.html" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div>
-                        <div class="logo-text">Global News Network</div>
-                        <div class="logo-tagline">Trusted News Worldwide</div>
-                    </div>
-                </a>
-                <div class="ad-banner">
-                    Advertisement Banner - 728x90
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <nav>
-            <div class="container navbar">
-                <ul class="nav-links">
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="world.html">World</a></li>
-                    <li><a href="politics.html">Politics</a></li>
-                    <li><a href="business.html">Business</a></li>
-                    <li class="active"><a href="technology.html">Technology</a></li>
-                    <li><a href="health.html">Health</a></li>
-                    <li><a href="sports.html">Sports</a></li>
-                    <li><a href="entertainment.html">Entertainment</a></li>
-                    <li><a href="science.html">Science</a></li>
-                </ul>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search technology news...">
-                    <button><i class="fas fa-search"></i></button>
-                </div>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </nav>
-    </header>
+    <!-- Componentized Header / Navigation -->
+    <div id="navbar-placeholder"></div>
 
     <!-- Category Header -->
     <div class="category-header">
         <div class="container">
-            <h1>Technology</h1>
-            <p>Latest breakthroughs, innovations, and trends in the world of technology. From AI to quantum computing, smartphones to space tech.</p>
+            <h1 id="category-title">Category</h1>
+            <p id="category-description">Latest articles for this category.</p>
             <div class="category-stats">
                 <div class="stat-item">
                     <span class="stat-number">1,247</span>
@@ -130,7 +87,7 @@
             </section>
 
             <!-- Category News Grid -->
-            <section class="category-news-grid">
+            <section id="category-news-grid" class="category-news-grid">
                 <div class="category-news-card">
                     <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Quantum Computing">
                     <div class="category-news-card-content">
@@ -337,8 +294,8 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
+    <!-- Componentized Footer -->
+    <div id="footer-placeholder"></div>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
@@ -392,78 +349,6 @@
         </div>
     </footer>
 
-    <script>
-        // Update date and time
-        function updateDateTime() {
-            const now = new Date();
-            const dateElement = document.getElementById('current-date');
-            const timeElement = document.getElementById('current-time');
-            
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateElement.textContent = now.toLocaleDateString('en-US', options);
-            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        }
-        
-        // Update date/time immediately and then every minute
-        updateDateTime();
-        setInterval(updateDateTime, 60000);
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        
-        // Tech newsletter form submission
-        const techNewsletterForm = document.getElementById('techNewsletterForm');
-        techNewsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            alert(`Thank you for subscribing to our Tech Newsletter with: ${email}\nYou'll receive weekly tech updates.`);
-            this.reset();
-        });
-        
-        // Search functionality
-        const searchInput = document.querySelector('.search-bar input');
-        const searchButton = document.querySelector('.search-bar button');
-        
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            if (query) {
-                alert(`Searching for technology news: "${query}"\nThis would show filtered results in a full implementation.`);
-                searchInput.value = '';
-            }
-        });
-        
-        // Simulate clicking on category news cards
-        const categoryNewsCards = document.querySelectorAll('.category-news-card');
-        categoryNewsCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.querySelector('.category-news-title').textContent;
-                alert(`Navigating to technology article: "${title}"\nThis would open the full article in a complete implementation.`);
-            });
-        });
-        
-        // Subcategory filter simulation
-        const subcategoryLinks = document.querySelectorAll('.subcategory-list a');
-        subcategoryLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const category = link.textContent;
-                alert(`Filtering technology news by: ${category}\nThis would show articles only from this subcategory.`);
-            });
-        });
-        
-        // Video play simulation
-        const videoThumbnails = document.querySelectorAll('.video-thumbnail');
-        videoThumbnails.forEach(thumbnail => {
-            thumbnail.addEventListener('click', () => {
-                const title = thumbnail.nextElementSibling.textContent;
-                alert(`Playing video: "${title}"\nThis would open a video player in a complete implementation.`);
-            });
-        });
-    </script>
+    <script type="module" src="/assets/js/category.js"></script>
 </body>
 </html>

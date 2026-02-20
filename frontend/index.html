@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global News Network | Trusted News Source</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #d32f2f;
+            --accent-color: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date-time {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .main-header {
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: -5px;
+        }
+        
+        .ad-banner {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--text-light);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 20px;
+            display: block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links .active a {
+            background-color: var(--secondary-color);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: #b71c1c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Breaking News */
+        .breaking-news {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 12px 0;
+            margin: 20px 0;
+        }
+        
+        .breaking-news-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .breaking-label {
+            background-color: #b71c1c;
+            padding: 5px 15px;
+            font-weight: 700;
+            margin-right: 20px;
+            white-space: nowrap;
+        }
+        
+        .news-ticker {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+        
+        .news-ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        /* Featured News */
+        .featured-news {
+            margin-bottom: 40px;
+        }
+        
+        .featured-news-item {
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .featured-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: var(--white);
+            padding: 30px;
+        }
+        
+        .featured-category {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 5px 15px;
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        
+        .featured-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .featured-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .news-card {
+            background-color: var(--white);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-card-content {
+            padding: 20px;
+        }
+        
+        .news-category {
+            color: var(--secondary-color);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .news-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .news-excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        /* Sidebar */
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .trending-news-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .trending-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-right: 15px;
+            min-width: 40px;
+        }
+        
+        .trending-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .trending-category {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        
+        .category-list {
+            list-style: none;
+        }
+        
+        .category-list li {
+            margin-bottom: 10px;
+        }
+        
+        .category-list a {
+            display: flex;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+        
+        .category-list a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .category-count {
+            background-color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .newsletter-form {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 25px;
+            border-radius: 5px;
+        }
+        
+        .newsletter-form h3 {
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        
+        .newsletter-form p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 3px;
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 3px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #b71c1c;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding-top: 50px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            background-color: #0d1b36;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ad-banner {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar input {
+                width: 150px;
+            }
+            
+            .featured-title {
+                font-size: 1.5rem;
+            }
+            
+            .featured-image {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-image {
+                height: 250px;
+            }
+            
+            .featured-overlay {
+                padding: 20px;
+            }
+            
+            .breaking-label {
+                margin-right: 10px;
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar with Date and Social Links -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="date-time">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Logo -->
+    <header>
+        <div class="container main-header">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Global News Network</div>
+                        <div class="logo-tagline">Trusted News Worldwide</div>
+                    </div>
+                </a>
+                <div class="ad-banner">
+                    Advertisement Banner - 728x90
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <div class="container navbar">
+                <ul class="nav-links">
+                    <li class="active"><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="technology.html">Technology</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li><a href="science.html">Science</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search news...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breaking News Ticker -->
+    <div class="breaking-news">
+        <div class="container breaking-news-content">
+            <div class="breaking-label">BREAKING NEWS</div>
+            <div class="news-ticker">
+                <div class="news-ticker-content">
+                    • Global Climate Summit reaches historic agreement on carbon emissions • Tech giant unveils revolutionary AI assistant • Major earthquake hits coastal region, rescue operations underway • Stock markets reach all-time high amid economic optimism
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Left Column - Main News -->
+        <div class="left-column">
+            <!-- Featured News -->
+            <section class="featured-news">
+                <div class="featured-news-item">
+                    <img src="https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Global Summit" class="featured-image">
+                    <div class="featured-overlay">
+                        <span class="featured-category">WORLD</span>
+                        <h2 class="featured-title">Global Leaders Gather for Emergency Summit on Climate Change</h2>
+                        <div class="featured-meta">
+                            <span><i class="far fa-clock"></i> 2 hours ago</span>
+                            <span><i class="far fa-user"></i> By Robert Chen</span>
+                            <span><i class="far fa-comment"></i> 342 comments</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Grid -->
+            <section class="news-grid">
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Stock Market">
+                    <div class="news-card-content">
+                        <span class="news-category">BUSINESS</span>
+                        <h3 class="news-title">Stock Markets Surge to Record High Amid Economic Recovery</h3>
+                        <p class="news-excerpt">Global markets show strong performance as investors react positively to new economic data and corporate earnings reports.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 4 hours ago</span>
+                            <span><i class="far fa-eye"></i> 1.2k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Technology">
+                    <div class="news-card-content">
+                        <span class="news-category">TECHNOLOGY</span>
+                        <h3 class="news-title">New AI Model Can Generate Realistic Videos from Text Descriptions</h3>
+                        <p class="news-excerpt">Researchers unveil breakthrough in generative AI that could revolutionize content creation and raise new ethical questions.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 6 hours ago</span>
+                            <span><i class="far fa-eye"></i> 2.1k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Sports">
+                    <div class="news-card-content">
+                        <span class="news-category">SPORTS</span>
+                        <h3 class="news-title">National Team Secures Spot in World Championship Finals</h3>
+                        <p class="news-excerpt">Dramatic semifinal match ends in victory for the home team, securing their place in the championship game this weekend.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 8 hours ago</span>
+                            <span><i class="far fa-eye"></i> 3.4k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Health">
+                    <div class="news-card-content">
+                        <span class="news-category">HEALTH</span>
+                        <h3 class="news-title">Breakthrough in Cancer Treatment Shows 90% Success Rate in Trials</h3>
+                        <p class="news-excerpt">New immunotherapy approach demonstrates remarkable effectiveness against previously untreatable forms of cancer.</p>
+                        <div class="news-meta">
+                            <span><i class="far fa-clock"></i> 10 hours ago</span>
+                            <span><i class="far fa-eye"></i> 4.5k views</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="right-column">
+            <!-- Trending News -->
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">TRENDING NOW</h3>
+                <div class="trending-news">
+                    <div class="trending-news-item">
+                        <div class="trending-number">01</div>
+                        <div class="trending-content">
+                            <h4>Major Political Scandal Rocks Capital</h4>
+                            <div class="trending-category">POLITICS</div>
+                        </div>
+                    </div>
+                    <div class="trending-news-item">
+                        <div class="trending-number">02</div>
+                        <div class="trending-content">
+                            <h4>Revolutionary Battery Technology Announced</h4>
+                            <div class="trending-category">TECHNOLOGY</div>
+                        </div>
+                    </div>
+                    <div class="trending-news-item">
+                        <div class="trending-number">03</div>
+                        <div class="trending-content">
+                            <h4>Film Festival Announces This Year's Winners</h4>
+                            <div class="trending-category">ENTERTAINMENT</div>
+                        </div>
+                    </div>
+                    <div class="trending-news-item">
+                        <div class="trending-number">04</div>
+                        <div class="trending-content">
+                            <h4>New Study Reveals Benefits of Mediterranean Diet</h4>
+                            <div class="trending-category">HEALTH</div>
+                        </div>
+                    </div>
+                    <div class="trending-news-item">
+                        <div class="trending-number">05</div>
+                        <div class="trending-content">
+                            <h4>Central Bank Announces Interest Rate Decision</h4>
+                            <div class="trending-category">BUSINESS</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories -->
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">CATEGORIES</h3>
+                <ul class="category-list">
+                    <li><a href="world.html">World <span class="category-count">42</span></a></li>
+                    <li><a href="politics.html">Politics <span class="category-count">28</span></a></li>
+                    <li><a href="business.html">Business <span class="category-count">35</span></a></li>
+                    <li><a href="technology.html">Technology <span class="category-count">47</span></a></li>
+                    <li><a href="health.html">Health <span class="category-count">23</span></a></li>
+                    <li><a href="sports.html">Sports <span class="category-count">39</span></a></li>
+                    <li><a href="entertainment.html">Entertainment <span class="category-count">31</span></a></li>
+                    <li><a href="science.html">Science <span class="category-count">19</span></a></li>
+                </ul>
+            </section>
+
+            <!-- Newsletter -->
+            <section class="sidebar-section">
+                <div class="newsletter-form">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for daily news updates delivered to your inbox.</p>
+                    <form id="newsletterForm">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe Now</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Global News Network</h3>
+                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>News Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="world.html">World News</a></li>
+                        <li><a href="politics.html">Politics</a></li>
+                        <li><a href="business.html">Business & Finance</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                        <li><a href="health.html">Health & Wellness</a></li>
+                        <li><a href="sports.html">Sports</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 News Street, Media City, MC 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@globalnewsnetwork.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                &copy; 2023 Global News Network. All rights reserved. | Designed with professionalism and integrity
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Update date/time immediately and then every minute
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.getElementById('newsletterForm');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing with: ${email}\nYou'll receive our newsletter shortly.`);
+            this.reset();
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Searching for: "${query}"\nThis would navigate to search results in a full implementation.`);
+                searchInput.value = '';
+            }
+        });
+        
+        // Simulate clicking on news cards
+        const newsCards = document.querySelectorAll('.news-card');
+        newsCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.news-title').textContent;
+                alert(`Navigating to article: "${title}"\nThis would open the full article in a complete implementation.`);
+            });
+        });
+    </script>
+</body>
+</html>

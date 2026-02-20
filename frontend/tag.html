@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artificial Intelligence News - Tag | Global News Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #d32f2f;
+            --accent-color: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --tag-color: #4CAF50;
+            --tag-dark: #388E3C;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date-time {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .main-header {
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: -5px;
+        }
+        
+        .ad-banner {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--text-light);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 20px;
+            display: block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links .active a {
+            background-color: var(--tag-dark);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: #b71c1c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Tag Header */
+        .tag-header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .tag-badge {
+            background-color: var(--tag-color);
+            color: var(--white);
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .tag-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .tag-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            opacity: 0.9;
+        }
+        
+        .tag-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .tag-stat-item {
+            text-align: center;
+        }
+        
+        .tag-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .tag-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        /* Featured Tag News */
+        .featured-tag-news {
+            margin-bottom: 40px;
+        }
+        
+        .featured-tag-item {
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .featured-tag-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .featured-tag-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: var(--white);
+            padding: 30px;
+        }
+        
+        .featured-tag-category {
+            background-color: var(--tag-color);
+            color: var(--white);
+            padding: 5px 15px;
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        
+        .featured-tag-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .featured-tag-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Tag News Grid */
+        .tag-news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .tag-news-card {
+            background-color: var(--white);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .tag-news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tag-news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .tag-news-card-content {
+            padding: 20px;
+        }
+        
+        .tag-news-tags {
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .tag-pill {
+            background-color: #E8F5E9;
+            color: var(--tag-dark);
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .tag-pill:hover {
+            background-color: var(--tag-color);
+            color: var(--white);
+        }
+        
+        .tag-news-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .tag-news-excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .tag-news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        /* Related Tags */
+        .related-tags {
+            background-color: var(--accent-color);
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .related-tags h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+        
+        .tag-cloud a {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 1px solid #ddd;
+        }
+        
+        .tag-cloud a:hover {
+            background-color: var(--tag-color);
+            color: var(--white);
+            border-color: var(--tag-color);
+        }
+        
+        .tag-cloud .active-tag {
+            background-color: var(--tag-color);
+            color: var(--white);
+            border-color: var(--tag-color);
+        }
+        
+        /* Sidebar */
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--tag-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .trending-tag-news-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .trending-tag-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--tag-color);
+            margin-right: 15px;
+            min-width: 40px;
+        }
+        
+        .trending-tag-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .trending-tag-category {
+            font-size: 0.8rem;
+            color: var(--tag-color);
+            font-weight: 700;
+        }
+        
+        .tag-authors {
+            margin-bottom: 30px;
+        }
+        
+        .author-list {
+            list-style: none;
+        }
+        
+        .author-list li {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--tag-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        
+        .author-name {
+            font-weight: 500;
+        }
+        
+        .author-articles {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .tag-timeline {
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 2px solid var(--tag-color);
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--tag-color);
+        }
+        
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--tag-color);
+            font-weight: 500;
+        }
+        
+        .timeline-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .pagination a {
+            color: var(--text-dark);
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        .pagination a:hover {
+            background-color: var(--tag-color);
+            color: var(--white);
+            border-color: var(--tag-color);
+        }
+        
+        .pagination a.active {
+            background-color: var(--tag-color);
+            color: var(--white);
+            border-color: var(--tag-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding-top: 50px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            background-color: #0d1b36;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .tag-news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ad-banner {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar input {
+                width: 150px;
+            }
+            
+            .featured-tag-title {
+                font-size: 1.5rem;
+            }
+            
+            .featured-tag-image {
+                height: 300px;
+            }
+            
+            .tag-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-tag-image {
+                height: 250px;
+            }
+            
+            .featured-tag-overlay {
+                padding: 20px;
+            }
+            
+            .tag-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .tag-cloud {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar with Date and Social Links -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="date-time">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Logo -->
+    <header>
+        <div class="container main-header">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Global News Network</div>
+                        <div class="logo-tagline">Trusted News Worldwide</div>
+                    </div>
+                </a>
+                <div class="ad-banner">
+                    Advertisement Banner - 728x90
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <div class="container navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="technology.html">Technology</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li><a href="science.html">Science</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search tags...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Tag Header -->
+    <div class="tag-header">
+        <div class="container">
+            <div class="tag-badge">
+                <i class="fas fa-tag"></i> Artificial Intelligence
+            </div>
+            <h1>AI News & Updates</h1>
+            <p>Explore the latest developments, breakthroughs, and applications of Artificial Intelligence across industries. From machine learning to neural networks, stay updated on how AI is transforming our world.</p>
+            <div class="tag-stats">
+                <div class="tag-stat-item">
+                    <span class="tag-stat-number">428</span>
+                    <span class="tag-stat-label">Articles Tagged</span>
+                </div>
+                <div class="tag-stat-item">
+                    <span class="tag-stat-number">47</span>
+                    <span class="tag-stat-label">AI Experts</span>
+                </div>
+                <div class="tag-stat-item">
+                    <span class="tag-stat-number">2.1M</span>
+                    <span class="tag-stat-label">Monthly Reads</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Left Column - Main News -->
+        <div class="left-column">
+            <!-- Related Tags -->
+            <div class="related-tags">
+                <h3>Related Tags</h3>
+                <ul class="tag-cloud">
+                    <li><a href="#" class="active-tag">Artificial Intelligence</a></li>
+                    <li><a href="tag-machinelearning.html">Machine Learning</a></li>
+                    <li><a href="tag-neuralnetworks.html">Neural Networks</a></li>
+                    <li><a href="tag-deeplearning.html">Deep Learning</a></li>
+                    <li><a href="tag-robotics.html">Robotics</a></li>
+                    <li><a href="tag-naturallanguage.html">Natural Language</a></li>
+                    <li><a href="tag-computervision.html">Computer Vision</a></li>
+                    <li><a href="tag-automation.html">Automation</a></li>
+                    <li><a href="tag-ethics.html">AI Ethics</a></li>
+                    <li><a href="tag-futurism.html">Futurism</a></li>
+                </ul>
+            </div>
+
+            <!-- Featured Tag News -->
+            <section class="featured-tag-news">
+                <div class="featured-tag-item">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Revolution" class="featured-tag-image">
+                    <div class="featured-tag-overlay">
+                        <span class="featured-tag-category">BREAKTHROUGH</span>
+                        <h2 class="featured-tag-title">AI System Achieves Human-Level Reasoning in Complex Problem Solving</h2>
+                        <div class="featured-tag-meta">
+                            <span><i class="far fa-clock"></i> 3 hours ago</span>
+                            <span><i class="far fa-user"></i> By Sarah Johnson</span>
+                            <span><i class="far fa-comment"></i> 287 comments</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tag News Grid -->
+            <section class="tag-news-grid">
+                <div class="tag-news-card">
+                    <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Healthcare">
+                    <div class="tag-news-card-content">
+                        <div class="tag-news-tags">
+                            <a href="#" class="tag-pill">Artificial Intelligence</a>
+                            <a href="tag-healthcare.html" class="tag-pill">Healthcare</a>
+                            <a href="tag-medicine.html" class="tag-pill">Medicine</a>
+                        </div>
+                        <h3 class="tag-news-title">AI Diagnostics Now More Accurate Than Human Doctors in Trial Study</h3>
+                        <p class="tag-news-excerpt">New AI system demonstrates 98.7% accuracy in diagnosing rare diseases from medical images, surpassing human expert performance.</p>
+                        <div class="tag-news-meta">
+                            <span><i class="far fa-clock"></i> 5 hours ago</span>
+                            <span><i class="far fa-eye"></i> 3.2k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tag-news-card">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Ethics">
+                    <div class="tag-news-card-content">
+                        <div class="tag-news-tags">
+                            <a href="#" class="tag-pill">Artificial Intelligence</a>
+                            <a href="tag-ethics.html" class="tag-pill">Ethics</a>
+                            <a href="tag-policy.html" class="tag-pill">Policy</a>
+                        </div>
+                        <h3 class="tag-news-title">Global AI Ethics Framework Approved by United Nations Council</h3>
+                        <p class="tag-news-excerpt">International agreement establishes ethical guidelines for AI development and deployment worldwide.</p>
+                        <div class="tag-news-meta">
+                            <span><i class="far fa-clock"></i> 1 day ago</span>
+                            <span><i class="far fa-eye"></i> 4.5k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tag-news-card">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Creative">
+                    <div class="tag-news-card-content">
+                        <div class="tag-news-tags">
+                            <a href="#" class="tag-pill">Artificial Intelligence</a>
+                            <a href="tag-creativity.html" class="tag-pill">Creativity</a>
+                            <a href="tag-art.html" class="tag-pill">Art</a>
+                        </div>
+                        <h3 class="tag-news-title">AI-Generated Artwork Sells for Record $2.9 Million at Auction</h3>
+                        <p class="tag-news-excerpt">Neural network creates original painting that breaks records at contemporary art auction, sparking debate about creativity.</p>
+                        <div class="tag-news-meta">
+                            <span><i class="far fa-clock"></i> 2 days ago</span>
+                            <span><i class="far fa-eye"></i> 5.8k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tag-news-card">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Business">
+                    <div class="tag-news-card-content">
+                        <div class="tag-news-tags">
+                            <a href="#" class="tag-pill">Artificial Intelligence</a>
+                            <a href="tag-business.html" class="tag-pill">Business</a>
+                            <a href="tag-automation.html" class="tag-pill">Automation</a>
+                        </div>
+                        <h3 class="tag-news-title">Companies Report 40% Productivity Gains After AI Integration</h3>
+                        <p class="tag-news-excerpt">Major corporations reveal significant efficiency improvements following implementation of AI-powered workflow systems.</p>
+                        <div class="tag-news-meta">
+                            <span><i class="far fa-clock"></i> 3 days ago</span>
+                            <span><i class="far fa-eye"></i> 3.9k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tag-news-card">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Education">
+                    <div class="tag-news-card-content">
+                        <div class="tag-news-tags">
+                            <a href="#" class="tag-pill">Artificial Intelligence</a>
+                            <a href="tag-education.html" class="tag-pill">Education</a>
+                            <a href="tag-learning.html" class="tag-pill">Learning</a>
+                        </div>
+                        <h3 class="tag-news-title">AI Tutors Personalize Learning for 10 Million Students Worldwide</h3>
+                        <p class="tag-news-excerpt">Adaptive learning platforms using AI show remarkable improvements in student outcomes across diverse educational settings.</p>
+                        <div class="tag-news-meta">
+                            <span><i class="far fa-clock"></i> 4 days ago</span>
+                            <span><i class="far fa-eye"></i> 4.2k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tag-news-card">
+                    <img src="https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Climate">
+                    <div class="tag-news-card-content">
+                        <div class="tag-news-tags">
+                            <a href="#" class="tag-pill">Artificial Intelligence</a>
+                            <a href="tag-climate.html" class="tag-pill">Climate</a>
+                            <a href="tag-sustainability.html" class="tag-pill">Sustainability</a>
+                        </div>
+                        <h3 class="tag-news-title">AI Models Predict Climate Patterns with 95% Accuracy 6 Months Ahead</h3>
+                        <p class="tag-news-excerpt">Advanced neural networks provide unprecedented climate forecasting capabilities, aiding disaster preparedness.</p>
+                        <div class="tag-news-meta">
+                            <span><i class="far fa-clock"></i> 5 days ago</span>
+                            <span><i class="far fa-eye"></i> 3.7k views</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">Next <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="right-column">
+            <!-- Trending Tag News -->
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">TRENDING IN AI</h3>
+                <div class="trending-tag-news">
+                    <div class="trending-tag-news-item">
+                        <div class="trending-tag-number">01</div>
+                        <div class="trending-tag-content">
+                            <h4>New AI Chip Breaks Speed Records</h4>
+                            <div class="trending-tag-category">HARDWARE</div>
+                        </div>
+                    </div>
+                    <div class="trending-tag-news-item">
+                        <div class="trending-tag-number">02</div>
+                        <div class="trending-tag-content">
+                            <h4>AI Detects Early Cancer Signs in Blood Tests</h4>
+                            <div class="trending-tag-category">MEDICINE</div>
+                        </div>
+                    </div>
+                    <div class="trending-tag-news-item">
+                        <div class="trending-tag-number">03</div>
+                        <div class="trending-tag-content">
+                            <h4>Self-Learning AI Masters Complex Games Without Rules</h4>
+                            <div class="trending-tag-category">RESEARCH</div>
+                        </div>
+                    </div>
+                    <div class="trending-tag-news-item">
+                        <div class="trending-tag-number">04</div>
+                        <div class="trending-tag-content">
+                            <h4>AI-Powered Robot Conducts Scientific Experiments</h4>
+                            <div class="trending-tag-category">ROBOTICS</div>
+                        </div>
+                    </div>
+                    <div class="trending-tag-news-item">
+                        <div class="trending-tag-number">05</div>
+                        <div class="trending-tag-content">
+                            <h4>AI Writes Novel That Wins Literary Prize</h4>
+                            <div class="trending-tag-category">CREATIVITY</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Authors -->
+            <section class="sidebar-section tag-authors">
+                <h3 class="sidebar-title">TOP AI EXPERTS</h3>
+                <ul class="author-list">
+                    <li>
+                        <div class="author-avatar">SJ</div>
+                        <div>
+                            <div class="author-name">Dr. Sarah Johnson</div>
+                            <div class="author-articles">42 AI articles</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="author-avatar">MR</div>
+                        <div>
+                            <div class="author-name">Prof. Michael Chen</div>
+                            <div class="author-articles">38 AI articles</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="author-avatar">EK</div>
+                        <div>
+                            <div class="author-name">Dr. Elena Kowalski</div>
+                            <div class="author-articles">31 AI articles</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="author-avatar">RB</div>
+                        <div>
+                            <div class="author-name">Robert Bennett</div>
+                            <div class="author-articles">27 AI articles</div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- AI Timeline -->
+            <section class="sidebar-section tag-timeline">
+                <h3 class="sidebar-title">AI MILESTONES</h3>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023</div>
+                    <div class="timeline-title">AI passes medical licensing exam</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2022</div>
+                    <div class="timeline-title">First AI-generated artwork sold at major auction</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021</div>
+                    <div class="timeline-title">AI solves protein folding problem</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2020</div>
+                    <div class="timeline-title">GPT-3 demonstrates human-like text generation</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2019</div>
+                    <div class="timeline-title">AI beats professional poker players</div>
+                </div>
+            </section>
+
+            <!-- Newsletter -->
+            <section class="sidebar-section">
+                <div class="newsletter-form" style="background-color: var(--tag-dark);">
+                    <h3>AI Insights Newsletter</h3>
+                    <p>Get weekly updates on Artificial Intelligence breakthroughs, research, and applications.</p>
+                    <form id="tagNewsletterForm">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" style="background-color: var(--secondary-color);">Subscribe Now</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Global News Network</h3>
+                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Popular Tags</h3>
+                    <ul class="footer-links">
+                        <li><a href="tag-ai.html">Artificial Intelligence</a></li>
+                        <li><a href="tag-climate.html">Climate Change</a></li>
+                        <li><a href="tag-cybersecurity.html">Cybersecurity</a></li>
+                        <li><a href="tag-space.html">Space Exploration</a></li>
+                        <li><a href="tag-renewable.html">Renewable Energy</a></li>
+                        <li><a href="tag-blockchain.html">Blockchain</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 News Street, Media City, MC 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@globalnewsnetwork.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                &copy; 2023 Global News Network. All rights reserved. | Designed with professionalism and integrity
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Update date/time immediately and then every minute
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Tag newsletter form submission
+        const tagNewsletterForm = document.getElementById('tagNewsletterForm');
+        tagNewsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing to our AI Insights Newsletter with: ${email}\nYou'll receive weekly AI updates.`);
+            this.reset();
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Searching for tag: "${query}"\nThis would show articles with this tag in a full implementation.`);
+                searchInput.value = '';
+            }
+        });
+        
+        // Tag filtering simulation
+        const tagLinks = document.querySelectorAll('.tag-cloud a, .tag-pill');
+        tagLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (!link.classList.contains('active-tag')) {
+                    e.preventDefault();
+                    const tagName = link.textContent;
+                    alert(`Filtering articles by tag: "${tagName}"\nThis would show all articles with this tag.`);
+                }
+            });
+        });
+        
+        // Simulate clicking on tag news cards
+        const tagNewsCards = document.querySelectorAll('.tag-news-card');
+        tagNewsCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.tag-news-title').textContent;
+                alert(`Navigating to article: "${title}"\nThis would open the full article in a complete implementation.`);
+            });
+        });
+        
+        // Author click simulation
+        const authorItems = document.querySelectorAll('.author-list li');
+        authorItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const authorName = item.querySelector('.author-name').textContent;
+                alert(`Showing all articles by ${authorName}\nThis would filter to show only articles by this author.`);
+            });
+        });
+        
+        // Initialize tag cloud with different sizes
+        const tagCloudLinks = document.querySelectorAll('.tag-cloud a');
+        const sizes = ['0.9rem', '1rem', '1.1rem', '1.2rem', '1.3rem'];
+        tagCloudLinks.forEach(link => {
+            if (!link.classList.contains('active-tag')) {
+                const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+                link.style.fontSize = randomSize;
+                
+                // Add random padding for visual variety
+                const randomPadding = Math.floor(Math.random() * 5) + 8;
+                link.style.padding = `${randomPadding}px ${randomPadding + 7}px`;
+            }
+        });
+    </script>
+</body>
+</html>

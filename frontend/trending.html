@@ -1,0 +1,1762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending News - Most Popular Stories | Global News Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #d32f2f;
+            --accent-color: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --trending-color: #FF5722;
+            --trending-dark: #D84315;
+            --trending-light: #FFCCBC;
+            --viral-color: #9C27B0;
+            --popular-color: #FF9800;
+            --rising-color: #4CAF50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date-time {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .main-header {
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: -5px;
+        }
+        
+        .ad-banner {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--text-light);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 20px;
+            display: block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links .active a {
+            background-color: var(--trending-color);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: #b71c1c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Trending Header */
+        .trending-header {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .trending-badge {
+            background-color: var(--trending-color);
+            color: var(--white);
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .trending-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .trending-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            opacity: 0.9;
+        }
+        
+        .trending-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .trending-tab {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .trending-tab:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .trending-tab.active {
+            background-color: var(--trending-color);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        /* Trending Grid */
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .trending-card {
+            background-color: var(--white);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .trending-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .trending-rank {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            background-color: var(--trending-color);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .trending-rank.viral {
+            background-color: var(--viral-color);
+        }
+        
+        .trending-rank.popular {
+            background-color: var(--popular-color);
+        }
+        
+        .trending-rank.rising {
+            background-color: var(--rising-color);
+        }
+        
+        .trending-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .trending-card-content {
+            padding: 20px;
+        }
+        
+        .trending-tags {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .trending-category {
+            color: var(--trending-color);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .trending-trend {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .trend-viral {
+            background-color: var(--trending-light);
+            color: var(--viral-color);
+        }
+        
+        .trend-popular {
+            background-color: #FFECB3;
+            color: var(--popular-color);
+        }
+        
+        .trend-rising {
+            background-color: #C8E6C9;
+            color: var(--rising-color);
+        }
+        
+        .trending-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .trending-excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .trending-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .trending-growth {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .growth-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .growth-up {
+            color: var(--rising-color);
+        }
+        
+        .growth-down {
+            color: var(--secondary-color);
+        }
+        
+        /* Trending Lists */
+        .trending-list-section {
+            margin-bottom: 40px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .section-header h2 {
+            margin-bottom: 0;
+            font-size: 1.8rem;
+        }
+        
+        .view-all {
+            color: var(--trending-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .view-all:hover {
+            color: var(--trending-dark);
+        }
+        
+        .trending-list {
+            list-style: none;
+        }
+        
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .list-item:hover {
+            transform: translateX(5px);
+            background-color: var(--trending-light);
+        }
+        
+        .list-rank {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--trending-color);
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .list-content {
+            flex-grow: 1;
+        }
+        
+        .list-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .list-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .list-stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 150px;
+        }
+        
+        /* Trending Chart */
+        .trending-chart {
+            background-color: var(--white);
+            border-radius: 5px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .chart-header h3 {
+            margin-bottom: 0;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        
+        .legend-views {
+            background-color: var(--trending-color);
+        }
+        
+        .legend-shares {
+            background-color: var(--viral-color);
+        }
+        
+        .legend-comments {
+            background-color: var(--popular-color);
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .chart-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--trending-color);
+        }
+        
+        /* Sidebar */
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--trending-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .viral-moment {
+            background-color: var(--viral-color);
+            color: var(--white);
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .viral-moment h3 {
+            color: var(--white);
+            margin-bottom: 15px;
+        }
+        
+        .viral-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .viral-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .viral-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .viral-platform {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        .trending-authors {
+            margin-bottom: 30px;
+        }
+        
+        .author-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--trending-color);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-stats {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .trending-topics {
+            margin-bottom: 30px;
+        }
+        
+        .topic-list {
+            list-style: none;
+        }
+        
+        .topic-list li {
+            margin-bottom: 15px;
+        }
+        
+        .topic-item {
+            display: flex;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 12px 15px;
+            border-radius: 5px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+        }
+        
+        .topic-item:hover {
+            background-color: var(--trending-light);
+            color: var(--trending-dark);
+            transform: translateX(5px);
+        }
+        
+        .topic-name {
+            font-weight: 500;
+        }
+        
+        .topic-count {
+            background-color: var(--white);
+            color: var(--trending-color);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        /* Time Filter */
+        .time-filter {
+            background-color: var(--accent-color);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .time-filter h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            background-color: var(--white);
+            color: var(--text-dark);
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .filter-btn:hover {
+            background-color: var(--trending-light);
+            border-color: var(--trending-color);
+        }
+        
+        .filter-btn.active {
+            background-color: var(--trending-color);
+            color: var(--white);
+            border-color: var(--trending-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding-top: 50px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            background-color: #0d1b36;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .trending-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ad-banner {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar input {
+                width: 150px;
+            }
+            
+            .trending-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .trending-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .list-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .list-stats {
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .trending-stats {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .trending-growth {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar with Date and Social Links -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="date-time">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header with Logo -->
+    <header>
+        <div class="container main-header">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Global News Network</div>
+                        <div class="logo-tagline">Trusted News Worldwide</div>
+                    </div>
+                </a>
+                <div class="ad-banner">
+                    Advertisement Banner - 728x90
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <div class="container navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="technology.html">Technology</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li class="active"><a href="trending.html">Trending</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search trending...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Trending Header -->
+    <div class="trending-header">
+        <div class="container">
+            <div class="trending-badge">
+                <i class="fas fa-fire"></i> TRENDING NOW
+            </div>
+            <h1>What's Trending Worldwide</h1>
+            <p>Discover the most popular, shared, and talked-about stories from across the globe. Updated in real-time based on views, shares, and engagement.</p>
+            
+            <div class="trending-tabs">
+                <button class="trending-tab active" data-tab="all">All Trending</button>
+                <button class="trending-tab" data-tab="viral">Viral Stories</button>
+                <button class="trending-tab" data-tab="popular">Most Popular</button>
+                <button class="trending-tab" data-tab="rising">Rising Fast</button>
+                <button class="trending-tab" data-tab="today">Today</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Left Column - Main Content -->
+        <div class="left-column">
+            <!-- Time Filter -->
+            <div class="time-filter">
+                <h3>Trending Period</h3>
+                <div class="filter-options">
+                    <button class="filter-btn active" data-period="today">Today</button>
+                    <button class="filter-btn" data-period="week">This Week</button>
+                    <button class="filter-btn" data-period="month">This Month</button>
+                    <button class="filter-btn" data-period="year">This Year</button>
+                    <button class="filter-btn" data-period="all">All Time</button>
+                </div>
+            </div>
+
+            <!-- Trending Grid -->
+            <div class="trending-grid" id="trendingGrid">
+                <!-- Trending cards will be populated by JavaScript -->
+            </div>
+
+            <!-- Most Shared List -->
+            <div class="trending-list-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-share-alt"></i> Most Shared Stories</h2>
+                    <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <ul class="trending-list" id="sharedList">
+                    <!-- Shared list items will be populated by JavaScript -->
+                </ul>
+            </div>
+
+            <!-- Trending Chart -->
+            <div class="trending-chart">
+                <div class="chart-header">
+                    <h3>Trending Engagement Analytics</h3>
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <div class="legend-color legend-views"></div>
+                            <span>Views</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-shares"></div>
+                            <span>Shares</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-comments"></div>
+                            <span>Comments</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Trending Engagement Chart</span>
+                    <small>Visualization of trending article performance over time</small>
+                </div>
+            </div>
+
+            <!-- Most Commented List -->
+            <div class="trending-list-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> Most Discussed Stories</h2>
+                    <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
+                </div>
+                <ul class="trending-list" id="commentedList">
+                    <!-- Commented list items will be populated by JavaScript -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="right-column">
+            <!-- Viral Moments -->
+            <div class="sidebar-section">
+                <div class="viral-moment">
+                    <h3><i class="fas fa-bolt"></i> VIRAL MOMENTS</h3>
+                    <div class="viral-item">
+                        <div class="viral-icon">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <div class="viral-content">
+                            <h4>AI President Meme Goes Viral</h4>
+                            <div class="viral-platform">Twitter • 2.4M mentions</div>
+                        </div>
+                    </div>
+                    <div class="viral-item">
+                        <div class="viral-icon">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                        <div class="viral-content">
+                            <h4>Rescue Dog Video Trends Worldwide</h4>
+                            <div class="viral-platform">TikTok • 15.7M views</div>
+                        </div>
+                    </div>
+                    <div class="viral-item">
+                        <div class="viral-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div class="viral-content">
+                            <h4>Scientists React to AI Breakthrough</h4>
+                            <div class="viral-platform">YouTube • 8.3M views</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trending Authors -->
+            <div class="sidebar-section trending-authors">
+                <h3 class="sidebar-title">TRENDING AUTHORS</h3>
+                <div class="author-item">
+                    <div class="author-avatar">SJ</div>
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <div class="author-stats">3 trending stories • 2.4M views</div>
+                    </div>
+                </div>
+                <div class="author-item">
+                    <div class="author-avatar">MC</div>
+                    <div class="author-info">
+                        <h4>Michael Chen</h4>
+                        <div class="author-stats">2 trending stories • 1.8M views</div>
+                    </div>
+                </div>
+                <div class="author-item">
+                    <div class="author-avatar">RP</div>
+                    <div class="author-info">
+                        <h4>Dr. Rebecca Park</h4>
+                        <div class="author-stats">4 trending stories • 3.1M views</div>
+                    </div>
+                </div>
+                <div class="author-item">
+                    <div class="author-avatar">DW</div>
+                    <div class="author-info">
+                        <h4>David Wilson</h4>
+                        <div class="author-stats">2 trending stories • 1.5M views</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trending Topics -->
+            <div class="sidebar-section trending-topics">
+                <h3 class="sidebar-title">TRENDING TOPICS</h3>
+                <ul class="topic-list">
+                    <li>
+                        <a href="#" class="topic-item">
+                            <span class="topic-name">Artificial Intelligence</span>
+                            <span class="topic-count">142</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="topic-item">
+                            <span class="topic-name">Climate Change</span>
+                            <span class="topic-count">98</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="topic-item">
+                            <span class="topic-name">Space Exploration</span>
+                            <span class="topic-count">76</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="topic-item">
+                            <span class="topic-name">Global Economy</span>
+                            <span class="topic-count">64</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="topic-item">
+                            <span class="topic-name">Health & Wellness</span>
+                            <span class="topic-count">53</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="topic-item">
+                            <span class="topic-name">Renewable Energy</span>
+                            <span class="topic-count">47</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-section">
+                <div class="newsletter-sidebar" style="background-color: var(--trending-color);">
+                    <h3>Trending Alerts</h3>
+                    <p>Get daily updates on the most trending stories delivered to your inbox.</p>
+                    <form id="trendingNewsletterForm">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" style="background-color: var(--secondary-color);">Subscribe Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Global News Network</h3>
+                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Trending Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Most Viewed</a></li>
+                        <li><a href="#">Most Shared</a></li>
+                        <li><a href="#">Most Commented</a></li>
+                        <li><a href="#">Viral Stories</a></li>
+                        <li><a href="#">Rising Stories</a></li>
+                        <li><a href="#">Trending Topics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 News Street, Media City, MC 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@globalnewsnetwork.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                &copy; 2023 Global News Network. All rights reserved. | Tracking trending stories worldwide
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Trending data
+        const trendingData = {
+            all: [
+                {
+                    rank: 1,
+                    title: "AI Model Surpasses Human Performance in Creative Tasks",
+                    category: "TECHNOLOGY",
+                    trend: "viral",
+                    excerpt: "Breakthrough artificial intelligence system demonstrates unprecedented creative problem-solving abilities, raising questions about the future of creative professions.",
+                    views: "2.4M",
+                    shares: "425K",
+                    comments: "18.2K",
+                    growth: "+125%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 2,
+                    title: "Major Earthquake Hits Coastal Region, Rescue Operations Underway",
+                    category: "WORLD",
+                    trend: "popular",
+                    excerpt: "7.2 magnitude earthquake triggers tsunami warnings along coastal areas. International rescue teams dispatched to affected region.",
+                    views: "3.8M",
+                    shares: "892K",
+                    comments: "42.5K",
+                    growth: "+89%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 3,
+                    title: "Stock Markets Plunge Amid Economic Uncertainty",
+                    category: "BUSINESS",
+                    trend: "rising",
+                    excerpt: "Global markets experience worst day in months as economic indicators point to potential recession. Central banks announce emergency measures.",
+                    views: "1.9M",
+                    shares: "312K",
+                    comments: "24.7K",
+                    growth: "+156%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 4,
+                    title: "Breakthrough Cancer Treatment Shows 90% Success Rate",
+                    category: "HEALTH",
+                    trend: "viral",
+                    excerpt: "New immunotherapy approach demonstrates remarkable effectiveness against previously untreatable forms of cancer in clinical trials.",
+                    views: "2.1M",
+                    shares: "512K",
+                    comments: "15.8K",
+                    growth: "+72%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 5,
+                    title: "Political Crisis Deepens as Government Faces No-Confidence Vote",
+                    category: "POLITICS",
+                    trend: "popular",
+                    excerpt: "Opposition parties unite to bring no-confidence motion against government amid corruption allegations and policy failures.",
+                    views: "1.7M",
+                    shares: "287K",
+                    comments: "32.4K",
+                    growth: "+54%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 6,
+                    title: "Private Space Mission Announces First Commercial Moon Landing",
+                    category: "SCIENCE",
+                    trend: "rising",
+                    excerpt: "Space exploration company reveals plans for commercial lunar mission next year, marking new era in private space industry.",
+                    views: "1.3M",
+                    shares: "198K",
+                    comments: "9.8K",
+                    growth: "+210%",
+                    growthDirection: "up"
+                }
+            ],
+            viral: [
+                {
+                    rank: 1,
+                    title: "AI-Generated Artwork Sells for Record $2.9 Million",
+                    category: "ENTERTAINMENT",
+                    trend: "viral",
+                    excerpt: "Neural network creates original painting that breaks records at contemporary art auction, sparking debate about creativity.",
+                    views: "4.2M",
+                    shares: "1.2M",
+                    comments: "58.3K",
+                    growth: "+325%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 2,
+                    title: "Viral Video of Rescue Dog Saves Shelter Animals",
+                    category: "LIFESTYLE",
+                    trend: "viral",
+                    excerpt: "Heartwarming video of rescue dog leads to adoption of all animals at local shelter within 48 hours.",
+                    views: "5.8M",
+                    shares: "2.1M",
+                    comments: "127K",
+                    growth: "+412%",
+                    growthDirection: "up"
+                }
+            ],
+            popular: [
+                {
+                    rank: 1,
+                    title: "Global Climate Summit Reaches Historic Agreement",
+                    category: "ENVIRONMENT",
+                    trend: "popular",
+                    excerpt: "World leaders agree on ambitious carbon reduction targets and funding for developing nations at climate summit.",
+                    views: "3.5M",
+                    shares: "745K",
+                    comments: "41.2K",
+                    growth: "+98%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 2,
+                    title: "Cybersecurity Breach Exposes Millions of User Records",
+                    category: "TECHNOLOGY",
+                    trend: "popular",
+                    excerpt: "Major tech company announces massive security breach affecting over 50 million users worldwide.",
+                    views: "2.9M",
+                    shares: "621K",
+                    comments: "38.7K",
+                    growth: "+87%",
+                    growthDirection: "up"
+                }
+            ],
+            rising: [
+                {
+                    rank: 1,
+                    title: "Revolutionary Battery Technology Charges in 5 Minutes",
+                    category: "INNOVATION",
+                    trend: "rising",
+                    excerpt: "New battery breakthrough promises to eliminate charging anxiety for electric vehicles and devices.",
+                    views: "1.1M",
+                    shares: "245K",
+                    comments: "12.4K",
+                    growth: "+289%",
+                    growthDirection: "up"
+                },
+                {
+                    rank: 2,
+                    title: "Breakthrough in Quantum Computing Error Correction",
+                    category: "SCIENCE",
+                    trend: "rising",
+                    excerpt: "Scientists achieve major milestone in quantum error correction, bringing practical quantum computers closer to reality.",
+                    views: "985K",
+                    shares: "198K",
+                    comments: "8.7K",
+                    growth: "+312%",
+                    growthDirection: "up"
+                }
+            ]
+        };
+
+        // Most shared data
+        const mostShared = [
+            {
+                rank: 1,
+                title: "Simple Trick to Reduce Your Carbon Footprint by 40%",
+                category: "ENVIRONMENT",
+                shares: "2.1M",
+                time: "3 hours ago"
+            },
+            {
+                rank: 2,
+                title: "10 Financial Mistakes Everyone Should Avoid",
+                category: "BUSINESS",
+                shares: "1.8M",
+                time: "5 hours ago"
+            },
+            {
+                rank: 3,
+                title: "The Science Behind Better Sleep",
+                category: "HEALTH",
+                shares: "1.5M",
+                time: "8 hours ago"
+            },
+            {
+                rank: 4,
+                title: "Historical Discovery Rewrites Ancient History",
+                category: "WORLD",
+                shares: "1.3M",
+                time: "1 day ago"
+            },
+            {
+                rank: 5,
+                title: "Revolutionary Education Method Shows Amazing Results",
+                category: "EDUCATION",
+                shares: "1.1M",
+                time: "2 days ago"
+            }
+        ];
+
+        // Most commented data
+        const mostCommented = [
+            {
+                rank: 1,
+                title: "Ethics of AI: Should Machines Have Rights?",
+                category: "TECHNOLOGY",
+                comments: "42.5K",
+                time: "6 hours ago"
+            },
+            {
+                rank: 2,
+                title: "Political Reform Proposal Divides Nation",
+                category: "POLITICS",
+                comments: "38.7K",
+                time: "10 hours ago"
+            },
+            {
+                rank: 3,
+                title: "Climate Change Solutions: What Really Works?",
+                category: "ENVIRONMENT",
+                comments: "31.2K",
+                time: "1 day ago"
+            },
+            {
+                rank: 4,
+                title: "Future of Work in the Age of Automation",
+                category: "BUSINESS",
+                comments: "27.8K",
+                time: "1 day ago"
+            },
+            {
+                rank: 5,
+                title: "Healthcare Reform: Pros and Cons of New System",
+                category: "HEALTH",
+                comments: "24.3K",
+                time: "2 days ago"
+            }
+        ];
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Update date/time immediately and then every minute
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Render trending grid
+        function renderTrendingGrid(tab = 'all') {
+            const trendingGrid = document.getElementById('trendingGrid');
+            const data = trendingData[tab] || trendingData.all;
+            
+            trendingGrid.innerHTML = '';
+            
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'trending-card';
+                
+                let trendClass = '';
+                let trendText = '';
+                
+                switch(item.trend) {
+                    case 'viral':
+                        trendClass = 'viral';
+                        trendText = 'VIRAL';
+                        break;
+                    case 'popular':
+                        trendClass = 'popular';
+                        trendText = 'POPULAR';
+                        break;
+                    case 'rising':
+                        trendClass = 'rising';
+                        trendText = 'RISING';
+                        break;
+                }
+                
+                card.innerHTML = `
+                    <div class="trending-rank ${trendClass}">${item.rank}</div>
+                    <img src="https://images.unsplash.com/photo-${item.rank === 1 ? '1677442136019-21780ecad995' : item.rank === 2 ? '1588681664899-f142ff2dc9b1' : item.rank === 3 ? '1551288049-bebda4e38f71' : item.rank === 4 ? '1571019613454-1cb2f99b2d8b' : item.rank === 5 ? '1518709268805-4e9042af2176' : '1559757148-5c350d0d3c56'}?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="${item.title}">
+                    <div class="trending-card-content">
+                        <div class="trending-tags">
+                            <div class="trending-category">${item.category}</div>
+                            <div class="trending-trend trend-${item.trend}">${trendText}</div>
+                        </div>
+                        <h3 class="trending-title">${item.title}</h3>
+                        <p class="trending-excerpt">${item.excerpt}</p>
+                        <div class="trending-stats">
+                            <div class="stat-item">
+                                <i class="far fa-eye"></i>
+                                <span>${item.views} views</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-share-alt"></i>
+                                <span>${item.shares} shares</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="far fa-comment"></i>
+                                <span>${item.comments} comments</span>
+                            </div>
+                        </div>
+                        <div class="trending-growth">
+                            <div class="growth-indicator ${item.growthDirection === 'up' ? 'growth-up' : 'growth-down'}">
+                                <i class="fas fa-${item.growthDirection === 'up' ? 'arrow-up' : 'arrow-down'}"></i>
+                                <span>${item.growth}</span>
+                            </div>
+                            <a href="#" class="view-all">Read Full Story <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                `;
+                
+                trendingGrid.appendChild(card);
+            });
+        }
+        
+        // Render shared list
+        function renderSharedList() {
+            const sharedList = document.getElementById('sharedList');
+            sharedList.innerHTML = '';
+            
+            mostShared.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-item';
+                
+                listItem.innerHTML = `
+                    <div class="list-rank">${item.rank}</div>
+                    <div class="list-content">
+                        <h4 class="list-title">${item.title}</h4>
+                        <div class="list-meta">
+                            <span>${item.category}</span>
+                            <span>${item.time}</span>
+                        </div>
+                    </div>
+                    <div class="list-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-share-alt"></i>
+                            <span>${item.shares} shares</span>
+                        </div>
+                    </div>
+                `;
+                
+                sharedList.appendChild(listItem);
+            });
+        }
+        
+        // Render commented list
+        function renderCommentedList() {
+            const commentedList = document.getElementById('commentedList');
+            commentedList.innerHTML = '';
+            
+            mostCommented.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-item';
+                
+                listItem.innerHTML = `
+                    <div class="list-rank">${item.rank}</div>
+                    <div class="list-content">
+                        <h4 class="list-title">${item.title}</h4>
+                        <div class="list-meta">
+                            <span>${item.category}</span>
+                            <span>${item.time}</span>
+                        </div>
+                    </div>
+                    <div class="list-stats">
+                        <div class="stat-item">
+                            <i class="far fa-comment"></i>
+                            <span>${item.comments} comments</span>
+                        </div>
+                    </div>
+                `;
+                
+                commentedList.appendChild(listItem);
+            });
+        }
+        
+        // Initialize all lists
+        renderTrendingGrid('all');
+        renderSharedList();
+        renderCommentedList();
+        
+        // Tab switching
+        const trendingTabs = document.querySelectorAll('.trending-tab');
+        trendingTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                trendingTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Render appropriate content
+                const tabId = tab.getAttribute('data-tab');
+                renderTrendingGrid(tabId);
+            });
+        });
+        
+        // Time filter buttons
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active filter
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const period = button.getAttribute('data-period');
+                alert(`Filtering trending stories for: ${period}\nIn a real implementation, this would load data for the selected time period.`);
+            });
+        });
+        
+        // Trending newsletter form
+        const trendingNewsletterForm = document.getElementById('trendingNewsletterForm');
+        trendingNewsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing to Trending Alerts with: ${email}\nYou'll receive daily trending story updates.`);
+            this.reset();
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Searching trending stories for: "${query}"\nThis would filter trending content based on your search.`);
+                searchInput.value = '';
+            }
+        });
+        
+        // Topic item clicks
+        const topicItems = document.querySelectorAll('.topic-item');
+        topicItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const topicName = item.querySelector('.topic-name').textContent;
+                alert(`Filtering trending stories by topic: "${topicName}"\nThis would show trending articles related to this topic.`);
+            });
+        });
+        
+        // Viral item clicks
+        const viralItems = document.querySelectorAll('.viral-item');
+        viralItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const title = item.querySelector('h4').textContent;
+                const platform = item.querySelector('.viral-platform').textContent;
+                alert(`Opening viral story: "${title}"\nPlatform: ${platform}\nThis would show detailed analytics about this viral moment.`);
+            });
+        });
+        
+        // Author item clicks
+        const authorItems = document.querySelectorAll('.author-item');
+        authorItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const authorName = item.querySelector('h4').textContent;
+                alert(`Showing all trending stories by ${authorName}\nThis would filter to show articles by this author.`);
+            });
+        });
+        
+        // Card click functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.trending-card')) {
+                const card = e.target.closest('.trending-card');
+                const title = card.querySelector('.trending-title').textContent;
+                alert(`Opening trending article: "${title}"\nThis would navigate to the full article.`);
+            }
+            
+            if (e.target.closest('.list-item')) {
+                const listItem = e.target.closest('.list-item');
+                const title = listItem.querySelector('.list-title').textContent;
+                alert(`Opening article: "${title}"\nThis would navigate to the full article.`);
+            }
+        });
+        
+        // Simulate real-time updates
+        function simulateTrendingUpdate() {
+            // Randomly update growth percentages
+            const growthIndicators = document.querySelectorAll('.growth-indicator');
+            growthIndicators.forEach(indicator => {
+                const currentGrowth = indicator.querySelector('span').textContent;
+                const currentPercent = parseInt(currentGrowth);
+                const newPercent = Math.max(10, Math.min(500, currentPercent + Math.floor(Math.random() * 40) - 20));
+                
+                indicator.querySelector('span').textContent = `+${newPercent}%`;
+            });
+            
+            // Update view counts slightly
+            const viewCounts = document.querySelectorAll('.stat-item:first-child span');
+            viewCounts.forEach(count => {
+                const current = count.textContent;
+                const num = parseFloat(current);
+                const multiplier = 1 + (Math.random() * 0.1); // 0-10% increase
+                const newNum = Math.round(num * multiplier);
+                
+                // Format with K or M
+                let newText;
+                if (newNum >= 1000000) {
+                    newText = (newNum / 1000000).toFixed(1) + 'M';
+                } else if (newNum >= 1000) {
+                    newText = (newNum / 1000).toFixed(1) + 'K';
+                } else {
+                    newText = newNum.toString();
+                }
+                
+                count.textContent = newText + ' views';
+            });
+            
+            // Schedule next update
+            setTimeout(simulateTrendingUpdate, 30000); // Every 30 seconds
+        }
+        
+        // Start simulated updates after page loads
+        setTimeout(simulateTrendingUpdate, 5000);
+        
+        // Initialize page
+        console.log('Trending news page loaded successfully.');
+    </script>
+</body>
+</html>

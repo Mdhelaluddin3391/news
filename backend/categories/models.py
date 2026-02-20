@@ -1,15 +1,20 @@
+# categories/models.py
 from django.db import models
-from core.models import TimeStampedModel
+from django.utils.text import slugify
 
-class Category(TimeStampedModel):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+class Category(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=True)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    description = models.TextField(blank=True)
-    color = models.CharField(max_length=20, blank=True)
+    class Meta:
+        verbose_name_plural = "Categories"
 
-    meta_title = models.CharField(max_length=255, blank=True)
-    meta_description = models.TextField(blank=True)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

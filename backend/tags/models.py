@@ -1,9 +1,15 @@
+# tags/models.py
 from django.db import models
-from core.models import TimeStampedModel
+from django.utils.text import slugify
 
-class Tag(TimeStampedModel):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField(unique=True)
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Tag, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

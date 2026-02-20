@@ -1,81 +1,49 @@
+# news/models.py
 from django.db import models
-from core.models import PublishableModel
 from django.conf import settings
+from categories.models import Category
+from tags.models import Tag
 from django.utils.text import slugify
-from django.utils.crypto import get_random_string
 
-
-
-class News(PublishableModel):
-
+class News(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
 
-    title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
-
-    excerpt = models.TextField()
+    title = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=250, unique=True, blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='news_articles')
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='news')
+    tags = models.ManyToManyField(Tag, blank=True)
+    
+    # Content
+    excerpt = models.CharField(max_length=500, help_text="Short description for home page cards")
     content = models.TextField()
-
-    image = models.ImageField(upload_to='news/')
-
-    category = models.ForeignKey(
-        'categories.Category',
-        on_delete=models.CASCADE,
-        related_name='articles'
-    )
-
-    tags = models.ManyToManyField(
-        'tags.Tag',
-        blank=True,
-        related_name='articles'
-    )
-
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name='articles'
-    )
-
-    is_featured = models.BooleanField(default=False)
-    is_breaking = models.BooleanField(default=False)
-
+    featured_image = models.ImageField(upload_to='news_images/')
+    
+    # Flags for Home Page (Ye index.html ke hisaab se bahut zaruri hain)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    is_featured = models.BooleanField(default=False, help_text="Show in the main big banner")
+    is_breaking = models.BooleanField(default=False, help_text="Show in the top breaking news ticker")
+    is_trending = models.BooleanField(default=False, help_text="Show in the trending sidebar")
+    
+    # Metrics
     views_count = models.PositiveIntegerField(default=0)
-    comments_count = models.PositiveIntegerField(default=0)
-
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='draft')
-
-    meta_title = models.CharField(max_length=255, blank=True)
-    meta_description = models.TextField(blank=True)
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-published_at']
+        verbose_name = "News Article"
+        verbose_name_plural = "News Articles"
+        ordering = ['-created_at'] # Hamesha latest news pehle dikhegi
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(News, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
-    
-class PublishedManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(
-            status='published',
-            is_active=True
-        )
-
-
-
-
-
-
-
-
-def save(self, *args, **kwargs):
-    if not self.slug:
-        base_slug = slugify(self.title)
-        slug = base_slug
-        while News.objects.filter(slug=slug).exists():
-            slug = f"{base_slug}-{get_random_string(4)}"
-        self.slug = slug
-    super().save(*args, **kwargs)

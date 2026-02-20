@@ -109,3 +109,100 @@ export const userProfile = {
   saved_articles: [101, 107],
   role: 'reader'
 };
+
+// Site-level stats and team used by About/Contact pages
+export const siteStats = {
+  years: 25,
+  countries: 150,
+  journalists: 500,
+  monthly_readers: '50M+'
+};
+
+export const teamMembers = [
+  {
+    id: 1,
+    name: 'Robert Chen',
+    title: 'Editor-in-Chief',
+    bio: 'With over 30 years in journalism, Robert leads our editorial vision and ensures the highest standards in all our reporting.',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+    social: { twitter: '#', linkedin: '#', email: '#' }
+  },
+  {
+    id: 2,
+    name: 'Sarah Johnson',
+    title: 'Managing Editor',
+    bio: 'Sarah oversees day-to-day news operations and leads our award-winning team of reporters and editors.',
+    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
+    social: { twitter: '#', linkedin: '#', email: '#' }
+  },
+  {
+    id: 3,
+    name: 'Michael Rodriguez',
+    title: 'Director of International News',
+    bio: 'Michael manages our global network of correspondents and ensures comprehensive international coverage.',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80',
+    social: { twitter: '#', linkedin: '#', email: '#' }
+  },
+  {
+    id: 4,
+    name: 'Dr. Elena Kowalski',
+    title: 'Director of Fact-Checking & Research',
+    bio: 'Elena leads our fact-checking division, ensuring accuracy and credibility in all our published content.',
+    image: 'https://images.unsplash.com/photo-1494790108755-2616b786d4d9?auto=format&fit=crop&w=400&q=80',
+    social: { twitter: '#', linkedin: '#', email: '#' }
+  }
+];
+
+export const contactInfo = {
+  headquarters: '123 News Street, Media City, MC 10001, United States',
+  phones: ['+1 (555) 123-4567', '+1 (555) 123-4568', '+1 (555) 123-4569'],
+  emails: ['info@globalnewsnetwork.com', 'news@globalnewsnetwork.com', 'ads@globalnewsnetwork.com'],
+  hours: 'Mon-Fri: 8:00 AM - 8:00 PM EST'
+};
+
+export const offices = [
+  {
+    id: 'ny',
+    city: 'New York',
+    address: '123 News Street, Media City, NY 10001',
+    phone: '+1 (555) 123-4567',
+    hours: 'Mon-Fri: 8AM-8PM EST',
+    image: 'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'ldn',
+    city: 'London',
+    address: '45 Media Lane, London EC1A 1BB, UK',
+    phone: '+44 20 7946 0958',
+    hours: 'Mon-Fri: 9AM-7PM GMT',
+    image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 'tok',
+    city: 'Tokyo',
+    address: 'Shinjuku Media Tower, Tokyo 160-0022, Japan',
+    phone: '+81 3-1234-5678',
+    hours: 'Mon-Fri: 9AM-6PM JST',
+    image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80'
+  }
+];
+
+// Simple comments store for articles
+export const comments = [
+  {
+    id: 1001,
+    article_id: 101,
+    author: 'Michael Rodriguez',
+    email: 'michael@example.com',
+    text: "This is both exciting and terrifying. As a software engineer, I've seen how AI can augment our capabilities, but the idea that it might surpass us in creative domains raises profound questions about what makes us human.",
+    date: '2026-02-20T09:42:00Z'
+  },
+  {
+    id: 1002,
+    article_id: 101,
+    author: 'Dr. Elena Chen',
+    email: 'elena@example.com',
+    text: "Thank you for the thoughtful article. Our goal isn't to replace human creativity but to enhance it. The best results come from human-AI teams.",
+    date: '2026-02-20T10:15:00Z'
+  }
+];

@@ -45,7 +45,7 @@
             <div class="search-filters">
                 <div class="filters-section">
                     <h3>Filter by Category</h3>
-                    <ul class="filter-options">
+                    <ul class="filter-options" id="category-filters">
                         <li>
                             <label>
                                 <input type="checkbox" checked> Technology <span class="filter-count">(142)</span>
@@ -83,10 +83,10 @@
                     <h3>Date Range</h3>
                     <div class="date-range">
                         <label>From:
-                            <input type="date" value="2023-01-01">
+                            <input type="date" id="date-from" value="2023-01-01">
                         </label>
                         <label>To:
-                            <input type="date" value="2023-12-31">
+                            <input type="date" id="date-to" value="2023-12-31">
                         </label>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                 <div class="filters-section">
                     <h3>Sort By</h3>
                     <div class="sort-options">
-                        <select>
+                        <select id="sort-select">
                             <option value="relevance">Relevance</option>
                             <option value="newest">Newest First</option>
                             <option value="oldest">Oldest First</option>
@@ -105,20 +105,20 @@
                 
                 <div class="filters-section">
                     <h3>Content Type</h3>
-                    <ul class="filter-options">
+                    <ul class="filter-options" id="type-filters">
                         <li>
                             <label>
-                                <input type="checkbox" checked> Articles <span class="filter-count">(215)</span>
+                                <input type="checkbox" value="article" checked> Articles <span class="filter-count">(215)</span>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <input type="checkbox"> Videos <span class="filter-count">(18)</span>
+                                <input type="checkbox" value="video"> Videos <span class="filter-count">(18)</span>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <input type="checkbox"> Podcasts <span class="filter-count">(14)</span>
+                                <input type="checkbox" value="podcast"> Podcasts <span class="filter-count">(14)</span>
                             </label>
                         </li>
                     </ul>

@@ -6,9 +6,8 @@
     <title>Trending News - Most Popular Stories | Global News Network</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        
-    </style>
+    <link rel="stylesheet" href="/assets/css/trending.css">
+    <link rel="stylesheet" href="/assets/css/global.css">
 </head>
 <body>
     <!-- Top Bar with Date and Social Links -->
@@ -300,530 +299,87 @@
         </div>
     </footer>
 
-    <script>
-        // Trending data
-        const trendingData = {
-            all: [
-                {
-                    rank: 1,
-                    title: "AI Model Surpasses Human Performance in Creative Tasks",
-                    category: "TECHNOLOGY",
-                    trend: "viral",
-                    excerpt: "Breakthrough artificial intelligence system demonstrates unprecedented creative problem-solving abilities, raising questions about the future of creative professions.",
-                    views: "2.4M",
-                    shares: "425K",
-                    comments: "18.2K",
-                    growth: "+125%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 2,
-                    title: "Major Earthquake Hits Coastal Region, Rescue Operations Underway",
-                    category: "WORLD",
-                    trend: "popular",
-                    excerpt: "7.2 magnitude earthquake triggers tsunami warnings along coastal areas. International rescue teams dispatched to affected region.",
-                    views: "3.8M",
-                    shares: "892K",
-                    comments: "42.5K",
-                    growth: "+89%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 3,
-                    title: "Stock Markets Plunge Amid Economic Uncertainty",
-                    category: "BUSINESS",
-                    trend: "rising",
-                    excerpt: "Global markets experience worst day in months as economic indicators point to potential recession. Central banks announce emergency measures.",
-                    views: "1.9M",
-                    shares: "312K",
-                    comments: "24.7K",
-                    growth: "+156%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 4,
-                    title: "Breakthrough Cancer Treatment Shows 90% Success Rate",
-                    category: "HEALTH",
-                    trend: "viral",
-                    excerpt: "New immunotherapy approach demonstrates remarkable effectiveness against previously untreatable forms of cancer in clinical trials.",
-                    views: "2.1M",
-                    shares: "512K",
-                    comments: "15.8K",
-                    growth: "+72%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 5,
-                    title: "Political Crisis Deepens as Government Faces No-Confidence Vote",
-                    category: "POLITICS",
-                    trend: "popular",
-                    excerpt: "Opposition parties unite to bring no-confidence motion against government amid corruption allegations and policy failures.",
-                    views: "1.7M",
-                    shares: "287K",
-                    comments: "32.4K",
-                    growth: "+54%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 6,
-                    title: "Private Space Mission Announces First Commercial Moon Landing",
-                    category: "SCIENCE",
-                    trend: "rising",
-                    excerpt: "Space exploration company reveals plans for commercial lunar mission next year, marking new era in private space industry.",
-                    views: "1.3M",
-                    shares: "198K",
-                    comments: "9.8K",
-                    growth: "+210%",
-                    growthDirection: "up"
-                }
-            ],
-            viral: [
-                {
-                    rank: 1,
-                    title: "AI-Generated Artwork Sells for Record $2.9 Million",
-                    category: "ENTERTAINMENT",
-                    trend: "viral",
-                    excerpt: "Neural network creates original painting that breaks records at contemporary art auction, sparking debate about creativity.",
-                    views: "4.2M",
-                    shares: "1.2M",
-                    comments: "58.3K",
-                    growth: "+325%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 2,
-                    title: "Viral Video of Rescue Dog Saves Shelter Animals",
-                    category: "LIFESTYLE",
-                    trend: "viral",
-                    excerpt: "Heartwarming video of rescue dog leads to adoption of all animals at local shelter within 48 hours.",
-                    views: "5.8M",
-                    shares: "2.1M",
-                    comments: "127K",
-                    growth: "+412%",
-                    growthDirection: "up"
-                }
-            ],
-            popular: [
-                {
-                    rank: 1,
-                    title: "Global Climate Summit Reaches Historic Agreement",
-                    category: "ENVIRONMENT",
-                    trend: "popular",
-                    excerpt: "World leaders agree on ambitious carbon reduction targets and funding for developing nations at climate summit.",
-                    views: "3.5M",
-                    shares: "745K",
-                    comments: "41.2K",
-                    growth: "+98%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 2,
-                    title: "Cybersecurity Breach Exposes Millions of User Records",
-                    category: "TECHNOLOGY",
-                    trend: "popular",
-                    excerpt: "Major tech company announces massive security breach affecting over 50 million users worldwide.",
-                    views: "2.9M",
-                    shares: "621K",
-                    comments: "38.7K",
-                    growth: "+87%",
-                    growthDirection: "up"
-                }
-            ],
-            rising: [
-                {
-                    rank: 1,
-                    title: "Revolutionary Battery Technology Charges in 5 Minutes",
-                    category: "INNOVATION",
-                    trend: "rising",
-                    excerpt: "New battery breakthrough promises to eliminate charging anxiety for electric vehicles and devices.",
-                    views: "1.1M",
-                    shares: "245K",
-                    comments: "12.4K",
-                    growth: "+289%",
-                    growthDirection: "up"
-                },
-                {
-                    rank: 2,
-                    title: "Breakthrough in Quantum Computing Error Correction",
-                    category: "SCIENCE",
-                    trend: "rising",
-                    excerpt: "Scientists achieve major milestone in quantum error correction, bringing practical quantum computers closer to reality.",
-                    views: "985K",
-                    shares: "198K",
-                    comments: "8.7K",
-                    growth: "+312%",
-                    growthDirection: "up"
-                }
-            ]
-        };
+    <script type="module">
+        import { initComponents } from '/assets/js/app.js';
+        import { fetchTrendingNews } from '/assets/js/api-adapter.js';
 
-        // Most shared data
-        const mostShared = [
-            {
-                rank: 1,
-                title: "Simple Trick to Reduce Your Carbon Footprint by 40%",
-                category: "ENVIRONMENT",
-                shares: "2.1M",
-                time: "3 hours ago"
-            },
-            {
-                rank: 2,
-                title: "10 Financial Mistakes Everyone Should Avoid",
-                category: "BUSINESS",
-                shares: "1.8M",
-                time: "5 hours ago"
-            },
-            {
-                rank: 3,
-                title: "The Science Behind Better Sleep",
-                category: "HEALTH",
-                shares: "1.5M",
-                time: "8 hours ago"
-            },
-            {
-                rank: 4,
-                title: "Historical Discovery Rewrites Ancient History",
-                category: "WORLD",
-                shares: "1.3M",
-                time: "1 day ago"
-            },
-            {
-                rank: 5,
-                title: "Revolutionary Education Method Shows Amazing Results",
-                category: "EDUCATION",
-                shares: "1.1M",
-                time: "2 days ago"
-            }
-        ];
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initComponents();
 
-        // Most commented data
-        const mostCommented = [
-            {
-                rank: 1,
-                title: "Ethics of AI: Should Machines Have Rights?",
-                category: "TECHNOLOGY",
-                comments: "42.5K",
-                time: "6 hours ago"
-            },
-            {
-                rank: 2,
-                title: "Political Reform Proposal Divides Nation",
-                category: "POLITICS",
-                comments: "38.7K",
-                time: "10 hours ago"
-            },
-            {
-                rank: 3,
-                title: "Climate Change Solutions: What Really Works?",
-                category: "ENVIRONMENT",
-                comments: "31.2K",
-                time: "1 day ago"
-            },
-            {
-                rank: 4,
-                title: "Future of Work in the Age of Automation",
-                category: "BUSINESS",
-                comments: "27.8K",
-                time: "1 day ago"
-            },
-            {
-                rank: 5,
-                title: "Healthcare Reform: Pros and Cons of New System",
-                category: "HEALTH",
-                comments: "24.3K",
-                time: "2 days ago"
-            }
-        ];
-
-        // Update date and time
-        function updateDateTime() {
-            const now = new Date();
-            const dateElement = document.getElementById('current-date');
-            const timeElement = document.getElementById('current-time');
-            
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateElement.textContent = now.toLocaleDateString('en-US', options);
-            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        }
-        
-        // Update date/time immediately and then every minute
-        updateDateTime();
-        setInterval(updateDateTime, 60000);
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        
-        // Render trending grid
-        function renderTrendingGrid(tab = 'all') {
-            const trendingGrid = document.getElementById('trendingGrid');
-            const data = trendingData[tab] || trendingData.all;
-            
-            trendingGrid.innerHTML = '';
-            
-            data.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'trending-card';
-                
-                let trendClass = '';
-                let trendText = '';
-                
-                switch(item.trend) {
-                    case 'viral':
-                        trendClass = 'viral';
-                        trendText = 'VIRAL';
-                        break;
-                    case 'popular':
-                        trendClass = 'popular';
-                        trendText = 'POPULAR';
-                        break;
-                    case 'rising':
-                        trendClass = 'rising';
-                        trendText = 'RISING';
-                        break;
-                }
-                
-                card.innerHTML = `
-                    <div class="trending-rank ${trendClass}">${item.rank}</div>
-                    <img src="https://images.unsplash.com/photo-${item.rank === 1 ? '1677442136019-21780ecad995' : item.rank === 2 ? '1588681664899-f142ff2dc9b1' : item.rank === 3 ? '1551288049-bebda4e38f71' : item.rank === 4 ? '1571019613454-1cb2f99b2d8b' : item.rank === 5 ? '1518709268805-4e9042af2176' : '1559757148-5c350d0d3c56'}?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="${item.title}">
-                    <div class="trending-card-content">
-                        <div class="trending-tags">
-                            <div class="trending-category">${item.category}</div>
-                            <div class="trending-trend trend-${item.trend}">${trendText}</div>
-                        </div>
-                        <h3 class="trending-title">${item.title}</h3>
-                        <p class="trending-excerpt">${item.excerpt}</p>
-                        <div class="trending-stats">
-                            <div class="stat-item">
-                                <i class="far fa-eye"></i>
-                                <span>${item.views} views</span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-share-alt"></i>
-                                <span>${item.shares} shares</span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="far fa-comment"></i>
-                                <span>${item.comments} comments</span>
-                            </div>
-                        </div>
-                        <div class="trending-growth">
-                            <div class="growth-indicator ${item.growthDirection === 'up' ? 'growth-up' : 'growth-down'}">
-                                <i class="fas fa-${item.growthDirection === 'up' ? 'arrow-up' : 'arrow-down'}"></i>
-                                <span>${item.growth}</span>
-                            </div>
-                            <a href="#" class="view-all">Read Full Story <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                `;
-                
-                trendingGrid.appendChild(card);
-            });
-        }
-        
-        // Render shared list
-        function renderSharedList() {
+            const gridContainer = document.getElementById('trendingGrid');
             const sharedList = document.getElementById('sharedList');
-            sharedList.innerHTML = '';
-            
-            mostShared.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.className = 'list-item';
-                
-                listItem.innerHTML = `
-                    <div class="list-rank">${item.rank}</div>
-                    <div class="list-content">
-                        <h4 class="list-title">${item.title}</h4>
-                        <div class="list-meta">
-                            <span>${item.category}</span>
-                            <span>${item.time}</span>
-                        </div>
-                    </div>
-                    <div class="list-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-share-alt"></i>
-                            <span>${item.shares} shares</span>
-                        </div>
-                    </div>
-                `;
-                
-                sharedList.appendChild(listItem);
-            });
-        }
-        
-        // Render commented list
-        function renderCommentedList() {
             const commentedList = document.getElementById('commentedList');
-            commentedList.innerHTML = '';
-            
-            mostCommented.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.className = 'list-item';
-                
-                listItem.innerHTML = `
-                    <div class="list-rank">${item.rank}</div>
-                    <div class="list-content">
-                        <h4 class="list-title">${item.title}</h4>
-                        <div class="list-meta">
-                            <span>${item.category}</span>
-                            <span>${item.time}</span>
-                        </div>
-                    </div>
-                    <div class="list-stats">
-                        <div class="stat-item">
-                            <i class="far fa-comment"></i>
-                            <span>${item.comments} comments</span>
-                        </div>
-                    </div>
-                `;
-                
-                commentedList.appendChild(listItem);
-            });
-        }
-        
-        // Initialize all lists
-        renderTrendingGrid('all');
-        renderSharedList();
-        renderCommentedList();
-        
-        // Tab switching
-        const trendingTabs = document.querySelectorAll('.trending-tab');
-        trendingTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Update active tab
-                trendingTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                // Render appropriate content
-                const tabId = tab.getAttribute('data-tab');
-                renderTrendingGrid(tabId);
-            });
-        });
-        
-        // Time filter buttons
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active filter
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                const period = button.getAttribute('data-period');
-                alert(`Filtering trending stories for: ${period}\nIn a real implementation, this would load data for the selected time period.`);
-            });
-        });
-        
-        // Trending newsletter form
-        const trendingNewsletterForm = document.getElementById('trendingNewsletterForm');
-        trendingNewsletterForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = this.querySelector('input[type="email"]').value;
-            alert(`Thank you for subscribing to Trending Alerts with: ${email}\nYou'll receive daily trending story updates.`);
-            this.reset();
-        });
-        
-        // Search functionality
-        const searchInput = document.querySelector('.search-bar input');
-        const searchButton = document.querySelector('.search-bar button');
-        
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            if (query) {
-                alert(`Searching trending stories for: "${query}"\nThis would filter trending content based on your search.`);
-                searchInput.value = '';
-            }
-        });
-        
-        // Topic item clicks
-        const topicItems = document.querySelectorAll('.topic-item');
-        topicItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                const topicName = item.querySelector('.topic-name').textContent;
-                alert(`Filtering trending stories by topic: "${topicName}"\nThis would show trending articles related to this topic.`);
-            });
-        });
-        
-        // Viral item clicks
-        const viralItems = document.querySelectorAll('.viral-item');
-        viralItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const title = item.querySelector('h4').textContent;
-                const platform = item.querySelector('.viral-platform').textContent;
-                alert(`Opening viral story: "${title}"\nPlatform: ${platform}\nThis would show detailed analytics about this viral moment.`);
-            });
-        });
-        
-        // Author item clicks
-        const authorItems = document.querySelectorAll('.author-item');
-        authorItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const authorName = item.querySelector('h4').textContent;
-                alert(`Showing all trending stories by ${authorName}\nThis would filter to show articles by this author.`);
-            });
-        });
-        
-        // Card click functionality
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.trending-card')) {
-                const card = e.target.closest('.trending-card');
-                const title = card.querySelector('.trending-title').textContent;
-                alert(`Opening trending article: "${title}"\nThis would navigate to the full article.`);
-            }
-            
-            if (e.target.closest('.list-item')) {
-                const listItem = e.target.closest('.list-item');
-                const title = listItem.querySelector('.list-title').textContent;
-                alert(`Opening article: "${title}"\nThis would navigate to the full article.`);
-            }
-        });
-        
-        // Simulate real-time updates
-        function simulateTrendingUpdate() {
-            // Randomly update growth percentages
-            const growthIndicators = document.querySelectorAll('.growth-indicator');
-            growthIndicators.forEach(indicator => {
-                const currentGrowth = indicator.querySelector('span').textContent;
-                const currentPercent = parseInt(currentGrowth);
-                const newPercent = Math.max(10, Math.min(500, currentPercent + Math.floor(Math.random() * 40) - 20));
-                
-                indicator.querySelector('span').textContent = `+${newPercent}%`;
-            });
-            
-            // Update view counts slightly
-            const viewCounts = document.querySelectorAll('.stat-item:first-child span');
-            viewCounts.forEach(count => {
-                const current = count.textContent;
-                const num = parseFloat(current);
-                const multiplier = 1 + (Math.random() * 0.1); // 0-10% increase
-                const newNum = Math.round(num * multiplier);
-                
-                // Format with K or M
-                let newText;
-                if (newNum >= 1000000) {
-                    newText = (newNum / 1000000).toFixed(1) + 'M';
-                } else if (newNum >= 1000) {
-                    newText = (newNum / 1000).toFixed(1) + 'K';
-                } else {
-                    newText = newNum.toString();
+
+            try {
+                Components.showLoadingState('trendingGrid');
+                const trending = await fetchTrendingNews();
+
+                // Normalize mock articles to the shape Components expects
+                const normalized = (trending || []).map((a) => ({
+                    slug: a.id,
+                    featured_image: a.image,
+                    title: a.title,
+                    excerpt: a.excerpt,
+                    created_at: a.date,
+                    views_count: a.views,
+                    category: { name: (a.category_slug || '').toUpperCase() }
+                }));
+
+                if (gridContainer) {
+                    gridContainer.innerHTML = normalized.length
+                        ? Components.renderNewsGrid(normalized)
+                        : '<p>No trending articles at the moment.</p>';
                 }
-                
-                count.textContent = newText + ' views';
-            });
-            
-            // Schedule next update
-            setTimeout(simulateTrendingUpdate, 30000); // Every 30 seconds
-        }
-        
-        // Start simulated updates after page loads
-        setTimeout(simulateTrendingUpdate, 5000);
-        
-        // Initialize page
-        console.log('Trending news page loaded successfully.');
+
+                // Populate Most Shared and Most Commented using views as fallback
+                const byViews = (trending || []).slice().sort((x, y) => (y.views || 0) - (x.views || 0));
+                const topShared = byViews.slice(0, 5);
+                if (sharedList) {
+                    sharedList.innerHTML = topShared
+                        .map((it, i) => `
+                            <li class="list-item">
+                                <div class="list-rank">${String(i + 1).padStart(2, '0')}</div>
+                                <div class="list-content">
+                                    <a href="/news-detail.html?id=${it.id}"><h4 class="list-title">${it.title}</h4></a>
+                                    <div class="list-meta"><span>${(it.category_slug || '').toUpperCase()}</span><span>${new Date(it.date).toLocaleString()}</span></div>
+                                </div>
+                                <div class="list-stats"><div class="stat-item"><i class="fas fa-share-alt"></i><span>${it.views} shares</span></div></div>
+                            </li>
+                        `)
+                        .join('');
+                }
+
+                // For commented list use same ordering (mock doesn't include comments)
+                if (commentedList) {
+                    commentedList.innerHTML = topShared
+                        .map((it, i) => `
+                            <li class="list-item">
+                                <div class="list-rank">${String(i + 1).padStart(2, '0')}</div>
+                                <div class="list-content">
+                                    <a href="/news-detail.html?id=${it.id}"><h4 class="list-title">${it.title}</h4></a>
+                                    <div class="list-meta"><span>${(it.category_slug || '').toUpperCase()}</span><span>${new Date(it.date).toLocaleString()}</span></div>
+                                </div>
+                                <div class="list-stats"><div class="stat-item"><i class="far fa-comment"></i><span>— comments</span></div></div>
+                            </li>
+                        `)
+                        .join('');
+                }
+
+                // Wire simple tab behavior (filters are visual; re-render same data)
+                document.querySelectorAll('.trending-tab').forEach((tab) => {
+                    tab.addEventListener('click', (e) => {
+                        document.querySelectorAll('.trending-tab').forEach((t) => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        // re-render same dataset for now; backend later will provide category
+                        if (gridContainer) gridContainer.innerHTML = Components.renderNewsGrid(normalized);
+                    });
+                });
+
+            } catch (err) {
+                console.error('Failed to load trending data', err);
+                Components.showErrorState('trendingGrid', 'Failed to load trending data');
+            }
+        });
     </script>
 </body>
 </html>

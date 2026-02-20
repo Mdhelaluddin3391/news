@@ -1,5 +1,5 @@
 import { initComponents, getQueryParam } from './app.js';
-import { fetchArticleById, fetchRelatedArticles } from './api-adapter.js';
+import { fetchArticleById, fetchRelatedArticles, fetchComments, addComment } from './api-adapter.js';
 
 const renderRelated = (items) => {
   if (!items || items.length === 0) return '<p>No related articles.</p>';
@@ -45,6 +45,49 @@ const init = async () => {
   const related = await fetchRelatedArticles(article.id, 4);
   const relatedPlaceholder = document.getElementById('related-placeholder');
   if (relatedPlaceholder) relatedPlaceholder.innerHTML = renderRelated(related);
+
+    // Comments: load and wire comment form
+    const commentsList = document.getElementById('comments-list');
+    const commentsCount = document.getElementById('comments-count');
+    const commentForm = document.getElementById('commentForm');
+
+    const loadComments = async () => {
+        if (!commentsList) return;
+        const list = await fetchComments(article.id);
+        commentsList.innerHTML = list.length === 0 ? '<p>No comments yet. Be the first to comment.</p>' : list.map(c => `
+            <div class="comment">
+                <div class="comment-avatar">${(c.author||'A').slice(0,2).toUpperCase()}</div>
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <div class="comment-author">${c.author}</div>
+                        <div class="comment-date">${new Date(c.date).toLocaleString()}</div>
+                    </div>
+                    <div class="comment-text">${c.text}</div>
+                </div>
+            </div>
+        `).join('');
+        if (commentsCount) commentsCount.textContent = list.length;
+    };
+
+    if (commentForm) {
+        commentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('commentName')?.value.trim();
+            const email = document.getElementById('commentEmail')?.value.trim();
+            const text = document.getElementById('commentText')?.value.trim();
+            if (!text || !name) return;
+            try {
+                await addComment(article.id, { author: name, email, text });
+                commentForm.reset();
+                await loadComments();
+            } catch (err) {
+                console.error('Failed to post comment', err);
+            }
+        });
+    }
+
+    // initial load
+    await loadComments();
 };
 
 document.addEventListener('DOMContentLoaded', init);

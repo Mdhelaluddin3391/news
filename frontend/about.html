@@ -356,112 +356,83 @@
     <div id="footer-placeholder"></div>
 
     <script type="module" src="/assets/js/page.js"></script>
-    <script>
-        // Update date and time
-        function updateDateTime() {
+    <script type="module">
+        import { fetchSiteStats, fetchTeamMembers } from '/assets/js/api-adapter.js';
+
+        const renderStats = (stats) => {
+            const container = document.querySelector('.about-stats');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="stat-item">
+                    <span class="stat-number">${stats.years}+</span>
+                    <span class="stat-label">Years of Service</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">${stats.countries}+</span>
+                    <span class="stat-label">Countries Covered</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">${stats.journalists}+</span>
+                    <span class="stat-label">Journalists</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">${stats.monthly_readers}</span>
+                    <span class="stat-label">Monthly Readers</span>
+                </div>
+            `;
+        };
+
+        const renderTeam = (team) => {
+            const grid = document.querySelector('.team-grid');
+            if (!grid) return;
+            grid.innerHTML = team.map(member => `
+                <div class="team-member" data-id="${member.id}">
+                    <div class="member-image"><img src="${member.image}" alt="${member.name}"></div>
+                    <div class="member-info">
+                        <h3>${member.name}</h3>
+                        <div class="member-title">${member.title}</div>
+                        <p class="member-bio">${member.bio}</p>
+                        <div class="member-social">
+                            <a href="${member.social.twitter}"><i class="fab fa-twitter"></i></a>
+                            <a href="${member.social.linkedin}"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="${member.social.email}"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // wire simple click handler
+            grid.querySelectorAll('.team-member').forEach(memberEl => {
+                memberEl.addEventListener('click', () => {
+                    const name = memberEl.querySelector('h3').textContent;
+                    const title = memberEl.querySelector('.member-title').textContent;
+                    alert(`Profile: ${name}\nPosition: ${title}\nThis would open a detailed profile page.`);
+                });
+            });
+        };
+
+        const updateDateTime = () => {
             const now = new Date();
             const dateElement = document.getElementById('current-date');
             const timeElement = document.getElementById('current-time');
-            
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateElement.textContent = now.toLocaleDateString('en-US', options);
-            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        }
-        
-        // Update date/time immediately and then every minute
-        updateDateTime();
-        setInterval(updateDateTime, 60000);
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        
-        // Contact form submission
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            alert(`Thank you, ${name}! Your message has been sent successfully.\n\nWe'll respond to you at ${email} within 1-2 business days.\n\nIn a real implementation, this form would send the data to a server.`);
-            
-            this.reset();
-        });
-        
-        // Team member click simulation
-        const teamMembers = document.querySelectorAll('.team-member');
-        teamMembers.forEach(member => {
-            member.addEventListener('click', () => {
-                const name = member.querySelector('h3').textContent;
-                const title = member.querySelector('.member-title').textContent;
-                alert(`Profile: ${name}\nPosition: ${title}\nIn a complete implementation, this would open a detailed profile page.`);
-            });
-        });
-        
-        // Timeline item click simulation
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        timelineItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const year = item.querySelector('.timeline-year').textContent;
-                const title = item.querySelector('h3').textContent;
-                alert(`Historical Milestone: ${year}\n${title}\nThis would show more details about this milestone in our history.`);
-            });
-        });
-        
-        // Search functionality
-        const searchInput = document.querySelector('.search-bar input');
-        const searchButton = document.querySelector('.search-bar button');
-        
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            if (query) {
-                alert(`Searching for: "${query}"\nThis would navigate to search results.`);
-                searchInput.value = '';
+            if (dateElement && timeElement) {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                dateElement.textContent = now.toLocaleDateString('en-US', options);
+                timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
             }
-        });
-        
-        // Animate stats on scroll
-        function animateStats() {
-            const stats = document.querySelectorAll('.stat-number');
-            const statsSection = document.querySelector('.about-intro');
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        stats.forEach(stat => {
-                            const target = parseInt(stat.textContent);
-                            let current = 0;
-                            const increment = target / 50;
-                            const timer = setInterval(() => {
-                                current += increment;
-                                if (current >= target) {
-                                    stat.textContent = stat.textContent; // Show original text
-                                    clearInterval(timer);
-                                } else {
-                                    stat.textContent = Math.floor(current) + (stat.textContent.includes('+') ? '+' : '');
-                                }
-                            }, 30);
-                        });
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            if (statsSection) {
-                observer.observe(statsSection);
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+
+            try {
+                const [stats, team] = await Promise.all([fetchSiteStats(), fetchTeamMembers()]);
+                renderStats(stats || {});
+                renderTeam(team || []);
+            } catch (err) {
+                console.error('Failed to load about page dynamic data', err);
             }
-        }
-        
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            animateStats();
-            console.log('About Us page loaded successfully.');
         });
     </script>
 </body>

@@ -288,81 +288,101 @@
         </div>
     </footer>
 
-    <script>
-        // Initial breaking news feed data
-        const breakingNewsFeed = [
-            {
-                time: "15:42",
-                category: "DISASTER",
-                title: "Earthquake magnitude upgraded to 7.2, tsunami warning extended",
-                content: "Seismic experts have upgraded the earthquake magnitude to 7.2. Tsunami warnings now extended to additional coastal areas.",
-                source: "Geological Survey",
-                type: "breaking"
-            },
-            {
-                time: "15:30",
-                category: "RESCUE",
-                title: "International rescue teams dispatched to affected region",
-                content: "UN confirms deployment of international search and rescue teams. Several countries offering assistance.",
-                source: "United Nations",
-                type: "update"
-            },
-            {
-                time: "15:25",
-                category: "POLITICS",
-                title: "Emergency cabinet meeting called amid political crisis",
-                content: "Government calls emergency cabinet meeting as opposition parties demand immediate elections.",
-                source: "Political Desk",
-                type: "breaking"
-            },
-            {
-                time: "15:18",
-                category: "TRANSPORT",
-                title: "Major airport shut down due to security concerns",
-                content: "International airport closed indefinitely. All flights diverted to alternate airports.",
-                source: "Aviation Authority",
-                type: "alert"
-            },
-            {
-                time: "15:10",
-                category: "ECONOMY",
-                title: "Central Bank announces emergency measures to stabilize markets",
-                content: "Interest rates cut by 0.5%. Additional liquidity measures announced to calm financial markets.",
-                source: "Financial Desk",
-                type: "update"
-            },
-            {
-                time: "15:05",
-                category: "WEATHER",
-                title: "Severe weather warning for earthquake-affected region",
-                content: "Heavy rainfall expected in earthquake zone, complicating rescue efforts. Flash flood warnings issued.",
-                source: "Meteorological Dept",
-                type: "alert"
-            },
-            {
-                time: "14:58",
-                category: "HEALTH",
-                title: "Hospitals on high alert, medical supplies being airlifted",
-                content: "Major hospitals activating emergency protocols. Medical supply flights en route to affected areas.",
-                source: "Health Ministry",
-                type: "update"
-            },
-            {
-                time: "14:50",
-                category: "TECHNOLOGY",
-                title: "Communication networks partially restored in affected areas",
-                content: "Telecom companies report partial restoration of services. Emergency communication channels established.",
-                source: "Technology Desk",
-                type: "update"
-            }
-        ];
+    <script type="module">
+        import { initComponents } from '/assets/js/app.js';
+        import { fetchBreakingNews } from '/assets/js/api-adapter.js';
 
-        // Update date and time
-        function updateDateTime() {
-            const now = new Date();
-            const dateElement = document.getElementById('current-date');
-            const timeElement = document.getElementById('current-time');
-            
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initComponents();
+
+            const liveFeedEl = document.getElementById('liveFeed');
+            const activeStoriesEl = document.getElementById('active-stories');
+            const updatesTodayEl = document.getElementById('updates-today');
+            const liveSourcesEl = document.getElementById('live-sources');
+
+            const bannerMessage = document.getElementById('bannerMessage');
+            const liveUpdatesBanner = document.getElementById('liveUpdatesBanner');
+
+            try {
+                Components.showLoadingState('liveFeed');
+                const feed = await fetchBreakingNews();
+
+                const items = (feed || []).map((f) => ({
+                    time: new Date(f.date || f.time || Date.now()).toLocaleTimeString(),
+                    category: (f.category_slug || f.category || '').toUpperCase(),
+                    title: f.title,
+                    content: f.excerpt || f.content || '',
+                    source: f.source || f.author || 'Source',
+                    type: f.type || (f.is_breaking ? 'breaking' : 'update'),
+                    id: f.id
+                }));
+
+                // Render live feed items
+                if (liveFeedEl) {
+                    liveFeedEl.innerHTML = items
+                        .map((it) => `
+                            <div class="feed-item ${it.type}">
+                                <div class="feed-time">${it.time}</div>
+                                <div class="feed-content">
+                                    <a href="/news-detail.html?id=${it.id}"><h4>${it.title}</h4></a>
+                                    <div class="feed-meta">${it.category} • ${it.source}</div>
+                                    <p>${it.content}</p>
+                                </div>
+                            </div>
+                        `)
+                        .join('');
+                }
+
+                // Update quick stats
+                if (activeStoriesEl) activeStoriesEl.textContent = items.length;
+                if (updatesTodayEl) updatesTodayEl.textContent = items.length * 3; // mock: assume multiple updates
+                if (liveSourcesEl) liveSourcesEl.textContent = new Set(items.map((i) => i.source)).size;
+
+                // Use Components to render breaking ticker in header if desired
+                // insert before main content if not present (id 'breaking-placeholder' on index page)
+                // For this page we simply populate the banner message
+                if (bannerMessage) bannerMessage.textContent = items.length ? `${items.length} live updates available` : 'No new updates';
+
+                // wire refresh button
+                const refreshBtn = document.getElementById('refreshFeedBtn');
+                if (refreshBtn) {
+                    refreshBtn.addEventListener('click', async () => {
+                        refreshBtn.disabled = true;
+                        refreshBtn.textContent = 'Refreshing...';
+                        try {
+                            const newFeed = await fetchBreakingNews();
+                            const newCount = (newFeed || []).length;
+                            if (bannerMessage) bannerMessage.textContent = `${newCount} live updates available`;
+                            if (liveFeedEl) liveFeedEl.insertAdjacentHTML('afterbegin', '<div class="feed-refresh">Feed refreshed</div>');
+                        } catch (e) {
+                            console.error('refresh failed', e);
+                        } finally {
+                            refreshBtn.disabled = false;
+                            refreshBtn.textContent = 'Refresh';
+                        }
+                    });
+                }
+
+                // banner actions
+                const loadUpdatesBtn = document.getElementById('loadUpdatesBtn');
+                if (loadUpdatesBtn) {
+                    loadUpdatesBtn.addEventListener('click', () => {
+                        if (liveUpdatesBanner) liveUpdatesBanner.style.display = 'none';
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                }
+
+                const dismissBanner = document.getElementById('dismissBannerBtn');
+                if (dismissBanner) dismissBanner.addEventListener('click', () => {
+                    if (liveUpdatesBanner) liveUpdatesBanner.style.display = 'none';
+                });
+
+            } catch (err) {
+                console.error('Failed to load breaking feed', err);
+                Components.showErrorState('liveFeed', 'Failed to load live feed');
+            }
+        });
+    </script>
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             dateElement.textContent = now.toLocaleDateString('en-US', options);
             timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });

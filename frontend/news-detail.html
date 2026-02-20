@@ -162,8 +162,8 @@
             
             <!-- Comments Section -->
             <div class="comments-section">
-                <h2 class="section-title">Comments (342)</h2>
-                
+                <h2 class="section-title">Comments (<span id="comments-count">0</span>)</h2>
+
                 <!-- Comment Form -->
                 <div class="comment-form">
                     <h3>Leave a Comment</h3>
@@ -183,58 +183,9 @@
                         <button type="submit" class="submit-btn">Post Comment</button>
                     </form>
                 </div>
-                
-                <!-- Comments List -->
-                <div class="comment">
-                    <div class="comment-avatar">MR</div>
-                    <div class="comment-content">
-                        <div class="comment-header">
-                            <div class="comment-author">Michael Rodriguez</div>
-                            <div class="comment-date">October 16, 2023 at 9:42 AM</div>
-                        </div>
-                        <div class="comment-text">
-                            This is both exciting and terrifying. As a software engineer, I've seen how AI can augment our capabilities, but the idea that it might surpass us in creative domains raises profound questions about what makes us human. The collaborative approach seems like the right path forward.
-                        </div>
-                        <div class="comment-actions">
-                            <a href="#" class="comment-action">Reply</a>
-                            <a href="#" class="comment-action">Like (42)</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="comment">
-                    <div class="comment-avatar">EC</div>
-                    <div class="comment-content">
-                        <div class="comment-header">
-                            <div class="comment-author">Dr. Elena Chen</div>
-                            <div class="comment-date">October 16, 2023 at 10:15 AM</div>
-                        </div>
-                        <div class="comment-text">
-                            Thank you for the thoughtful article, Sarah. I'd like to clarify that our goal isn't to replace human creativity but to enhance it. In our studies, the most impressive results came from human-AI teams, not from either alone. The future is collaborative.
-                        </div>
-                        <div class="comment-actions">
-                            <a href="#" class="comment-action">Reply</a>
-                            <a href="#" class="comment-action">Like (87)</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="comment">
-                    <div class="comment-avatar">AT</div>
-                    <div class="comment-content">
-                        <div class="comment-header">
-                            <div class="comment-author">Alex Thompson</div>
-                            <div class="comment-date">October 16, 2023 at 11:30 AM</div>
-                        </div>
-                        <div class="comment-text">
-                            As a graphic designer, I'm curious how this technology will affect creative professions. Will it make our jobs obsolete, or will it become an essential tool that expands what we're capable of creating? The article mentions artistic collaboration - I'd love to see specific examples of how artists might use this.
-                        </div>
-                        <div class="comment-actions">
-                            <a href="#" class="comment-action">Reply</a>
-                            <a href="#" class="comment-action">Like (31)</a>
-                        </div>
-                    </div>
-                </div>
+
+                <!-- Dynamic comments list -->
+                <div id="comments-list"></div>
             </div>
             
             <!-- Article Navigation -->

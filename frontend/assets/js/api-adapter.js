@@ -52,6 +52,22 @@ export const fetchRelatedArticles = async (articleId, limit = 3) => {
   return handleResponse(res);
 };
 
+export const fetchComments = async (articleId) => {
+  if (!USE_REMOTE) return localApi.fetchComments(articleId);
+  const res = await fetch(`${REMOTE_BASE}/news/${encodeURIComponent(articleId)}/comments/`);
+  return handleResponse(res);
+};
+
+export const addComment = async (articleId, payload) => {
+  if (!USE_REMOTE) return localApi.addComment(articleId, payload);
+  const res = await fetch(`${REMOTE_BASE}/news/${encodeURIComponent(articleId)}/comments/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  return handleResponse(res);
+};
+
 export const loginUser = async (credentials) => {
   if (!USE_REMOTE) return localApi.loginUser(credentials);
   const res = await fetch(`${REMOTE_BASE}/auth/login/`, {
@@ -92,6 +108,30 @@ export const fetchSavedArticles = async () => {
   return handleResponse(res);
 };
 
+export const fetchSiteStats = async () => {
+  if (!USE_REMOTE) return localApi.fetchSiteStats();
+  const res = await fetch(`${REMOTE_BASE}/site/stats/`);
+  return handleResponse(res);
+};
+
+export const fetchTeamMembers = async () => {
+  if (!USE_REMOTE) return localApi.fetchTeamMembers();
+  const res = await fetch(`${REMOTE_BASE}/site/team/`);
+  return handleResponse(res);
+};
+
+export const fetchContactInfo = async () => {
+  if (!USE_REMOTE) return localApi.fetchContactInfo();
+  const res = await fetch(`${REMOTE_BASE}/site/contact/`);
+  return handleResponse(res);
+};
+
+export const fetchOffices = async () => {
+  if (!USE_REMOTE) return localApi.fetchOffices();
+  const res = await fetch(`${REMOTE_BASE}/site/offices/`);
+  return handleResponse(res);
+};
+
 export default {
   fetchCategories,
   fetchTrendingNews,
@@ -105,4 +145,6 @@ export default {
   saveArticleForUser,
   removeSavedArticleForUser,
   fetchSavedArticles,
+  fetchComments,
+  addComment,
 };

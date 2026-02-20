@@ -264,166 +264,74 @@
     <div id="footer-placeholder"></div>
 
     <script type="module" src="/assets/js/page.js"></script>
+    <script type="module">
+        import { fetchContactInfo, fetchOffices } from '/assets/js/api-adapter.js';
 
-    <script>
-        // Update date and time
-        function updateDateTime() {
+        const renderContactInfo = (info) => {
+            const container = document.querySelector('.contact-info-sidebar');
+            if (!container) return;
+            container.innerHTML = `
+                <h3>Contact Information</h3>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="info-text"><h4>Headquarters</h4><p>${info.headquarters}</p></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-phone"></i></div>
+                    <div class="info-text"><h4>Phone Numbers</h4><p>${info.phones.join('<br>')}</p></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="info-text"><h4>Email Addresses</h4><p>${info.emails.join('<br>')}</p></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fas fa-clock"></i></div>
+                    <div class="info-text"><h4>Office Hours</h4><p>${info.hours}</p></div>
+                </div>
+            `;
+        };
+
+        const renderOffices = (offices) => {
+            const grid = document.querySelector('.locations-grid');
+            if (!grid) return;
+            grid.innerHTML = offices.map(off => `
+                <div class="location-card">
+                    <div class="location-image"><img src="${off.image}" alt="${off.city} Office"></div>
+                    <div class="location-content">
+                        <h3>${off.city} Office</h3>
+                        <div class="location-details">
+                            <div class="location-detail"><i class="fas fa-map-marker-alt"></i><span>${off.address}</span></div>
+                            <div class="location-detail"><i class="fas fa-phone"></i><span>${off.phone}</span></div>
+                            <div class="location-detail"><i class="fas fa-clock"></i><span>${off.hours}</span></div>
+                        </div>
+                        <a href="#" class="contact-link">Get Directions <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        const updateDateTime = () => {
             const now = new Date();
             const dateElement = document.getElementById('current-date');
             const timeElement = document.getElementById('current-time');
-            
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            dateElement.textContent = now.toLocaleDateString('en-US', options);
-            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-        }
-        
-        // Update date/time immediately and then every minute
-        updateDateTime();
-        setInterval(updateDateTime, 60000);
-        
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.querySelector('.nav-links');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-        
-        // Contact form submission
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const firstName = document.getElementById('firstName').value;
-            const email = document.getElementById('email').value;
-            const department = document.getElementById('department').value;
-            const subject = document.getElementById('subject').value;
-            
-            // Get department name for display
-            const departmentOptions = {
-                'editorial': 'Editorial / News Tips',
-                'advertising': 'Advertising',
-                'subscription': 'Subscription Support',
-                'technical': 'Technical Support',
-                'general': 'General Inquiry',
-                'other': 'Other'
-            };
-            
-            const departmentName = departmentOptions[department] || 'Unknown';
-            
-            alert(`Thank you, ${firstName}! Your message has been submitted successfully.\n\nDepartment: ${departmentName}\nSubject: "${subject}"\n\nWe'll respond to you at ${email} within 1-2 business days.\n\nIn a real implementation, this form would send the data to a server.`);
-            
-            this.reset();
-        });
-        
-        // FAQ Accordion
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        faqQuestions.forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const isOpen = answer.classList.contains('open');
-                
-                // Close all answers
-                document.querySelectorAll('.faq-answer').forEach(ans => {
-                    ans.classList.remove('open');
-                });
-                
-                // Remove active class from all questions
-                document.querySelectorAll('.faq-question').forEach(q => {
-                    q.classList.remove('active');
-                });
-                
-                // If it wasn't open, open it
-                if (!isOpen) {
-                    answer.classList.add('open');
-                    question.classList.add('active');
-                }
-            });
-        });
-        
-        // Contact card interactions
-        const contactCards = document.querySelectorAll('.contact-card');
-        contactCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Only trigger if the click wasn't on the link itself
-                if (!e.target.closest('.contact-link')) {
-                    const title = card.querySelector('h3').textContent;
-                    const link = card.querySelector('.contact-link');
-                    
-                    if (link.href.startsWith('mailto:')) {
-                        alert(`Opening email client to: ${link.textContent}\nSubject: ${title} Inquiry`);
-                    } else if (link.href.startsWith('tel:')) {
-                        alert(`Dialing: ${link.textContent}\nFor: ${title}`);
-                    }
-                }
-            });
-        });
-        
-        // Location card interactions
-        const locationCards = document.querySelectorAll('.location-card');
-        locationCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Only trigger if the click wasn't on the link itself
-                if (!e.target.closest('.contact-link')) {
-                    const title = card.querySelector('h3').textContent;
-                    const address = card.querySelector('.location-detail:first-child span').textContent;
-                    alert(`Location: ${title}\nAddress: ${address}\nIn a complete implementation, this would show more details about this office location.`);
-                }
-            });
-        });
-        
-        // Search functionality
-        const searchInput = document.querySelector('.search-bar input');
-        const searchButton = document.querySelector('.search-bar button');
-        
-        searchButton.addEventListener('click', () => {
-            const query = searchInput.value.trim();
-            if (query) {
-                alert(`Searching for: "${query}"\nThis would navigate to search results.`);
-                searchInput.value = '';
+            if (dateElement && timeElement) {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                dateElement.textContent = now.toLocaleDateString('en-US', options);
+                timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+            try {
+                const [info, offices] = await Promise.all([fetchContactInfo(), fetchOffices()]);
+                renderContactInfo(info || {});
+                renderOffices(offices || []);
+            } catch (err) {
+                console.error('Failed to load contact info', err);
             }
         });
-        
-        // Department select change
-        const departmentSelect = document.getElementById('department');
-        departmentSelect.addEventListener('change', function() {
-            const subjectField = document.getElementById('subject');
-            const departmentOptions = {
-                'editorial': 'News Tip / Story Suggestion',
-                'advertising': 'Advertising Inquiry',
-                'subscription': 'Subscription Support Request',
-                'technical': 'Technical Issue Report',
-                'general': 'General Inquiry',
-                'other': 'Other Inquiry'
-            };
-            
-            if (this.value && departmentOptions[this.value]) {
-                subjectField.placeholder = `Subject: ${departmentOptions[this.value]}`;
-            } else {
-                subjectField.placeholder = 'Subject';
-            }
-        });
-        
-        // File attachment validation
-        const fileInput = document.getElementById('attachment');
-        fileInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
-                const maxSize = 5 * 1024 * 1024; // 5MB
-                
-                if (!validTypes.includes(file.type)) {
-                    alert('Invalid file type. Please upload PDF, DOC, JPG, or PNG files only.');
-                    this.value = '';
-                } else if (file.size > maxSize) {
-                    alert('File is too large. Maximum size is 5MB.');
-                    this.value = '';
-                }
-            }
-        });
-        
-        // Initialize page
-        console.log('Contact Us page loaded successfully.');
     </script>
 </body>
 </html>

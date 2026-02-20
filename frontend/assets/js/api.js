@@ -1,7 +1,7 @@
 // Fake API layer simulating asynchronous backend calls
 // Uses mock data from mock-data.js and returns Promises with delays
 
-import { categories, articles, userProfile } from './mock-data.js';
+import { categories, articles, userProfile, comments, siteStats, teamMembers, contactInfo, offices } from './mock-data.js';
 
 const randomDelay = (min = 200, max = 800) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
@@ -30,6 +30,25 @@ export const fetchBreakingNews = async () => {
 export const fetchNewsByCategory = async (slug) => {
   await simulateDelay(randomDelay());
   return clone(articles.filter((a) => a.category_slug === slug));
+};
+
+export const fetchComments = async (articleId) => {
+  await simulateDelay(randomDelay());
+  return clone(comments.filter((c) => String(c.article_id) === String(articleId)));
+};
+
+export const addComment = async (articleId, { author, email, text }) => {
+  await simulateDelay(randomDelay());
+  const newComment = {
+    id: Date.now(),
+    article_id: Number(articleId),
+    author: author || 'Anonymous',
+    email: email || '',
+    text: text || '',
+    date: new Date().toISOString()
+  };
+  comments.push(newComment);
+  return clone(newComment);
 };
 
 export const fetchArticleById = async (id) => {
@@ -97,6 +116,32 @@ export const fetchSavedArticles = async () => {
   await simulateDelay(randomDelay());
   const saved = articles.filter((a) => userProfile.saved_articles.includes(a.id));
   return clone(saved);
+};
+
+export const fetchSiteStats = async () => {
+  await simulateDelay(randomDelay());
+  // siteStats exported from mock-data.js
+  return clone(typeof siteStats !== 'undefined' ? siteStats : {
+    years: 25,
+    countries: 150,
+    journalists: 500,
+    monthly_readers: '50M+'
+  });
+};
+
+export const fetchTeamMembers = async () => {
+  await simulateDelay(randomDelay());
+  return clone(typeof teamMembers !== 'undefined' ? teamMembers : []);
+};
+
+export const fetchContactInfo = async () => {
+  await simulateDelay(randomDelay());
+  return clone(typeof contactInfo !== 'undefined' ? contactInfo : {});
+};
+
+export const fetchOffices = async () => {
+  await simulateDelay(randomDelay());
+  return clone(typeof offices !== 'undefined' ? offices : []);
 };
 /**
  * API Utility Module

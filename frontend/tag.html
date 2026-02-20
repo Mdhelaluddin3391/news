@@ -470,5 +470,126 @@
             }
         });
     </script>
+</script>
+    <script type="module">
+        import { initComponents } from '/assets/js/app.js';
+        import { fetchCategories, searchNews } from '/assets/js/api-adapter.js';
+
+        const updateDateTime = () => {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            if (dateElement && timeElement) {
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                dateElement.textContent = now.toLocaleDateString('en-US', options);
+                timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            }
+        };
+
+        const renderTagCloud = (cats) => {
+            const cloud = document.querySelector('.tag-cloud');
+            if (!cloud) return;
+            cloud.innerHTML = cats.map(c => `<li><a href="/tag.html?tag=${encodeURIComponent(c.name)}">${c.name}</a></li>`).join('');
+        };
+
+        const renderFeatured = (article) => {
+            const featured = document.querySelector('.featured-tag-news');
+            if (!featured) return;
+            if (!article) {
+                featured.innerHTML = '<p>No featured article for this tag.</p>';
+                return;
+            }
+            featured.innerHTML = `
+                <div class="featured-tag-item">
+                    <img src="${article.image}" alt="${article.title}" class="featured-tag-image">
+                    <div class="featured-tag-overlay">
+                        <span class="featured-tag-category">${(article.category_slug || '').toUpperCase()}</span>
+                        <h2 class="featured-tag-title">${article.title}</h2>
+                        <div class="featured-tag-meta">
+                            <span><i class="far fa-clock"></i> ${new Date(article.date).toLocaleString()}</span>
+                            <span><i class="far fa-user"></i> By ${article.author}</span>
+                            <span><i class="far fa-comment"></i> — comments</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const renderGrid = (articles) => {
+            const grid = document.querySelector('.tag-news-grid');
+            if (!grid) return;
+            if (!articles || articles.length === 0) {
+                grid.innerHTML = '<p>No articles found for this tag.</p>';
+                return;
+            }
+            // First article used as featured, rest as grid
+            const rest = articles.slice(1);
+            grid.innerHTML = rest.map(a => `
+                <div class="tag-news-card" data-id="${a.id}">
+                    <img src="${a.image}" alt="${a.title}">
+                    <div class="tag-news-card-content">
+                        <div class="tag-news-tags">
+                            <a href="/tag.html?tag=${encodeURIComponent(a.category_slug)}" class="tag-pill">${(a.category_slug||'').toUpperCase()}</a>
+                        </div>
+                        <h3 class="tag-news-title">${a.title}</h3>
+                        <p class="tag-news-excerpt">${a.excerpt}</p>
+                        <div class="tag-news-meta"><span><i class="far fa-clock"></i> ${new Date(a.date).toLocaleString()}</span><span><i class="far fa-eye"></i> ${a.views} views</span></div>
+                    </div>
+                </div>
+            `).join('');
+
+            // wire clicks
+            grid.querySelectorAll('.tag-news-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = card.getAttribute('data-id');
+                    window.location.href = `/news-detail.html?id=${id}`;
+                });
+            });
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initComponents();
+            updateDateTime();
+            setInterval(updateDateTime, 60000);
+
+            const params = new URLSearchParams(window.location.search);
+            const tag = params.get('tag') || 'Artificial Intelligence';
+
+            try {
+                const [cats, results] = await Promise.all([fetchCategories(), searchNews(tag)]);
+                renderTagCloud(cats || []);
+
+                if (results && results.length > 0) {
+                    renderFeatured(results[0]);
+                    renderGrid(results);
+                } else {
+                    renderFeatured(null);
+                    renderGrid([]);
+                }
+            } catch (err) {
+                console.error('Failed to load tag page data', err);
+            }
+
+            // Newsletter form: simulate subscribe
+            const tagNewsletterForm = document.getElementById('tagNewsletterForm');
+            if (tagNewsletterForm) {
+                tagNewsletterForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const email = tagNewsletterForm.querySelector('input[type="email"]').value;
+                    // simulate async
+                    const btn = tagNewsletterForm.querySelector('button');
+                    const original = btn.textContent;
+                    btn.textContent = 'Subscribing...';
+                    btn.disabled = true;
+                    setTimeout(() => {
+                        alert(`Subscribed ${email} to ${tag} newsletter.`);
+                        btn.textContent = original;
+                        btn.disabled = false;
+                        tagNewsletterForm.reset();
+                    }, 800);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

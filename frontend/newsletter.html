@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter - News Website</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .newsletter-container {
+            max-width: 900px;
+            margin: 60px auto 40px;
+            padding: 40px 20px;
+        }
+
+        .newsletter-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .newsletter-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .newsletter-header p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .newsletter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .newsletter-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .newsletter-section h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .newsletter-benefits {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .newsletter-benefits li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+
+        .newsletter-benefits li:last-child {
+            border-bottom: none;
+        }
+
+        .newsletter-benefits li::before {
+            content: "✓";
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .newsletter-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .interests {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 5px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .frequency-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .radio-option {
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            border-color: #007bff;
+            background: #e7f3ff;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .privacy-notice {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #004085;
+            margin-top: 20px;
+            border-left: 4px solid #0056b3;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .subscriber-stats {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .subscriber-stats h3 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+
+        .subscriber-stats p {
+            margin: 0;
+        }
+
+        .testimonials {
+            margin-top: 40px;
+        }
+
+        .testimonial {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+
+        .testimonial p {
+            margin: 0 0 10px 0;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            color: #666;
+            font-size: 12px;
+            font-style: normal;
+        }
+
+        @media (max-width: 768px) {
+            .newsletter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .interests {
+                grid-template-columns: 1fr;
+            }
+
+            .frequency-options {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <h1>📰 News Portal</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="breaking-news.html">Breaking</a></li>
+                <li><a href="newsletter.html" class="active-link">Newsletter</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Newsletter Container -->
+    <div class="newsletter-container">
+        <!-- Header Section -->
+        <div class="newsletter-header">
+            <h1>📧 Subscribe to Our Newsletter</h1>
+            <p>Stay updated with the latest news, trending stories, and exclusive insights delivered directly to your inbox.</p>
+        </div>
+
+        <!-- Subscriber Statistics -->
+        <div class="subscriber-stats">
+            <h3>50,000+</h3>
+            <p>Active Subscribers Worldwide</p>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="newsletter-grid">
+            <!-- Left Column - Benefits -->
+            <div class="newsletter-section">
+                <h2>Why Subscribe?</h2>
+                <ul class="newsletter-benefits">
+                    <li>Get news delivered to your inbox daily</li>
+                    <li>Stay ahead with breaking news alerts</li>
+                    <li>Curated stories based on your interests</li>
+                    <li>Exclusive insider content and analysis</li>
+                    <li>No spam - unsubscribe anytime</li>
+                    <li>Access to premium articles</li>
+                </ul>
+
+                <div class="testimonials">
+                    <h3>What Our Subscribers Say</h3>
+                    <div class="testimonial">
+                        <p>"Best news updates I receive daily. Highly recommend!"</p>
+                        <div class="testimonial-author">- Alex Johnson</div>
+                    </div>
+                    <div class="testimonial">
+                        <p>"The curated newsletter saves me hours every day."</p>
+                        <div class="testimonial-author">- Sarah Williams</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Subscription Form -->
+            <div>
+                <div class="success-message" id="successMessage">
+                    ✅ Thank you for subscribing! Check your email to confirm your subscription.
+                </div>
+
+                <form class="newsletter-form" id="newsletterForm" onsubmit="handleSubscribe(event)">
+                    <h2>Subscribe Now</h2>
+
+                    <!-- Email Field -->
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            placeholder="your@email.com" 
+                            required 
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <!-- Name Field -->
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            placeholder="John Doe" 
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <!-- Interests -->
+                    <div class="form-group">
+                        <label>Select Your Interests</label>
+                        <div class="interests">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="tech" name="interests" value="technology">
+                                <label for="tech">🔧 Technology</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="sports" name="interests" value="sports">
+                                <label for="sports">⚽ Sports</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="health" name="interests" value="health">
+                                <label for="health">🏥 Health</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="business" name="interests" value="business">
+                                <label for="business">💼 Business</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="politics" name="interests" value="politics">
+                                <label for="politics">🏛️ Politics</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="entertainment" name="interests" value="entertainment">
+                                <label for="entertainment">🎬 Entertainment</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Frequency -->
+                    <div class="form-group">
+                        <label>Newsletter Frequency *</label>
+                        <div class="frequency-options">
+                            <div class="radio-option">
+                                <input type="radio" id="daily" name="frequency" value="daily" checked required>
+                                <label for="daily">Daily 📅</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="weekly" name="frequency" value="weekly" required>
+                                <label for="weekly">Weekly 📆</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="monthly" name="frequency" value="monthly" required>
+                                <label for="monthly">Monthly 📋</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Notice -->
+                    <div class="form-group">
+                        <label style="display: flex; align-items: flex-start;">
+                            <input type="checkbox" required style="margin-top: 5px;">
+                            <span style="margin-left: 10px; font-size: 12px; line-height: 1.4;">I agree to receive newsletter emails and have read the <a href="privacy-policy.html">privacy policy</a></span>
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">📬 Subscribe to Newsletter</button>
+
+                    <!-- Privacy Information -->
+                    <div class="privacy-notice">
+                        💡 We respect your privacy. Your email will never be shared or sold. You can unsubscribe anytime with a single click.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 News Portal. All rights reserved.</p>
+            <nav>
+                <a href="terms.html">Terms</a>
+                <a href="privacy-policy.html">Privacy</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubscribe(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
+            const frequency = document.querySelector('input[name="frequency"]:checked').value;
+            
+            // Get selected interests
+            const selectedInterests = [];
+            document.querySelectorAll('input[name="interests"]:checked').forEach(checkbox => {
+                selectedInterests.push(checkbox.value);
+            });
+
+            // Here you would send data to your backend
+            console.log({
+                email: email,
+                name: name,
+                interests: selectedInterests,
+                frequency: frequency
+            });
+
+            // Show success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+
+            // Reset form
+            document.getElementById('newsletterForm').reset();
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+
+            // TODO: Send subscription data to backend API
+        }
+
+        // Initialize form on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Newsletter page loaded');
+        });
+    </script>
+</body>
+</html>

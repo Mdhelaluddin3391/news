@@ -100,7 +100,73 @@ export const articles = [
     views: 1980,
     is_trending: true,
     is_breaking: false
+  },
+  {
+    id: 108,
+    title: 'Olympic Athletes Break Multiple Records',
+    excerpt: 'Historic performances in swimming, track, and gymnastics.',
+    content: `Record-breaking performances dominated day three with five new world records.`,
+    image: 'https://picsum.photos/800/450?random=8',
+    category_slug: 'sports',
+    author: 'Marcus Thompson',
+    date: '2026-02-13T16:20:00Z',
+    views: 2850,
+    is_trending: true,
+    is_breaking: false
+  },
+  {
+    id: 109,
+    title: 'Celebrity Announces Charity Initiative for Education',
+    excerpt: 'Major donation supports schools in underserved communities.',
+    content: `A renowned celebrity pledged significant financial support to educational programs.`,
+    image: 'https://picsum.photos/800/450?random=9',
+    category_slug: 'entertainment',
+    author: 'Jessica Monroe',
+    date: '2026-02-12T13:45:00Z',
+    views: 1340,
+    is_trending: false,
+    is_breaking: false
+  },
+  {
+    id: 110,
+    title: 'Scientists Discover New Marine Species',
+    excerpt: 'Expedition uncovers never-before-seen bioluminescent creature.',
+    content: `An international research team discovered a previously unknown species of bioluminescent squid.`,
+    image: 'https://picsum.photos/800/450?random=10',
+    category_slug: 'world',
+    author: 'Dr. James Wilson',
+    date: '2026-02-11T09:30:00Z',
+    views: 2100,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 111,
+    title: 'Tech Giants Merge in Historic Deal',
+    excerpt: 'Two industry leaders combine to create new powerhouse company.',
+    content: `Two major technology companies announced a merger worth over $500 billion.`,
+    image: 'https://picsum.photos/800/450?random=11',
+    category_slug: 'business',
+    author: 'Robert Kim',
+    date: '2026-02-10T11:00:00Z',
+    views: 3650,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 112,
+    title: 'New Smartphone Features Revolutionary Camera',
+    excerpt: 'Company releases device with advanced computational photography.',
+    content: `The latest smartphone features groundbreaking AI-powered camera technology.`,
+    image: 'https://picsum.photos/800/450?random=12',
+    category_slug: 'technology',
+    author: 'Alex Turner',
+    date: '2026-02-09T14:15:00Z',
+    views: 4200,
+    is_trending: true,
+    is_breaking: false
   }
+
 ];
 
 export const userProfile = {
@@ -150,7 +216,73 @@ export const teamMembers = [
     bio: 'Elena leads our fact-checking division, ensuring accuracy and credibility in all our published content.',
     image: 'https://images.unsplash.com/photo-1494790108755-2616b786d4d9?auto=format&fit=crop&w=400&q=80',
     social: { twitter: '#', linkedin: '#', email: '#' }
+  },
+  {
+    id: 108,
+    title: 'Olympic Athletes Break Multiple Records',
+    excerpt: 'Historic performances in swimming, track, and gymnastics.',
+    content: `Record-breaking performances dominated day three with five new world records.`,
+    image: 'https://picsum.photos/800/450?random=8',
+    category_slug: 'sports',
+    author: 'Marcus Thompson',
+    date: '2026-02-13T16:20:00Z',
+    views: 2850,
+    is_trending: true,
+    is_breaking: false
+  },
+  {
+    id: 109,
+    title: 'Celebrity Announces Charity Initiative for Education',
+    excerpt: 'Major donation supports schools in underserved communities.',
+    content: `A renowned celebrity pledged significant financial support to educational programs.`,
+    image: 'https://picsum.photos/800/450?random=9',
+    category_slug: 'entertainment',
+    author: 'Jessica Monroe',
+    date: '2026-02-12T13:45:00Z',
+    views: 1340,
+    is_trending: false,
+    is_breaking: false
+  },
+  {
+    id: 110,
+    title: 'Scientists Discover New Marine Species',
+    excerpt: 'Expedition uncovers never-before-seen bioluminescent creature.',
+    content: `An international research team discovered a previously unknown species of bioluminescent squid.`,
+    image: 'https://picsum.photos/800/450?random=10',
+    category_slug: 'world',
+    author: 'Dr. James Wilson',
+    date: '2026-02-11T09:30:00Z',
+    views: 2100,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 111,
+    title: 'Tech Giants Merge in Historic Deal',
+    excerpt: 'Two industry leaders combine to create new powerhouse company.',
+    content: `Two major technology companies announced a merger worth over $500 billion.`,
+    image: 'https://picsum.photos/800/450?random=11',
+    category_slug: 'business',
+    author: 'Robert Kim',
+    date: '2026-02-10T11:00:00Z',
+    views: 3650,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 112,
+    title: 'New Smartphone Features Revolutionary Camera',
+    excerpt: 'Company releases device with advanced computational photography.',
+    content: `The latest smartphone features groundbreaking AI-powered camera technology.`,
+    image: 'https://picsum.photos/800/450?random=12',
+    category_slug: 'technology',
+    author: 'Alex Turner',
+    date: '2026-02-09T14:15:00Z',
+    views: 4200,
+    is_trending: true,
+    is_breaking: false
   }
+
 ];
 
 export const contactInfo = {
@@ -184,7 +316,73 @@ export const offices = [
     phone: '+81 3-1234-5678',
     hours: 'Mon-Fri: 9AM-6PM JST',
     image: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=80'
+  },
+  {
+    id: 108,
+    title: 'Olympic Athletes Break Multiple Records',
+    excerpt: 'Historic performances in swimming, track, and gymnastics.',
+    content: `Record-breaking performances dominated day three with five new world records.`,
+    image: 'https://picsum.photos/800/450?random=8',
+    category_slug: 'sports',
+    author: 'Marcus Thompson',
+    date: '2026-02-13T16:20:00Z',
+    views: 2850,
+    is_trending: true,
+    is_breaking: false
+  },
+  {
+    id: 109,
+    title: 'Celebrity Announces Charity Initiative for Education',
+    excerpt: 'Major donation supports schools in underserved communities.',
+    content: `A renowned celebrity pledged significant financial support to educational programs.`,
+    image: 'https://picsum.photos/800/450?random=9',
+    category_slug: 'entertainment',
+    author: 'Jessica Monroe',
+    date: '2026-02-12T13:45:00Z',
+    views: 1340,
+    is_trending: false,
+    is_breaking: false
+  },
+  {
+    id: 110,
+    title: 'Scientists Discover New Marine Species',
+    excerpt: 'Expedition uncovers never-before-seen bioluminescent creature.',
+    content: `An international research team discovered a previously unknown species of bioluminescent squid.`,
+    image: 'https://picsum.photos/800/450?random=10',
+    category_slug: 'world',
+    author: 'Dr. James Wilson',
+    date: '2026-02-11T09:30:00Z',
+    views: 2100,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 111,
+    title: 'Tech Giants Merge in Historic Deal',
+    excerpt: 'Two industry leaders combine to create new powerhouse company.',
+    content: `Two major technology companies announced a merger worth over $500 billion.`,
+    image: 'https://picsum.photos/800/450?random=11',
+    category_slug: 'business',
+    author: 'Robert Kim',
+    date: '2026-02-10T11:00:00Z',
+    views: 3650,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 112,
+    title: 'New Smartphone Features Revolutionary Camera',
+    excerpt: 'Company releases device with advanced computational photography.',
+    content: `The latest smartphone features groundbreaking AI-powered camera technology.`,
+    image: 'https://picsum.photos/800/450?random=12',
+    category_slug: 'technology',
+    author: 'Alex Turner',
+    date: '2026-02-09T14:15:00Z',
+    views: 4200,
+    is_trending: true,
+    is_breaking: false
   }
+
 ];
 
 // Simple comments store for articles
@@ -204,5 +402,71 @@ export const comments = [
     email: 'elena@example.com',
     text: "Thank you for the thoughtful article. Our goal isn't to replace human creativity but to enhance it. The best results come from human-AI teams.",
     date: '2026-02-20T10:15:00Z'
+  },
+  {
+    id: 108,
+    title: 'Olympic Athletes Break Multiple Records',
+    excerpt: 'Historic performances in swimming, track, and gymnastics.',
+    content: `Record-breaking performances dominated day three with five new world records.`,
+    image: 'https://picsum.photos/800/450?random=8',
+    category_slug: 'sports',
+    author: 'Marcus Thompson',
+    date: '2026-02-13T16:20:00Z',
+    views: 2850,
+    is_trending: true,
+    is_breaking: false
+  },
+  {
+    id: 109,
+    title: 'Celebrity Announces Charity Initiative for Education',
+    excerpt: 'Major donation supports schools in underserved communities.',
+    content: `A renowned celebrity pledged significant financial support to educational programs.`,
+    image: 'https://picsum.photos/800/450?random=9',
+    category_slug: 'entertainment',
+    author: 'Jessica Monroe',
+    date: '2026-02-12T13:45:00Z',
+    views: 1340,
+    is_trending: false,
+    is_breaking: false
+  },
+  {
+    id: 110,
+    title: 'Scientists Discover New Marine Species',
+    excerpt: 'Expedition uncovers never-before-seen bioluminescent creature.',
+    content: `An international research team discovered a previously unknown species of bioluminescent squid.`,
+    image: 'https://picsum.photos/800/450?random=10',
+    category_slug: 'world',
+    author: 'Dr. James Wilson',
+    date: '2026-02-11T09:30:00Z',
+    views: 2100,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 111,
+    title: 'Tech Giants Merge in Historic Deal',
+    excerpt: 'Two industry leaders combine to create new powerhouse company.',
+    content: `Two major technology companies announced a merger worth over $500 billion.`,
+    image: 'https://picsum.photos/800/450?random=11',
+    category_slug: 'business',
+    author: 'Robert Kim',
+    date: '2026-02-10T11:00:00Z',
+    views: 3650,
+    is_trending: true,
+    is_breaking: true
+  },
+  {
+    id: 112,
+    title: 'New Smartphone Features Revolutionary Camera',
+    excerpt: 'Company releases device with advanced computational photography.',
+    content: `The latest smartphone features groundbreaking AI-powered camera technology.`,
+    image: 'https://picsum.photos/800/450?random=12',
+    category_slug: 'technology',
+    author: 'Alex Turner',
+    date: '2026-02-09T14:15:00Z',
+    views: 4200,
+    is_trending: true,
+    is_breaking: false
   }
+
 ];

@@ -1,0 +1,5 @@
+.category-news-card img {
+  width: 100%;
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+}

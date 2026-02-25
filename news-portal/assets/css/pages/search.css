@@ -1,0 +1,12 @@
+.result-item {
+  background: var(--white);
+  padding: 15px;
+  border-radius: var(--radius);
+  margin-bottom: 15px;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}

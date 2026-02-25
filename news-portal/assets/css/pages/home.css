@@ -1,0 +1,11 @@
+.breaking-news-section {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+
+.trending-section {
+  margin-top: 40px;
+}

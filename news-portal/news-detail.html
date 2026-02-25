@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article - NewsPortal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/pages/news-detail.css">
+</head>
+
+<body>
+
+    <div id="navbar-placeholder"></div>
+
+    <main class="container article-layout">
+
+        <article>
+
+            <header class="article-header">
+                <h1 id="article-title"></h1>
+                <div id="article-meta"></div>
+            </header>
+
+            <div class="article-featured-image">
+                <img id="article-image" src="" alt="">
+            </div>
+
+            <div id="article-content" class="article-content">
+                <!-- Dynamic Content -->
+            </div>
+
+        </article>
+
+        <section class="related-section">
+            <h3>Related Articles</h3>
+            <div id="related-placeholder"></div>
+        </section>
+
+        <section class="comments-section">
+            <h3>Comments</h3>
+            <div id="comments-list"></div>
+
+            <form id="commentForm">
+                <input type="text" id="commentName" placeholder="Your Name" required>
+                <textarea id="commentText" placeholder="Write a comment..." required></textarea>
+                <button type="submit">Post Comment</button>
+            </form>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="assets/js/pages/news-detail.js"></script>
+</body>
+</html>

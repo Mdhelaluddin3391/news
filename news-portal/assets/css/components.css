@@ -1,0 +1,78 @@
+/* ================= NAVBAR ================= */
+.site-nav {
+  background: var(--secondary-color);
+  color: var(--white);
+  padding: 15px 0;
+}
+
+.nav-container {
+  max-width: var(--container-width);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+/* ================= BUTTON ================= */
+.btn {
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--primary-color);
+  color: var(--white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: #c92a35;
+}
+
+/* ================= NEWS CARD ================= */
+.news-card,
+.category-news-card,
+.trending-item {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 15px;
+  transition: var(--transition);
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ================= FOOTER ================= */
+.site-footer {
+  background: var(--dark-bg);
+  color: var(--white);
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.footer-nav {
+  margin-top: 10px;
+}
+
+.footer-nav a {
+  color: var(--white);
+  margin: 0 10px;
+  font-size: 14px;
+}

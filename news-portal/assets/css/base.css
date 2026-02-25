@@ -1,0 +1,57 @@
+/* ===============================
+   ROOT VARIABLES (Your Theme Based)
+================================= */
+:root {
+  --primary-color: #e63946;
+  --secondary-color: #1d3557;
+  --accent-color: #457b9d;
+  --background-color: #f8f9fa;
+  --dark-bg: #111827;
+  --text-color: #222;
+  --text-light: #6c757d;
+  --white: #ffffff;
+  --border-color: #e5e7eb;
+
+  --container-width: 1200px;
+  --radius: 8px;
+  --transition: 0.3s ease;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* Container */
+.container {
+  max-width: var(--container-width);
+  margin: auto;
+  padding: 20px;
+}

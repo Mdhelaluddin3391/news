@@ -1,12 +1,13 @@
 from django.db import models
-from apps.core.models import TimeStampedModel
 
-class ContactMessage(TimeStampedModel):
-    name = models.CharField(max_length=100)
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=255)
     email = models.EmailField()
     message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    is_resolved = models.BooleanField(default=False)
+    class Meta:
+        ordering = ['-created_at']
 
     def __str__(self):
         return self.name

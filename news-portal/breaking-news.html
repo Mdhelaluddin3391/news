@@ -2,27 +2,1531 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Breaking News - NewsPortal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/components.css">
+    <title>Breaking News & Live Updates - Global News Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #d32f2f;
+            --accent-color: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --breaking-color: #d32f2f;
+            --breaking-dark: #b71c1c;
+            --breaking-light: #ffebee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date-time {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .main-header {
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: -5px;
+        }
+        
+        .ad-banner {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--text-light);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 20px;
+            display: block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links .active a {
+            background-color: var(--breaking-color);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: #b71c1c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Breaking News Header */
+        .breaking-header {
+            background-color: var(--breaking-color);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .breaking-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1) 75%, transparent 75%);
+            background-size: 20px 20px;
+            opacity: 0.2;
+        }
+        
+        .breaking-title {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .breaking-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #ff5252;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        .breaking-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            position: relative;
+        }
+        
+        .breaking-stat-item {
+            text-align: center;
+        }
+        
+        .breaking-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .breaking-stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        /* Live Feed */
+        .live-feed-container {
+            background-color: var(--white);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+        
+        .live-feed-header {
+            background-color: var(--breaking-color);
+            color: var(--white);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .live-feed-header h2 {
+            margin-bottom: 0;
+            color: var(--white);
+        }
+        
+        .refresh-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        
+        .refresh-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .refresh-btn.spinning i {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .live-feed {
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        
+        .feed-item {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .feed-item:hover {
+            background-color: var(--breaking-light);
+        }
+        
+        .feed-item.breaking {
+            border-left: 5px solid var(--breaking-color);
+            background-color: rgba(211, 47, 47, 0.05);
+        }
+        
+        .feed-item.alert {
+            border-left: 5px solid #ff9800;
+            background-color: rgba(255, 152, 0, 0.05);
+        }
+        
+        .feed-item.update {
+            border-left: 5px solid #2196f3;
+            background-color: rgba(33, 150, 243, 0.05);
+        }
+        
+        .feed-time {
+            font-size: 0.9rem;
+            color: var(--breaking-color);
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feed-time i {
+            font-size: 0.8rem;
+        }
+        
+        .feed-category {
+            display: inline-block;
+            background-color: var(--breaking-color);
+            color: var(--white);
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        
+        .feed-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .feed-content {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .feed-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        .feed-source {
+            font-weight: 500;
+        }
+        
+        /* Breaking News Alert */
+        .breaking-alert {
+            background-color: var(--breaking-color);
+            color: var(--white);
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .breaking-alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #ff9800;
+            animation: alertStrip 2s infinite;
+        }
+        
+        @keyframes alertStrip {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .alert-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .alert-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .alert-title {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+        
+        .alert-content {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .alert-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .alert-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .alert-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .alert-btn.primary {
+            background-color: #ff9800;
+        }
+        
+        .alert-btn.primary:hover {
+            background-color: #f57c00;
+        }
+        
+        /* Map Section */
+        .map-section {
+            background-color: var(--accent-color);
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .map-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .map-placeholder {
+            height: 300px;
+            background-color: #ddd;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .map-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--breaking-color);
+        }
+        
+        .map-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        
+        .legend-breaking {
+            background-color: var(--breaking-color);
+        }
+        
+        .legend-alert {
+            background-color: #ff9800;
+        }
+        
+        .legend-update {
+            background-color: #2196f3;
+        }
+        
+        /* Sidebar */
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--breaking-color);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .top-breaking-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .top-breaking-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--breaking-color);
+            margin-right: 15px;
+            min-width: 40px;
+        }
+        
+        .top-breaking-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .top-breaking-category {
+            font-size: 0.8rem;
+            color: var(--breaking-color);
+            font-weight: 700;
+        }
+        
+        .developing-stories {
+            margin-bottom: 30px;
+        }
+        
+        .developing-story {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .developing-badge {
+            background-color: #ff9800;
+            color: var(--white);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 3px;
+            margin-right: 10px;
+            height: fit-content;
+        }
+        
+        .developing-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .developing-time {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .emergency-info {
+            background-color: var(--accent-color);
+            padding: 25px;
+            border-radius: 5px;
+        }
+        
+        .emergency-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .emergency-list {
+            list-style: none;
+        }
+        
+        .emergency-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .emergency-list li::before {
+            content: '\f0e7';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--breaking-color);
+        }
+        
+        /* Live Updates Banner */
+        .live-updates-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 0;
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .live-updates-banner.show {
+            transform: translateY(0);
+        }
+        
+        .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .banner-text {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .new-updates {
+            background-color: var(--breaking-color);
+            color: var(--white);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .banner-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .banner-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .banner-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .banner-btn.primary {
+            background-color: var(--breaking-color);
+        }
+        
+        .banner-btn.primary:hover {
+            background-color: var(--breaking-dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding-top: 50px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            background-color: #0d1b36;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ad-banner {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar input {
+                width: 150px;
+            }
+            
+            .breaking-title {
+                font-size: 2.5rem;
+            }
+            
+            .banner-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .breaking-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .alert-actions {
+                flex-direction: column;
+            }
+            
+            .feed-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Top Bar with Date and Social Links -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="date-time">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
 
-    <div id="navbar-placeholder"></div>
+    <!-- Main Header with Logo -->
+    <header>
+        <div class="container main-header">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Global News Network</div>
+                        <div class="logo-tagline">Trusted News Worldwide</div>
+                    </div>
+                </a>
+                <div class="ad-banner">
+                    Advertisement Banner - 728x90
+                </div>
+            </div>
+        </div>
 
-    <main class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="container navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="technology.html">Technology</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li class="active"><a href="breaking-news.html">Breaking News</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search breaking news...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-        <h1>Breaking News</h1>
-        <div id="breaking-feed"></div>
+    <!-- Breaking News Header -->
+    <div class="breaking-header">
+        <div class="container">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span>LIVE UPDATES</span>
+            </div>
+            <h1 class="breaking-title">Breaking News</h1>
+            <p class="breaking-subtitle">Real-time updates on developing stories from around the world</p>
+            <div class="breaking-stats">
+                <div class="breaking-stat-item">
+                    <span class="breaking-stat-number" id="active-stories">47</span>
+                    <span class="breaking-stat-label">Active Stories</span>
+                </div>
+                <div class="breaking-stat-item">
+                    <span class="breaking-stat-number" id="updates-today">312</span>
+                    <span class="breaking-stat-label">Updates Today</span>
+                </div>
+                <div class="breaking-stat-item">
+                    <span class="breaking-stat-number" id="live-sources">28</span>
+                    <span class="breaking-stat-label">Live Sources</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </main>
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Left Column - Live Feed -->
+        <div class="left-column">
+            <!-- Breaking News Alert -->
+            <div class="breaking-alert">
+                <div class="alert-header">
+                    <div class="alert-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="alert-title">MAJOR EARTHQUAKE HITS COASTAL REGION</h3>
+                </div>
+                <div class="alert-content">
+                    A 7.2 magnitude earthquake has struck the coastal region, triggering tsunami warnings. Emergency services are responding. Casualty reports are still coming in. Stay tuned for updates.
+                </div>
+                <div class="alert-actions">
+                    <button class="alert-btn primary" id="followStoryBtn">
+                        <i class="fas fa-bell"></i> Follow This Story
+                    </button>
+                    <button class="alert-btn" id="safetyInfoBtn">
+                        <i class="fas fa-info-circle"></i> Safety Information
+                    </button>
+                </div>
+            </div>
 
-    <div id="footer-placeholder"></div>
+            <!-- Live Feed -->
+            <div class="live-feed-container">
+                <div class="live-feed-header">
+                    <h2><i class="fas fa-broadcast-tower"></i> Live News Feed</h2>
+                    <button class="refresh-btn" id="refreshFeedBtn">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="live-feed" id="liveFeed">
+                    <!-- Feed items will be added here by JavaScript -->
+                </div>
+            </div>
 
-    <script type="module" src="assets/js/pages/breaking.js"></script>
+            <!-- Map Section -->
+            <div class="map-section">
+                <h3><i class="fas fa-map-marked-alt"></i> Breaking News Map</h3>
+                <div class="map-placeholder">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Live Breaking News Map</span>
+                    <small>Showing real-time incident locations</small>
+                </div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color legend-breaking"></div>
+                        <span>Breaking News</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-alert"></div>
+                        <span>Alert / Warning</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color legend-update"></div>
+                        <span>Recent Update</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="right-column">
+            <!-- Top Breaking Stories -->
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">TOP BREAKING STORIES</h3>
+                <div class="top-breaking-item">
+                    <div class="top-breaking-number">01</div>
+                    <div class="top-breaking-content">
+                        <h4>Major Earthquake Hits Coastal Region, Tsunami Warning Issued</h4>
+                        <div class="top-breaking-category">DISASTER</div>
+                    </div>
+                </div>
+                <div class="top-breaking-item">
+                    <div class="top-breaking-number">02</div>
+                    <div class="top-breaking-content">
+                        <h4>Political Crisis Deepens as Government Faces No-Confidence Vote</h4>
+                        <div class="top-breaking-category">POLITICS</div>
+                    </div>
+                </div>
+                <div class="top-breaking-item">
+                    <div class="top-breaking-number">03</div>
+                    <div class="top-breaking-content">
+                        <h4>Stock Markets Plunge Amid Economic Uncertainty</h4>
+                        <div class="top-breaking-category">BUSINESS</div>
+                    </div>
+                </div>
+                <div class="top-breaking-item">
+                    <div class="top-breaking-number">04</div>
+                    <div class="top-breaking-content">
+                        <h4>Cyberattack Cripples Major Government Systems</h4>
+                        <div class="top-breaking-category">TECHNOLOGY</div>
+                    </div>
+                </div>
+                <div class="top-breaking-item">
+                    <div class="top-breaking-number">05</div>
+                    <div class="top-breaking-content">
+                        <h4>Major Transportation Hub Shut Down Due to Security Threat</h4>
+                        <div class="top-breaking-category">SECURITY</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developing Stories -->
+            <div class="sidebar-section developing-stories">
+                <h3 class="sidebar-title">DEVELOPING STORIES</h3>
+                <div class="developing-story">
+                    <div class="developing-badge">DEVELOPING</div>
+                    <div class="developing-content">
+                        <h4>Rescue Operations Underway After Earthquake</h4>
+                        <div class="developing-time">Updated 15 min ago</div>
+                    </div>
+                </div>
+                <div class="developing-story">
+                    <div class="developing-badge">DEVELOPING</div>
+                    <div class="developing-content">
+                        <h4>International Response to Political Crisis</h4>
+                        <div class="developing-time">Updated 25 min ago</div>
+                    </div>
+                </div>
+                <div class="developing-story">
+                    <div class="developing-badge">DEVELOPING</div>
+                    <div class="developing-content">
+                        <h4>Markets Continue Volatile Trading</h4>
+                        <div class="developing-time">Updated 40 min ago</div>
+                    </div>
+                </div>
+                <div class="developing-story">
+                    <div class="developing-badge">DEVELOPING</div>
+                    <div class="developing-content">
+                        <h4>Investigation Into Cyberattack Origins</h4>
+                        <div class="developing-time">Updated 1 hour ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Information -->
+            <div class="sidebar-section">
+                <div class="emergency-info">
+                    <h3><i class="fas fa-first-aid"></i> EMERGENCY INFORMATION</h3>
+                    <ul class="emergency-list">
+                        <li>Tsunami Warning: Move to higher ground immediately</li>
+                        <li>Emergency Hotline: 1-800-555-HELP</li>
+                        <li>Local Shelters: Check with local authorities</li>
+                        <li>Power Outages: Report to utility companies</li>
+                        <li>Road Closures: Avoid affected areas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Advertisement -->
+            <div class="sidebar-section">
+                <div class="ad-banner" style="height: 250px;">
+                    Advertisement<br>300x250
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Updates Banner -->
+    <div class="live-updates-banner" id="liveUpdatesBanner">
+        <div class="container banner-content">
+            <div class="banner-text">
+                <div class="new-updates">NEW UPDATES</div>
+                <div id="bannerMessage">New breaking news updates available</div>
+            </div>
+            <div class="banner-actions">
+                <button class="banner-btn" id="dismissBannerBtn">Dismiss</button>
+                <button class="banner-btn primary" id="loadUpdatesBtn">
+                    <i class="fas fa-sync-alt"></i> Load Updates
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Global News Network</h3>
+                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Alert Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Breaking News Alerts</a></li>
+                        <li><a href="#">Emergency Notifications</a></li>
+                        <li><a href="#">Weather Alerts</a></li>
+                        <li><a href="#">Traffic Updates</a></li>
+                        <li><a href="#">Security Advisories</a></li>
+                        <li><a href="#">Health Alerts</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 News Street, Media City, MC 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@globalnewsnetwork.com</li>
+                        <li><i class="fas fa-clock"></i> 24/7 Breaking News Desk</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                &copy; 2023 Global News Network. All rights reserved. | Breaking News updates 24/7
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initial breaking news feed data
+        const breakingNewsFeed = [
+            {
+                time: "15:42",
+                category: "DISASTER",
+                title: "Earthquake magnitude upgraded to 7.2, tsunami warning extended",
+                content: "Seismic experts have upgraded the earthquake magnitude to 7.2. Tsunami warnings now extended to additional coastal areas.",
+                source: "Geological Survey",
+                type: "breaking"
+            },
+            {
+                time: "15:30",
+                category: "RESCUE",
+                title: "International rescue teams dispatched to affected region",
+                content: "UN confirms deployment of international search and rescue teams. Several countries offering assistance.",
+                source: "United Nations",
+                type: "update"
+            },
+            {
+                time: "15:25",
+                category: "POLITICS",
+                title: "Emergency cabinet meeting called amid political crisis",
+                content: "Government calls emergency cabinet meeting as opposition parties demand immediate elections.",
+                source: "Political Desk",
+                type: "breaking"
+            },
+            {
+                time: "15:18",
+                category: "TRANSPORT",
+                title: "Major airport shut down due to security concerns",
+                content: "International airport closed indefinitely. All flights diverted to alternate airports.",
+                source: "Aviation Authority",
+                type: "alert"
+            },
+            {
+                time: "15:10",
+                category: "ECONOMY",
+                title: "Central Bank announces emergency measures to stabilize markets",
+                content: "Interest rates cut by 0.5%. Additional liquidity measures announced to calm financial markets.",
+                source: "Financial Desk",
+                type: "update"
+            },
+            {
+                time: "15:05",
+                category: "WEATHER",
+                title: "Severe weather warning for earthquake-affected region",
+                content: "Heavy rainfall expected in earthquake zone, complicating rescue efforts. Flash flood warnings issued.",
+                source: "Meteorological Dept",
+                type: "alert"
+            },
+            {
+                time: "14:58",
+                category: "HEALTH",
+                title: "Hospitals on high alert, medical supplies being airlifted",
+                content: "Major hospitals activating emergency protocols. Medical supply flights en route to affected areas.",
+                source: "Health Ministry",
+                type: "update"
+            },
+            {
+                time: "14:50",
+                category: "TECHNOLOGY",
+                title: "Communication networks partially restored in affected areas",
+                content: "Telecom companies report partial restoration of services. Emergency communication channels established.",
+                source: "Technology Desk",
+                type: "update"
+            }
+        ];
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Update date/time immediately and then every minute
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Initialize live feed
+        function renderLiveFeed() {
+            const liveFeed = document.getElementById('liveFeed');
+            liveFeed.innerHTML = '';
+            
+            breakingNewsFeed.forEach(item => {
+                const feedItem = document.createElement('div');
+                feedItem.className = `feed-item ${item.type}`;
+                
+                feedItem.innerHTML = `
+                    <div class="feed-time">
+                        <i class="far fa-clock"></i>
+                        <span>${item.time} | LIVE</span>
+                    </div>
+                    <div class="feed-category">${item.category}</div>
+                    <h4 class="feed-title">${item.title}</h4>
+                    <div class="feed-content">${item.content}</div>
+                    <div class="feed-meta">
+                        <div class="feed-source">Source: ${item.source}</div>
+                        <div>
+                            <a href="#" class="comment-action">Follow</a> | 
+                            <a href="#" class="comment-action">Share</a>
+                        </div>
+                    </div>
+                `;
+                
+                liveFeed.appendChild(feedItem);
+            });
+        }
+        
+        // Initial render
+        renderLiveFeed();
+        
+        // Refresh feed functionality
+        const refreshFeedBtn = document.getElementById('refreshFeedBtn');
+        refreshFeedBtn.addEventListener('click', function() {
+            // Add spinning animation
+            this.classList.add('spinning');
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Remove spinning animation
+                this.classList.remove('spinning');
+                
+                // Add a new feed item at the top
+                const newUpdateTime = new Date();
+                const timeString = `${newUpdateTime.getHours()}:${newUpdateTime.getMinutes().toString().padStart(2, '0')}`;
+                
+                const newUpdates = [
+                    {
+                        time: timeString,
+                        category: "UPDATE",
+                        title: "Rescue teams report successful extraction of 15 people from collapsed building",
+                        content: "Latest reports indicate successful rescue operations with more teams arriving on scene.",
+                        source: "Rescue Command",
+                        type: "update"
+                    },
+                    {
+                        time: timeString,
+                        category: "ECONOMY",
+                        title: "Government announces emergency economic stimulus package",
+                        content: "New measures aim to support businesses and individuals affected by recent events.",
+                        source: "Treasury Dept",
+                        type: "update"
+                    }
+                ];
+                
+                // Add new updates to beginning of array
+                breakingNewsFeed.unshift(...newUpdates);
+                
+                // Keep only latest 12 items
+                if (breakingNewsFeed.length > 12) {
+                    breakingNewsFeed.length = 12;
+                }
+                
+                // Update counters
+                document.getElementById('updates-today').textContent = 
+                    parseInt(document.getElementById('updates-today').textContent) + newUpdates.length;
+                
+                // Re-render feed
+                renderLiveFeed();
+                
+                // Show banner notification
+                showBannerNotification(`${newUpdates.length} new updates available`);
+                
+                alert(`Feed refreshed! Added ${newUpdates.length} new updates.`);
+            }, 1500);
+        });
+        
+        // Follow story button
+        const followStoryBtn = document.getElementById('followStoryBtn');
+        followStoryBtn.addEventListener('click', function() {
+            const isFollowing = this.classList.contains('following');
+            
+            if (!isFollowing) {
+                this.innerHTML = '<i class="fas fa-bell-slash"></i> Unfollow Story';
+                this.classList.add('following');
+                alert('You are now following this breaking news story. You will receive alerts for major updates.');
+            } else {
+                this.innerHTML = '<i class="fas fa-bell"></i> Follow This Story';
+                this.classList.remove('following');
+                alert('You have unfollowed this story.');
+            }
+        });
+        
+        // Safety info button
+        const safetyInfoBtn = document.getElementById('safetyInfoBtn');
+        safetyInfoBtn.addEventListener('click', function() {
+            alert('SAFETY INFORMATION:\n\n1. During earthquakes: Drop, Cover, and Hold On\n2. If near coast and tsunami warning: Move to higher ground immediately\n3. Have emergency supplies ready\n4. Follow official instructions from authorities\n5. Check on neighbors, especially elderly or disabled');
+        });
+        
+        // Live updates banner
+        const liveUpdatesBanner = document.getElementById('liveUpdatesBanner');
+        const bannerMessage = document.getElementById('bannerMessage');
+        const dismissBannerBtn = document.getElementById('dismissBannerBtn');
+        const loadUpdatesBtn = document.getElementById('loadUpdatesBtn');
+        
+        function showBannerNotification(message) {
+            bannerMessage.textContent = message;
+            liveUpdatesBanner.classList.add('show');
+            
+            // Auto-hide after 30 seconds
+            setTimeout(() => {
+                liveUpdatesBanner.classList.remove('show');
+            }, 30000);
+        }
+        
+        dismissBannerBtn.addEventListener('click', () => {
+            liveUpdatesBanner.classList.remove('show');
+        });
+        
+        loadUpdatesBtn.addEventListener('click', () => {
+            refreshFeedBtn.click();
+            liveUpdatesBanner.classList.remove('show');
+        });
+        
+        // Simulate new updates arriving periodically
+        let updateCount = 0;
+        function simulateNewUpdates() {
+            updateCount++;
+            
+            if (updateCount % 3 === 0) {
+                const newUpdateTime = new Date();
+                const timeString = `${newUpdateTime.getHours()}:${newUpdateTime.getMinutes().toString().padStart(2, '0')}`;
+                
+                const simulatedUpdates = [
+                    {
+                        time: timeString,
+                        category: "DEVELOPING",
+                        title: "New developments in ongoing political negotiations",
+                        content: "Sources indicate progress in high-level talks aimed at resolving current political crisis.",
+                        source: "Political Insider",
+                        type: "update"
+                    },
+                    {
+                        time: timeString,
+                        category: "RESCUE",
+                        title: "Additional international aid arriving in affected region",
+                        content: "More countries pledging support. Relief supplies being distributed to evacuation centers.",
+                        source: "Humanitarian Desk",
+                        type: "update"
+                    }
+                ];
+                
+                // Show banner notification
+                showBannerNotification(`${simulatedUpdates.length} new updates available`);
+                
+                // Add to feed
+                breakingNewsFeed.unshift(...simulatedUpdates);
+                
+                // Keep only latest 12 items
+                if (breakingNewsFeed.length > 12) {
+                    breakingNewsFeed.length = 12;
+                }
+                
+                // Update counters
+                document.getElementById('updates-today').textContent = 
+                    parseInt(document.getElementById('updates-today').textContent) + simulatedUpdates.length;
+                document.getElementById('active-stories').textContent = 
+                    parseInt(document.getElementById('active-stories').textContent) + 1;
+            }
+            
+            // Schedule next update (between 2-5 minutes)
+            const nextUpdateTime = 120000 + Math.random() * 180000; // 2-5 minutes
+            setTimeout(simulateNewUpdates, nextUpdateTime);
+        }
+        
+        // Start simulated updates after initial load
+        setTimeout(simulateNewUpdates, 60000); // Start after 1 minute
+        
+        // Auto-refresh feed every 5 minutes
+        setInterval(() => {
+            // Only auto-refresh if user hasn't manually refreshed in last minute
+            refreshFeedBtn.click();
+        }, 300000); // 5 minutes
+        
+        // Feed item click functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.feed-item')) {
+                const feedItem = e.target.closest('.feed-item');
+                const title = feedItem.querySelector('.feed-title').textContent;
+                alert(`Opening detailed update: "${title}"\nIn a full implementation, this would show detailed information about this breaking news update.`);
+            }
+            
+            if (e.target.closest('.top-breaking-item') || e.target.closest('.developing-story')) {
+                const item = e.target.closest('.top-breaking-item') || e.target.closest('.developing-story');
+                const title = item.querySelector('h4').textContent;
+                alert(`Opening breaking story: "${title}"\nThis would navigate to a detailed article about this breaking news story.`);
+            }
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Searching breaking news for: "${query}"\nThis would filter the live feed to show only relevant updates.`);
+                searchInput.value = '';
+            }
+        });
+        
+        // Emergency list item click
+        const emergencyItems = document.querySelectorAll('.emergency-list li');
+        emergencyItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const infoText = item.textContent;
+                alert(`Emergency Information: ${infoText}\nThis would provide detailed instructions or contact information.`);
+            });
+        });
+        
+        // Initialize with banner after page loads
+        setTimeout(() => {
+            showBannerNotification('Live breaking news feed is active. Updates every 2-5 minutes.');
+        }, 3000);
+    </script>
 </body>
 </html>

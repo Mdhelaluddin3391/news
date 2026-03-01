@@ -2,32 +2,1207 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search - NewsPortal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/pages/search.css">
+    <title>Search Results - Global News Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #d32f2f;
+            --accent-color: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --search-color: #FF9800;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date-time {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .main-header {
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: -5px;
+        }
+        
+        .ad-banner {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--text-light);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 20px;
+            display: block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links .active a {
+            background-color: var(--search-color);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: #b71c1c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Search Header */
+        .search-header {
+            background-color: var(--search-color);
+            color: var(--white);
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        .search-header-content {
+            text-align: center;
+        }
+        
+        .search-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .search-query {
+            font-size: 1.5rem;
+            font-weight: 300;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .search-stats {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .search-stats strong {
+            font-weight: 700;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        /* Search Filters */
+        .search-filters {
+            background-color: var(--white);
+            border-radius: 5px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+        }
+        
+        .filters-section {
+            margin-bottom: 30px;
+        }
+        
+        .filters-section h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .filter-options {
+            list-style: none;
+        }
+        
+        .filter-options li {
+            margin-bottom: 10px;
+        }
+        
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .filter-options input {
+            margin-right: 10px;
+        }
+        
+        .date-range {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .date-range input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        
+        .sort-options select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .filter-buttons button {
+            padding: 12px;
+            border: none;
+            border-radius: 3px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .apply-filters {
+            background-color: var(--search-color);
+            color: var(--white);
+        }
+        
+        .apply-filters:hover {
+            background-color: #F57C00;
+        }
+        
+        .reset-filters {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+        }
+        
+        .reset-filters:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* Search Results */
+        .search-results {
+            margin-bottom: 40px;
+        }
+        
+        .result-item {
+            background-color: var(--white);
+            border-radius: 5px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .result-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-category {
+            color: var(--search-color);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .result-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .result-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .result-title a:hover {
+            color: var(--search-color);
+        }
+        
+        .result-excerpt {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            background-color: #FFF9C4;
+            padding: 0 3px;
+            font-weight: 500;
+        }
+        
+        .result-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .result-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .result-tag {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .result-tag:hover {
+            background-color: var(--search-color);
+            color: var(--white);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        .no-results-icon {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .no-results h3 {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+        
+        .no-results p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+        
+        .search-suggestions {
+            text-align: left;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .search-suggestions h4 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        
+        .suggestion-list {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .suggestion-list li {
+            margin-bottom: 10px;
+        }
+        
+        .suggestion-list a {
+            color: var(--search-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .suggestion-list a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Related Searches */
+        .related-searches {
+            background-color: var(--accent-color);
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .related-searches h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .related-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+        
+        .related-tags a {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 1px solid #ddd;
+        }
+        
+        .related-tags a:hover {
+            background-color: var(--search-color);
+            color: var(--white);
+            border-color: var(--search-color);
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .pagination a {
+            color: var(--text-dark);
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        .pagination a:hover {
+            background-color: var(--search-color);
+            color: var(--white);
+            border-color: var(--search-color);
+        }
+        
+        .pagination a.active {
+            background-color: var(--search-color);
+            color: var(--white);
+            border-color: var(--search-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding-top: 50px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            background-color: #0d1b36;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ad-banner {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar input {
+                width: 150px;
+            }
+            
+            .search-header h1 {
+                font-size: 2rem;
+            }
+            
+            .search-query {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Top Bar with Date and Social Links -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="date-time">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
 
-    <div id="navbar-placeholder"></div>
+    <!-- Main Header with Logo -->
+    <header>
+        <div class="container main-header">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Global News Network</div>
+                        <div class="logo-tagline">Trusted News Worldwide</div>
+                    </div>
+                </a>
+                <div class="ad-banner">
+                    Advertisement Banner - 728x90
+                </div>
+            </div>
+        </div>
 
-    <main class="container">
+        <!-- Navigation -->
+        <nav>
+            <div class="container navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="technology.html">Technology</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li class="active"><a href="search.html">Search</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search news..." value="artificial intelligence">
+                    <button id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-        <h1>Search Results</h1>
-        <p id="search-info"></p>
+    <!-- Search Header -->
+    <div class="search-header">
+        <div class="container search-header-content">
+            <h1>Search Results</h1>
+            <div class="search-query">
+                "artificial intelligence"
+            </div>
+            <div class="search-stats">
+                Found <strong>247</strong> results in <strong>0.42</strong> seconds
+            </div>
+        </div>
+    </div>
 
-        <div id="search-results"></div>
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Left Column - Filters -->
+        <div class="left-column">
+            <div class="search-filters">
+                <div class="filters-section">
+                    <h3>Filter by Category</h3>
+                    <ul class="filter-options">
+                        <li>
+                            <label>
+                                <input type="checkbox" checked> Technology <span class="filter-count">(142)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Business <span class="filter-count">(38)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Health <span class="filter-count">(24)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Science <span class="filter-count">(18)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> World <span class="filter-count">(15)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Politics <span class="filter-count">(10)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="filters-section">
+                    <h3>Date Range</h3>
+                    <div class="date-range">
+                        <label>From:
+                            <input type="date" value="2023-01-01">
+                        </label>
+                        <label>To:
+                            <input type="date" value="2023-12-31">
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="filters-section">
+                    <h3>Sort By</h3>
+                    <div class="sort-options">
+                        <select>
+                            <option value="relevance">Relevance</option>
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="popular">Most Popular</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filters-section">
+                    <h3>Content Type</h3>
+                    <ul class="filter-options">
+                        <li>
+                            <label>
+                                <input type="checkbox" checked> Articles <span class="filter-count">(215)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Videos <span class="filter-count">(18)</span>
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input type="checkbox"> Podcasts <span class="filter-count">(14)</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="filter-buttons">
+                    <button class="apply-filters">Apply Filters</button>
+                    <button class="reset-filters">Reset Filters</button>
+                </div>
+            </div>
+            
+            <!-- Related Searches -->
+            <div class="related-searches">
+                <h3>Related Searches</h3>
+                <ul class="related-tags">
+                    <li><a href="search.html?q=machine+learning">machine learning</a></li>
+                    <li><a href="search.html?q=neural+networks">neural networks</a></li>
+                    <li><a href="search.html?q=deep+learning">deep learning</a></li>
+                    <li><a href="search.html?q=ai+ethics">AI ethics</a></li>
+                    <li><a href="search.html?q=robotics">robotics</a></li>
+                    <li><a href="search.html?q=automation">automation</a></li>
+                    <li><a href="search.html?q=chatgpt">ChatGPT</a></li>
+                    <li><a href="search.html?q=computer+vision">computer vision</a></li>
+                </ul>
+            </div>
+        </div>
 
-        <div class="pagination"></div>
+        <!-- Right Column - Results -->
+        <div class="right-column">
+            <div class="search-results">
+                <div class="result-item">
+                    <span class="result-category">TECHNOLOGY</span>
+                    <h3 class="result-title"><a href="#">AI Model Surpasses Human Performance in Creative Problem Solving</a></h3>
+                    <p class="result-excerpt">New <span class="highlight">artificial intelligence</span> system demonstrates ability to solve complex problems that previously required human creativity and intuition. The breakthrough could revolutionize industries from research to entertainment.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 3 hours ago</span>
+                        <span><i class="far fa-user"></i> By Sarah Johnson</span>
+                        <span><i class="far fa-eye"></i> 2.4k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Machine Learning</a>
+                        <a href="#" class="result-tag">Innovation</a>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-category">HEALTH</span>
+                    <h3 class="result-title"><a href="#">Artificial Intelligence Diagnoses Rare Diseases with 98% Accuracy</a></h3>
+                    <p class="result-excerpt">A new <span class="highlight">AI</span> system developed by researchers can identify rare diseases from medical images with unprecedented accuracy, potentially saving thousands of lives through early detection.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 1 day ago</span>
+                        <span><i class="far fa-user"></i> By Dr. Michael Chen</span>
+                        <span><i class="far fa-eye"></i> 3.8k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Healthcare</a>
+                        <a href="#" class="result-tag">Medicine</a>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-category">BUSINESS</span>
+                    <h3 class="result-title"><a href="#">Companies Report 40% Productivity Gains After AI Integration</a></h3>
+                    <p class="result-excerpt">Major corporations worldwide are reporting significant efficiency improvements following implementation of <span class="highlight">artificial intelligence</span>-powered workflow systems, with some companies seeing productivity gains of up to 40%.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 2 days ago</span>
+                        <span><i class="far fa-user"></i> By Robert Bennett</span>
+                        <span><i class="far fa-eye"></i> 4.2k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Business</a>
+                        <a href="#" class="result-tag">Productivity</a>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-category">WORLD</span>
+                    <h3 class="result-title"><a href="#">Global AI Ethics Framework Approved by United Nations</a></h3>
+                    <p class="result-excerpt">After years of negotiations, countries have agreed on a global framework for ethical <span class="highlight">artificial intelligence</span> development. The guidelines aim to prevent misuse while encouraging innovation.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 3 days ago</span>
+                        <span><i class="far fa-user"></i> By Elena Kowalski</span>
+                        <span><i class="far fa-eye"></i> 5.1k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Policy</a>
+                        <a href="#" class="result-tag">Ethics</a>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-category">EDUCATION</span>
+                    <h3 class="result-title"><a href="#">AI Tutors Personalize Learning for 10 Million Students</a></h3>
+                    <p class="result-excerpt">Adaptive learning platforms using <span class="highlight">artificial intelligence</span> are showing remarkable improvements in student outcomes. These AI tutors customize lessons based on individual learning styles and pace.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 4 days ago</span>
+                        <span><i class="far fa-user"></i> By David Wilson</span>
+                        <span><i class="far fa-eye"></i> 2.9k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Education</a>
+                        <a href="#" class="result-tag">Technology</a>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-category">SCIENCE</span>
+                    <h3 class="result-title"><a href="#">Artificial Intelligence Discovers New Antibiotic Compound</a></h3>
+                    <p class="result-excerpt">Researchers used <span class="highlight">AI</span> to analyze millions of chemical compounds, leading to the discovery of a potent new antibiotic that can combat drug-resistant bacteria. This breakthrough demonstrates AI's potential in scientific discovery.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 5 days ago</span>
+                        <span><i class="far fa-user"></i> By Dr. Lisa Park</span>
+                        <span><i class="far fa-eye"></i> 3.5k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Science</a>
+                        <a href="#" class="result-tag">Medicine</a>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-category">ENTERTAINMENT</span>
+                    <h3 class="result-title"><a href="#">AI-Generated Film Wins Award at International Festival</a></h3>
+                    <p class="result-excerpt">A short film created entirely by <span class="highlight">artificial intelligence</span> has won the "Most Innovative" award at a major film festival, sparking debate about creativity and the future of filmmaking.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 1 week ago</span>
+                        <span><i class="far fa-user"></i> By Maria Rodriguez</span>
+                        <span><i class="far fa-eye"></i> 6.3k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Entertainment</a>
+                        <a href="#" class="result-tag">Film</a>
+                    </div>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-category">ENVIRONMENT</span>
+                    <h3 class="result-title"><a href="#">AI Helps Predict Climate Patterns with 95% Accuracy</a></h3>
+                    <p class="result-excerpt">Advanced <span class="highlight">artificial intelligence</span> models are providing unprecedented climate forecasting capabilities, helping scientists predict extreme weather events months in advance with 95% accuracy.</p>
+                    <div class="result-meta">
+                        <span><i class="far fa-clock"></i> 1 week ago</span>
+                        <span><i class="far fa-user"></i> By James Thompson</span>
+                        <span><i class="far fa-eye"></i> 2.7k views</span>
+                    </div>
+                    <div class="result-tags">
+                        <a href="#" class="result-tag">Artificial Intelligence</a>
+                        <a href="#" class="result-tag">Climate</a>
+                        <a href="#" class="result-tag">Environment</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">Next <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </div>
 
-    </main>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Global News Network</h3>
+                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Advanced Search</h3>
+                    <ul class="footer-links">
+                        <li><a href="search.html?q=latest+news">Latest News</a></li>
+                        <li><a href="search.html?q=breaking+news">Breaking News</a></li>
+                        <li><a href="search.html?type=video">Video News</a></li>
+                        <li><a href="search.html?type=podcast">Podcasts</a></li>
+                        <li><a href="search.html?sort=popular">Most Popular</a></li>
+                        <li><a href="search.html?date=today">Today's News</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 News Street, Media City, MC 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@globalnewsnetwork.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                &copy; 2023 Global News Network. All rights reserved. | Designed with professionalism and integrity
+            </div>
+        </div>
+    </footer>
 
-    <div id="footer-placeholder"></div>
-
-    <script type="module" src="assets/js/pages/search.js"></script>
+    <script>
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Update date/time immediately and then every minute
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                // In a real implementation, this would submit the search form
+                // For demo, we'll update the search query on the page
+                document.querySelector('.search-query').textContent = `"${query}"`;
+                document.querySelector('.search-stats strong').textContent = Math.floor(Math.random() * 500) + 50;
+                alert(`Searching for: "${query}"\nResults updated on the page.`);
+            }
+        });
+        
+        // Allow Enter key to trigger search
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchButton.click();
+            }
+        });
+        
+        // Filter functionality
+        const applyFiltersBtn = document.querySelector('.apply-filters');
+        const resetFiltersBtn = document.querySelector('.reset-filters');
+        const filterCheckboxes = document.querySelectorAll('.filter-options input[type="checkbox"]');
+        const sortSelect = document.querySelector('.sort-options select');
+        
+        applyFiltersBtn.addEventListener('click', () => {
+            const selectedCategories = [];
+            filterCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const label = checkbox.parentElement.textContent.split('(')[0].trim();
+                    selectedCategories.push(label);
+                }
+            });
+            
+            const sortBy = sortSelect.value;
+            const fromDate = document.querySelector('input[type="date"]').value;
+            const toDate = document.querySelectorAll('input[type="date"]')[1].value;
+            
+            alert(`Applying filters:\nCategories: ${selectedCategories.join(', ')}\nSort by: ${sortBy}\nDate range: ${fromDate} to ${toDate}\n\nSearch results would be filtered accordingly.`);
+        });
+        
+        resetFiltersBtn.addEventListener('click', () => {
+            filterCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            // Check the first few checkboxes by default
+            filterCheckboxes[0].checked = true;
+            filterCheckboxes[6].checked = true;
+            
+            sortSelect.value = 'relevance';
+            document.querySelector('input[type="date"]').value = '2023-01-01';
+            document.querySelectorAll('input[type="date"]')[1].value = '2023-12-31';
+            
+            alert('All filters have been reset to default values.');
+        });
+        
+        // Related search tags
+        const relatedTags = document.querySelectorAll('.related-tags a');
+        relatedTags.forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                const searchTerm = tag.textContent;
+                searchInput.value = searchTerm;
+                searchButton.click();
+            });
+        });
+        
+        // Highlight search terms in results (simulated)
+        function highlightSearchTerms() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const excerpts = document.querySelectorAll('.result-excerpt');
+            
+            excerpts.forEach(excerpt => {
+                const text = excerpt.textContent;
+                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                const highlighted = text.replace(regex, '<span class="highlight">$1</span>');
+                excerpt.innerHTML = highlighted;
+            });
+        }
+        
+        // Initialize highlight on page load
+        highlightSearchTerms();
+        
+        // Simulate clicking on search results
+        const resultTitles = document.querySelectorAll('.result-title a');
+        resultTitles.forEach(title => {
+            title.addEventListener('click', (e) => {
+                e.preventDefault();
+                const articleTitle = title.textContent;
+                alert(`Opening article: "${articleTitle}"\nThis would navigate to the full article in a complete implementation.`);
+            });
+        });
+        
+        // Tag click functionality
+        const resultTags = document.querySelectorAll('.result-tag');
+        resultTags.forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const tagName = tag.textContent;
+                searchInput.value = tagName;
+                searchButton.click();
+            });
+        });
+        
+        // Pagination click
+        const paginationLinks = document.querySelectorAll('.pagination a');
+        paginationLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!link.classList.contains('active')) {
+                    const pageNum = link.textContent;
+                    alert(`Loading page ${pageNum} of search results...\nThis would load more results in a complete implementation.`);
+                    
+                    // Update active state
+                    document.querySelector('.pagination a.active').classList.remove('active');
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

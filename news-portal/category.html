@@ -2,42 +2,1170 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Category - NewsPortal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/pages/category.css">
+    <title>Technology News - Global News Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #d32f2f;
+            --accent-color: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --category-tech: #3f51b5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date-time {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .main-header {
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: -5px;
+        }
+        
+        .ad-banner {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--text-light);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 20px;
+            display: block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links .active a {
+            background-color: var(--category-tech);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: #b71c1c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Category Header */
+        .category-header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .category-header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        
+        .category-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            opacity: 0.9;
+        }
+        
+        .category-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        /* Featured Category News */
+        .featured-category-news {
+            margin-bottom: 40px;
+        }
+        
+        .featured-category-item {
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .featured-category-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .featured-category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: var(--white);
+            padding: 30px;
+        }
+        
+        .featured-category-tag {
+            background-color: var(--category-tech);
+            color: var(--white);
+            padding: 5px 15px;
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-radius: 3px;
+        }
+        
+        .featured-category-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .featured-category-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        /* Category News Grid */
+        .category-news-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .category-news-card {
+            background-color: var(--white);
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .category-news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .category-news-card-content {
+            padding: 20px;
+        }
+        
+        .category-tag {
+            color: var(--category-tech);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .category-news-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .category-news-excerpt {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+        
+        .category-news-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+        
+        /* Subcategories */
+        .subcategories {
+            background-color: var(--accent-color);
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .subcategories h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .subcategory-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+        }
+        
+        .subcategory-list a {
+            background-color: var(--white);
+            color: var(--text-dark);
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            border: 1px solid #ddd;
+        }
+        
+        .subcategory-list a:hover {
+            background-color: var(--category-tech);
+            color: var(--white);
+            border-color: var(--category-tech);
+        }
+        
+        /* Sidebar */
+        .sidebar-section {
+            margin-bottom: 40px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.3rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--category-tech);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .sidebar-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .trending-tech-news-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .trending-tech-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--category-tech);
+            margin-right: 15px;
+            min-width: 40px;
+        }
+        
+        .trending-tech-content h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+        
+        .trending-tech-category {
+            font-size: 0.8rem;
+            color: var(--category-tech);
+            font-weight: 700;
+        }
+        
+        .tech-videos {
+            margin-bottom: 30px;
+        }
+        
+        .video-item {
+            margin-bottom: 20px;
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .video-thumbnail:hover img {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0,0,0,0.7);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .video-title {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .video-meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        
+        .tech-companies {
+            margin-bottom: 30px;
+        }
+        
+        .company-list {
+            list-style: none;
+        }
+        
+        .company-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .company-name {
+            font-weight: 500;
+        }
+        
+        .company-stock {
+            font-weight: 700;
+            color: #4CAF50;
+        }
+        
+        .company-stock.down {
+            color: #f44336;
+        }
+        
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+        }
+        
+        .pagination a {
+            color: var(--text-dark);
+            padding: 10px 15px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        
+        .pagination a:hover {
+            background-color: var(--category-tech);
+            color: var(--white);
+            border-color: var(--category-tech);
+        }
+        
+        .pagination a.active {
+            background-color: var(--category-tech);
+            color: var(--white);
+            border-color: var(--category-tech);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding-top: 50px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            background-color: #0d1b36;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ad-banner {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar input {
+                width: 150px;
+            }
+            
+            .featured-category-title {
+                font-size: 1.5rem;
+            }
+            
+            .featured-category-image {
+                height: 300px;
+            }
+            
+            .category-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-category-image {
+                height: 250px;
+            }
+            
+            .featured-category-overlay {
+                padding: 20px;
+            }
+            
+            .category-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .subcategory-list {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Top Bar with Date and Social Links -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="date-time">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
 
-    <div id="navbar-placeholder"></div>
-
-    <main class="container">
-
-        <header class="page-header">
-            <h1 id="category-title">Category</h1>
-            <p id="category-description"></p>
-        </header>
-
-        <div class="category-layout">
-
-            <div class="category-content">
-                <div id="category-news-grid" class="news-grid">
-                    <!-- Dynamic Category Articles -->
+    <!-- Main Header with Logo -->
+    <header>
+        <div class="container main-header">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Global News Network</div>
+                        <div class="logo-tagline">Trusted News Worldwide</div>
+                    </div>
+                </a>
+                <div class="ad-banner">
+                    Advertisement Banner - 728x90
                 </div>
             </div>
-
-            <aside id="sidebar-placeholder"></aside>
-
         </div>
 
-    </main>
+        <!-- Navigation -->
+        <nav>
+            <div class="container navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li class="active"><a href="technology.html">Technology</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li><a href="science.html">Science</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search technology news...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-    <div id="footer-placeholder"></div>
+    <!-- Category Header -->
+    <div class="category-header">
+        <div class="container">
+            <h1>Technology</h1>
+            <p>Latest breakthroughs, innovations, and trends in the world of technology. From AI to quantum computing, smartphones to space tech.</p>
+            <div class="category-stats">
+                <div class="stat-item">
+                    <span class="stat-number">1,247</span>
+                    <span class="stat-label">Articles Published</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24</span>
+                    <span class="stat-label">Expert Contributors</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3.2M</span>
+                    <span class="stat-label">Monthly Readers</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script type="module" src="assets/js/pages/category.js"></script>
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Left Column - Main News -->
+        <div class="left-column">
+            <!-- Subcategories -->
+            <div class="subcategories">
+                <h3>Technology Subcategories</h3>
+                <ul class="subcategory-list">
+                    <li><a href="#">Artificial Intelligence</a></li>
+                    <li><a href="#">Cybersecurity</a></li>
+                    <li><a href="#">Gadgets & Devices</a></li>
+                    <li><a href="#">Software & Apps</a></li>
+                    <li><a href="#">Startups & Innovation</a></li>
+                    <li><a href="#">Blockchain & Web3</a></li>
+                    <li><a href="#">Robotics & Automation</a></li>
+                    <li><a href="#">Tech Business</a></li>
+                </ul>
+            </div>
+
+            <!-- Featured Category News -->
+            <section class="featured-category-news">
+                <div class="featured-category-item">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Revolution" class="featured-category-image">
+                    <div class="featured-category-overlay">
+                        <span class="featured-category-tag">ARTIFICIAL INTELLIGENCE</span>
+                        <h2 class="featured-category-title">AI Model Surpasses Human Performance in Creative Tasks</h2>
+                        <div class="featured-category-meta">
+                            <span><i class="far fa-clock"></i> 3 hours ago</span>
+                            <span><i class="far fa-user"></i> By Sarah Johnson</span>
+                            <span><i class="far fa-comment"></i> 287 comments</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category News Grid -->
+            <section class="category-news-grid">
+                <div class="category-news-card">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Quantum Computing">
+                    <div class="category-news-card-content">
+                        <span class="category-tag">QUANTUM COMPUTING</span>
+                        <h3 class="category-news-title">Breakthrough in Quantum Computing Brings Error-Free Calculation Closer</h3>
+                        <p class="category-news-excerpt">Scientists achieve a major milestone in quantum error correction, bringing practical quantum computers one step closer to reality.</p>
+                        <div class="category-news-meta">
+                            <span><i class="far fa-clock"></i> 5 hours ago</span>
+                            <span><i class="far fa-eye"></i> 2.8k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-news-card">
+                    <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Cybersecurity">
+                    <div class="category-news-card-content">
+                        <span class="category-tag">CYBERSECURITY</span>
+                        <h3 class="category-news-title">Major Data Breach Exposes Millions of User Records</h3>
+                        <p class="category-news-excerpt">A leading tech company announces a massive security breach affecting over 50 million users worldwide.</p>
+                        <div class="category-news-meta">
+                            <span><i class="far fa-clock"></i> 8 hours ago</span>
+                            <span><i class="far fa-eye"></i> 3.5k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-news-card">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Smartphones">
+                    <div class="category-news-card-content">
+                        <span class="category-tag">GADGETS</span>
+                        <h3 class="category-news-title">Foldable Phone Sales Surge 300% as New Models Hit Market</h3>
+                        <p class="category-news-excerpt">The latest foldable smartphone releases are reshaping the mobile market with innovative designs and improved durability.</p>
+                        <div class="category-news-meta">
+                            <span><i class="far fa-clock"></i> 12 hours ago</span>
+                            <span><i class="far fa-eye"></i> 4.1k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-news-card">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Autonomous Vehicles">
+                    <div class="category-news-card-content">
+                        <span class="category-tag">AUTONOMOUS VEHICLES</span>
+                        <h3 class="category-news-title">Self-Driving Cars Approved for Urban Use in Major Cities</h3>
+                        <p class="category-news-excerpt">Regulatory approval paves the way for fully autonomous vehicles to operate in downtown areas starting next quarter.</p>
+                        <div class="category-news-meta">
+                            <span><i class="far fa-clock"></i> 1 day ago</span>
+                            <span><i class="far fa-eye"></i> 5.3k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-news-card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Metaverse">
+                    <div class="category-news-card-content">
+                        <span class="category-tag">METAVERSE & WEB3</span>
+                        <h3 class="category-news-title">Major Tech Companies Form Alliance for Open Metaverse Standards</h3>
+                        <p class="category-news-excerpt">Industry giants collaborate to establish interoperability standards for the metaverse, aiming to create a seamless virtual ecosystem.</p>
+                        <div class="category-news-meta">
+                            <span><i class="far fa-clock"></i> 2 days ago</span>
+                            <span><i class="far fa-eye"></i> 3.7k views</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-news-card">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Space Tech">
+                    <div class="category-news-card-content">
+                        <span class="category-tag">SPACE TECHNOLOGY</span>
+                        <h3 class="category-news-title">Private Space Company Announces First Commercial Moon Landing Mission</h3>
+                        <p class="category-news-excerpt">The mission, scheduled for next year, will deliver scientific payloads and test technologies for future lunar bases.</p>
+                        <div class="category-news-meta">
+                            <span><i class="far fa-clock"></i> 2 days ago</span>
+                            <span><i class="far fa-eye"></i> 4.9k views</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">Next <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Right Column - Sidebar -->
+        <div class="right-column">
+            <!-- Trending Tech News -->
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">TRENDING IN TECH</h3>
+                <div class="trending-tech-news">
+                    <div class="trending-tech-news-item">
+                        <div class="trending-tech-number">01</div>
+                        <div class="trending-tech-content">
+                            <h4>Apple Unveils Revolutionary Mixed Reality Headset</h4>
+                            <div class="trending-tech-category">GADGETS</div>
+                        </div>
+                    </div>
+                    <div class="trending-tech-news-item">
+                        <div class="trending-tech-number">02</div>
+                        <div class="trending-tech-content">
+                            <h4>EU Passes Landmark AI Regulation Bill</h4>
+                            <div class="trending-tech-category">POLICY & REGULATION</div>
+                        </div>
+                    </div>
+                    <div class="trending-tech-news-item">
+                        <div class="trending-tech-number">03</div>
+                        <div class="trending-tech-content">
+                            <h4>Google's New Algorithm Revolutionizes Search Results</h4>
+                            <div class="trending-tech-category">SOFTWARE</div>
+                        </div>
+                    </div>
+                    <div class="trending-tech-news-item">
+                        <div class="trending-tech-number">04</div>
+                        <div class="trending-tech-content">
+                            <h4>Breakthrough Battery Tech Charges in 5 Minutes</h4>
+                            <div class="trending-tech-category">INNOVATION</div>
+                        </div>
+                    </div>
+                    <div class="trending-tech-news-item">
+                        <div class="trending-tech-number">05</div>
+                        <div class="trending-tech-content">
+                            <h4>Major Data Center Goes Fully Solar-Powered</h4>
+                            <div class="trending-tech-category">GREEN TECH</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Videos -->
+            <section class="sidebar-section tech-videos">
+                <h3 class="sidebar-title">TECH VIDEOS</h3>
+                <div class="video-item">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1535378620166-273708d44e4c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Tech Event">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <h4 class="video-title">Inside the World's Largest Data Center</h4>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 8:24</span> | 
+                        <span><i class="far fa-eye"></i> 2.4M views</span>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="video-thumbnail">
+                        <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Robot">
+                        <div class="play-button">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <h4 class="video-title">Humanoid Robots: The Future of Labor?</h4>
+                    <div class="video-meta">
+                        <span><i class="far fa-clock"></i> 12:15</span> | 
+                        <span><i class="far fa-eye"></i> 1.8M views</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tech Companies -->
+            <section class="sidebar-section tech-companies">
+                <h3 class="sidebar-title">TECH STOCKS</h3>
+                <ul class="company-list">
+                    <li>
+                        <span class="company-name">TechCorp Inc.</span>
+                        <span class="company-stock">+3.24%</span>
+                    </li>
+                    <li>
+                        <span class="company-name">Global Microsystems</span>
+                        <span class="company-stock">+1.87%</span>
+                    </li>
+                    <li>
+                        <span class="company-name">Quantum Computing Ltd.</span>
+                        <span class="company-stock">+5.42%</span>
+                    </li>
+                    <li>
+                        <span class="company-name">CyberSecure Networks</span>
+                        <span class="company-stock down">-0.89%</span>
+                    </li>
+                    <li>
+                        <span class="company-name">AI Innovations</span>
+                        <span class="company-stock">+7.31%</span>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Newsletter -->
+            <section class="sidebar-section">
+                <div class="newsletter-form" style="background-color: var(--category-tech);">
+                    <h3>Tech Newsletter</h3>
+                    <p>Get weekly updates on the latest in technology, innovation, and digital trends.</p>
+                    <form id="techNewsletterForm">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" style="background-color: var(--secondary-color);">Subscribe Now</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Global News Network</h3>
+                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>News Categories</h3>
+                    <ul class="footer-links">
+                        <li><a href="world.html">World News</a></li>
+                        <li><a href="politics.html">Politics</a></li>
+                        <li><a href="business.html">Business & Finance</a></li>
+                        <li><a href="technology.html">Technology</a></li>
+                        <li><a href="health.html">Health & Wellness</a></li>
+                        <li><a href="sports.html">Sports</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 News Street, Media City, MC 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@globalnewsnetwork.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                &copy; 2023 Global News Network. All rights reserved. | Designed with professionalism and integrity
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Update date/time immediately and then every minute
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Tech newsletter form submission
+        const techNewsletterForm = document.getElementById('techNewsletterForm');
+        techNewsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert(`Thank you for subscribing to our Tech Newsletter with: ${email}\nYou'll receive weekly tech updates.`);
+            this.reset();
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Searching for technology news: "${query}"\nThis would show filtered results in a full implementation.`);
+                searchInput.value = '';
+            }
+        });
+        
+        // Simulate clicking on category news cards
+        const categoryNewsCards = document.querySelectorAll('.category-news-card');
+        categoryNewsCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.category-news-title').textContent;
+                alert(`Navigating to technology article: "${title}"\nThis would open the full article in a complete implementation.`);
+            });
+        });
+        
+        // Subcategory filter simulation
+        const subcategoryLinks = document.querySelectorAll('.subcategory-list a');
+        subcategoryLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const category = link.textContent;
+                alert(`Filtering technology news by: ${category}\nThis would show articles only from this subcategory.`);
+            });
+        });
+        
+        // Video play simulation
+        const videoThumbnails = document.querySelectorAll('.video-thumbnail');
+        videoThumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                const title = thumbnail.nextElementSibling.textContent;
+                alert(`Playing video: "${title}"\nThis would open a video player in a complete implementation.`);
+            });
+        });
+    </script>
 </body>
 </html>

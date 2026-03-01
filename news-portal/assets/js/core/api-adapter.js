@@ -1,5 +1,4 @@
 // File: news-portal/assets/js/core/api-adapter.js
-import * as localApi from "./api.js";
 import { CONFIG } from "./config.js";
 
 const handle = async (res) => {
@@ -8,40 +7,56 @@ const handle = async (res) => {
 };
 
 export const fetchTrendingNews = async () => {
-  if (!CONFIG.USE_REMOTE) return localApi.fetchTrendingNews();
-  // URL ko `${CONFIG.API_BASE}/trending/` se badal kar niche wala karein
   return handle(await fetch(`${CONFIG.API_BASE}/news/trending/`)); 
 };
 
 export const fetchBreakingNews = async () => {
-  if (!CONFIG.USE_REMOTE) return localApi.fetchBreakingNews();
-  // URL ko `${CONFIG.API_BASE}/breaking/` se badal kar niche wala karein
   return handle(await fetch(`${CONFIG.API_BASE}/news/breaking/`));
 };
 
 export const fetchArticleById = async (id) => {
-  if (!CONFIG.USE_REMOTE) return localApi.fetchArticleById(id);
-  return handle(await fetch(`${CONFIG.API_BASE}/news/${id}/`)); // Ye pehle se theek hai
+  return handle(await fetch(`${CONFIG.API_BASE}/news/${id}/`)); 
 };
 
 export const searchNews = async (q) => {
-  if (!CONFIG.USE_REMOTE) return localApi.searchNews(q);
-  return handle(await fetch(`${CONFIG.API_BASE}/search/?q=${q}`)); // Ye bhi theek hai
+  return handle(await fetch(`${CONFIG.API_BASE}/search/?q=${q}`)); 
 };
 
 export const fetchNewsByCategory = async (slug) => {
-  if (!CONFIG.USE_REMOTE) return localApi.fetchNewsByCategory(slug);
-  // URL ko `${CONFIG.API_BASE}/category/${slug}/` se badal kar niche wala karein
   return handle(await fetch(`${CONFIG.API_BASE}/news/category/${slug}/`));
 };
 
+// JWT Token ke sath secure API call
 export const fetchSavedArticles = async () => {
-  // Dhyan dein: Yahan abhi remote fetch add nahi hai, 
-  // jab aap aage dashboard banayenge tab isko add karna padega.
-  return localApi.fetchSavedArticles();
+  const token = localStorage.getItem("access_token");
+  return handle(await fetch(`${CONFIG.API_BASE}/interactions/saved/`, {
+    headers: {
+        "Authorization": `Bearer ${token}`
+    }
+  }));
 };
 
+// Real Django Backend Auth 
 export const loginUser = async (credentials) => {
-  // Yahan par bhi backend auth fetch call likhna baki hai aage ke liye
-  return localApi.loginUser(credentials);
+  try {
+    const res = await fetch(`${CONFIG.API_BASE}/users/login/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(credentials)
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      // Token ko browser ki local storage mein save karein
+      localStorage.setItem("access_token", data.access);
+      localStorage.setItem("refresh_token", data.refresh);
+      return { success: true };
+    }
+    return { success: false };
+  } catch (error) {
+    console.error("Login request failed", error);
+    return { success: false };
+  }
 };

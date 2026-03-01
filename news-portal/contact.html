@@ -1,27 +1,1348 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Global News Network | Get in Touch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #d32f2f;
+            --accent-color: #f5f5f5;
+            --text-dark: #333;
+            --text-light: #777;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --contact-color: #0097A7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .top-bar {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.9rem;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .date-time {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .main-header {
+            padding: 20px 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .logo-text {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .logo-tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: -5px;
+        }
+        
+        .ad-banner {
+            height: 90px;
+            width: 100%;
+            max-width: 728px;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed var(--text-light);
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            padding: 18px 20px;
+            display: block;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .nav-links .active a {
+            background-color: var(--contact-color);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+            width: 200px;
+        }
+        
+        .search-bar button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .search-bar button:hover {
+            background-color: #b71c1c;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Contact Header */
+        .contact-header {
+            background: linear-gradient(rgba(0, 151, 167, 0.9), rgba(0, 151, 167, 0.9)), url('https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .contact-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin: 60px 0;
+        }
+        
+        /* Contact Cards */
+        .contact-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .contact-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 5px solid var(--contact-color);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(0, 151, 167, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--contact-color);
+            font-size: 2rem;
+        }
+        
+        .contact-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .contact-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        
+        .contact-link {
+            color: var(--contact-color);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            transition: var(--transition);
+        }
+        
+        .contact-link:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Contact Form & Info */
+        .contact-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+        
+        .contact-form-container {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-form-container h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .required::after {
+            content: ' *';
+            color: var(--secondary-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--contact-color);
+            box-shadow: 0 0 0 3px rgba(0, 151, 167, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--contact-color);
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #00838F;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Contact Info */
+        .contact-info-sidebar {
+            background-color: var(--accent-color);
+            border-radius: 10px;
+            padding: 40px;
+        }
+        
+        .contact-info-sidebar h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--contact-color);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 151, 167, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--contact-color);
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .info-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        /* Office Locations */
+        .locations-section {
+            margin-bottom: 80px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--contact-color);
+        }
+        
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .location-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .location-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .location-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .location-card:hover .location-image img {
+            transform: scale(1.1);
+        }
+        
+        .location-content {
+            padding: 30px;
+        }
+        
+        .location-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .location-details {
+            margin-bottom: 20px;
+        }
+        
+        .location-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .location-detail i {
+            color: var(--contact-color);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            background-color: var(--accent-color);
+            padding: 80px 0;
+            margin-bottom: 80px;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .faq-question:hover {
+            background-color: rgba(0, 151, 167, 0.05);
+        }
+        
+        .faq-question.active {
+            background-color: rgba(0, 151, 167, 0.1);
+        }
+        
+        .faq-icon {
+            color: var(--contact-color);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer.open {
+            padding: 0 30px 30px;
+            max-height: 500px;
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-bottom: 80px;
+        }
+        
+        .map-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 400px;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+        }
+        
+        .map-container i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--contact-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding-top: 50px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--white);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            background-color: #0d1b36;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .contact-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .locations-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .ad-banner {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .search-bar input {
+                width: 150px;
+            }
+            
+            .contact-header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .contact-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Top Bar with Date and Social Links -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="date-time">
+                <span id="current-date"></span>
+                <span id="current-time"></span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
 
-<div id="navbar-placeholder"></div>
+    <!-- Main Header with Logo -->
+    <header>
+        <div class="container main-header">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div>
+                        <div class="logo-text">Global News Network</div>
+                        <div class="logo-tagline">Trusted News Worldwide</div>
+                    </div>
+                </a>
+                <div class="ad-banner">
+                    Advertisement Banner - 728x90
+                </div>
+            </div>
+        </div>
 
-<main class="container">
-    <h1>Contact Us</h1>
+        <!-- Navigation -->
+        <nav>
+            <div class="container navbar">
+                <ul class="nav-links">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="technology.html">Technology</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                    <li class="active"><a href="contact.html">Contact Us</a></li>
+                </ul>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-    <form id="contactForm">
-        <input type="text" placeholder="Name" required>
-        <input type="email" placeholder="Email" required>
-        <textarea placeholder="Message"></textarea>
-        <button type="submit">Send</button>
-    </form>
+    <!-- Contact Header -->
+    <div class="contact-header">
+        <div class="container">
+            <h1>Contact Us</h1>
+            <p>We're here to help! Reach out to our team for inquiries, feedback, story tips, or advertising opportunities. Our dedicated support team is ready to assist you.</p>
+        </div>
+    </div>
 
-</main>
+    <!-- Main Content -->
+    <div class="container main-content">
+        <!-- Contact Cards -->
+        <div class="contact-cards">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>General Inquiries</h3>
+                <p>For general questions, feedback, or information about our services.</p>
+                <a href="mailto:info@globalnewsnetwork.com" class="contact-link">info@globalnewsnetwork.com</a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <h3>Editorial & News Tips</h3>
+                <p>Have a news tip or story suggestion? Contact our editorial team.</p>
+                <a href="mailto:news@globalnewsnetwork.com" class="contact-link">news@globalnewsnetwork.com</a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-ad"></i>
+                </div>
+                <h3>Advertising</h3>
+                <p>For advertising opportunities and media partnerships.</p>
+                <a href="mailto:ads@globalnewsnetwork.com" class="contact-link">ads@globalnewsnetwork.com</a>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>Emergency Contact</h3>
+                <p>For urgent media inquiries or breaking news alerts.</p>
+                <a href="tel:+15551234567" class="contact-link">+1 (555) 123-4567</a>
+            </div>
+        </div>
 
-<div id="footer-placeholder"></div>
+        <!-- Contact Form & Info -->
+        <div class="contact-section">
+            <div class="contact-form-container">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="required">First Name</label>
+                            <input type="text" id="firstName" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName" class="required">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="required">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department" class="required">Department</label>
+                        <select id="department" class="form-control" required>
+                            <option value="">Select a department</option>
+                            <option value="editorial">Editorial / News Tips</option>
+                            <option value="advertising">Advertising</option>
+                            <option value="subscription">Subscription Support</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject" class="required">Subject</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="required">Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attachment">Attachment (Optional)</label>
+                        <input type="file" id="attachment" class="form-control">
+                        <small class="text-muted">Max file size: 5MB. Allowed formats: PDF, DOC, JPG, PNG</small>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+            
+            <div class="contact-info-sidebar">
+                <h3>Contact Information</h3>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-text">
+                        <h4>Headquarters</h4>
+                        <p>123 News Street, Media City<br>MC 10001, United States</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="info-text">
+                        <h4>Phone Numbers</h4>
+                        <p>Editorial: +1 (555) 123-4567<br>Advertising: +1 (555) 123-4568<br>Support: +1 (555) 123-4569</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-text">
+                        <h4>Email Addresses</h4>
+                        <p>General: info@globalnewsnetwork.com<br>News Tips: news@globalnewsnetwork.com<br>Advertising: ads@globalnewsnetwork.com</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-text">
+                        <h4>Office Hours</h4>
+                        <p>Monday - Friday: 8:00 AM - 8:00 PM EST<br>Saturday: 9:00 AM - 5:00 PM EST<br>Sunday: 10:00 AM - 4:00 PM EST</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="info-text">
+                        <h4>Follow Us</h4>
+                        <div class="social-icons" style="margin-top: 10px;">
+                            <a href="#" style="color: var(--text-dark); margin-right: 15px;"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" style="color: var(--text-dark); margin-right: 15px;"><i class="fab fa-twitter"></i></a>
+                            <a href="#" style="color: var(--text-dark); margin-right: 15px;"><i class="fab fa-instagram"></i></a>
+                            <a href="#" style="color: var(--text-dark); margin-right: 15px;"><i class="fab fa-youtube"></i></a>
+                            <a href="#" style="color: var(--text-dark);"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<script type="module" src="assets/js/pages/contact.js"></script>
+        <!-- Office Locations -->
+        <div class="locations-section">
+            <div class="section-header">
+                <h2>Our Global Offices</h2>
+            </div>
+            
+            <div class="locations-grid">
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80" alt="New York Office">
+                    </div>
+                    <div class="location-content">
+                        <h3>New York Headquarters</h3>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>123 News Street, Media City, NY 10001</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>+1 (555) 123-4567</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Mon-Fri: 8AM-8PM EST</span>
+                            </div>
+                        </div>
+                        <a href="#" class="contact-link">Get Directions <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="London Office">
+                    </div>
+                    <div class="location-content">
+                        <h3>London Office</h3>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>45 Media Lane, London EC1A 1BB, UK</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>+44 20 7946 0958</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Mon-Fri: 9AM-7PM GMT</span>
+                            </div>
+                        </div>
+                        <a href="#" class="contact-link">Get Directions <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="location-card">
+                    <div class="location-image">
+                        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Tokyo Office">
+                    </div>
+                    <div class="location-content">
+                        <h3>Tokyo Office</h3>
+                        <div class="location-details">
+                            <div class="location-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Shinjuku Media Tower, Tokyo 160-0022, Japan</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>+81 3-1234-5678</span>
+                            </div>
+                            <div class="location-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Mon-Fri: 9AM-6PM JST</span>
+                            </div>
+                        </div>
+                        <a href="#" class="contact-link">Get Directions <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How can I submit a news tip or story idea?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can submit news tips or story ideas by emailing our editorial team at news@globalnewsnetwork.com. Please include as much detail as possible, including sources, documents, or evidence to support your tip. For urgent news tips, you can call our news desk at +1 (555) 123-4567.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I report an error or request a correction?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We take accuracy seriously. If you believe we've made an error, please email corrections@globalnewsnetwork.com with the article title, publication date, specific error, and the correct information with supporting sources. Our editorial team will review and issue corrections as needed.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How can I advertise with Global News Network?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For advertising inquiries, please contact our advertising department at ads@globalnewsnetwork.com or call +1 (555) 123-4568. We offer various advertising options including display ads, sponsored content, newsletter placements, and custom media partnerships.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I subscribe to your newsletter?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can subscribe to our newsletters by visiting the newsletter section on our website. We offer daily news briefings, weekly deep dives, and topic-specific newsletters (technology, business, health, etc.). All subscriptions are free and you can unsubscribe at any time.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Can I republish your content on my website or publication?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For republication requests, please contact permissions@globalnewsnetwork.com. We offer syndication licenses for qualified publishers. Unauthorized reproduction of our content is prohibited. For educational or non-commercial use, please review our terms of service or contact us for specific permissions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <div class="section-header">
+                <h2>Find Our Headquarters</h2>
+            </div>
+            
+            <div class="map-container">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Interactive Map</h3>
+                <p>Location: 123 News Street, Media City, MC 10001</p>
+                <small>In a complete implementation, this would show an interactive map with directions</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Global News Network</h3>
+                    <p>Delivering accurate, timely, and comprehensive news coverage from around the world since 1995.</p>
+                    <div class="social-icons" style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Channels</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@globalnewsnetwork.com">General Inquiries</a></li>
+                        <li><a href="mailto:news@globalnewsnetwork.com">News Tips</a></li>
+                        <li><a href="mailto:ads@globalnewsnetwork.com">Advertising</a></li>
+                        <li><a href="mailto:support@globalnewsnetwork.com">Customer Support</a></li>
+                        <li><a href="mailto:corrections@globalnewsnetwork.com">Report Errors</a></li>
+                        <li><a href="mailto:permissions@globalnewsnetwork.com">Content Permissions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Emergency Contacts</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> Editorial: +1 (555) 123-4567</li>
+                        <li><i class="fas fa-phone"></i> Advertising: +1 (555) 123-4568</li>
+                        <li><i class="fas fa-phone"></i> Support: +1 (555) 123-4569</li>
+                        <li><i class="fas fa-clock"></i> 24/7 News Desk</li>
+                        <li><i class="fas fa-envelope"></i> urgent@globalnewsnetwork.com</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                &copy; 2023 Global News Network. All rights reserved. | Contact us anytime for support
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateElement = document.getElementById('current-date');
+            const timeElement = document.getElementById('current-time');
+            
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
+            timeElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // Update date/time immediately and then every minute
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
+            const department = document.getElementById('department').value;
+            const subject = document.getElementById('subject').value;
+            
+            // Get department name for display
+            const departmentOptions = {
+                'editorial': 'Editorial / News Tips',
+                'advertising': 'Advertising',
+                'subscription': 'Subscription Support',
+                'technical': 'Technical Support',
+                'general': 'General Inquiry',
+                'other': 'Other'
+            };
+            
+            const departmentName = departmentOptions[department] || 'Unknown';
+            
+            alert(`Thank you, ${firstName}! Your message has been submitted successfully.\n\nDepartment: ${departmentName}\nSubject: "${subject}"\n\nWe'll respond to you at ${email} within 1-2 business days.\n\nIn a real implementation, this form would send the data to a server.`);
+            
+            this.reset();
+        });
+        
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isOpen = answer.classList.contains('open');
+                
+                // Close all answers
+                document.querySelectorAll('.faq-answer').forEach(ans => {
+                    ans.classList.remove('open');
+                });
+                
+                // Remove active class from all questions
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.classList.remove('active');
+                });
+                
+                // If it wasn't open, open it
+                if (!isOpen) {
+                    answer.classList.add('open');
+                    question.classList.add('active');
+                }
+            });
+        });
+        
+        // Contact card interactions
+        const contactCards = document.querySelectorAll('.contact-card');
+        contactCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Only trigger if the click wasn't on the link itself
+                if (!e.target.closest('.contact-link')) {
+                    const title = card.querySelector('h3').textContent;
+                    const link = card.querySelector('.contact-link');
+                    
+                    if (link.href.startsWith('mailto:')) {
+                        alert(`Opening email client to: ${link.textContent}\nSubject: ${title} Inquiry`);
+                    } else if (link.href.startsWith('tel:')) {
+                        alert(`Dialing: ${link.textContent}\nFor: ${title}`);
+                    }
+                }
+            });
+        });
+        
+        // Location card interactions
+        const locationCards = document.querySelectorAll('.location-card');
+        locationCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Only trigger if the click wasn't on the link itself
+                if (!e.target.closest('.contact-link')) {
+                    const title = card.querySelector('h3').textContent;
+                    const address = card.querySelector('.location-detail:first-child span').textContent;
+                    alert(`Location: ${title}\nAddress: ${address}\nIn a complete implementation, this would show more details about this office location.`);
+                }
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        const searchButton = document.querySelector('.search-bar button');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                alert(`Searching for: "${query}"\nThis would navigate to search results.`);
+                searchInput.value = '';
+            }
+        });
+        
+        // Department select change
+        const departmentSelect = document.getElementById('department');
+        departmentSelect.addEventListener('change', function() {
+            const subjectField = document.getElementById('subject');
+            const departmentOptions = {
+                'editorial': 'News Tip / Story Suggestion',
+                'advertising': 'Advertising Inquiry',
+                'subscription': 'Subscription Support Request',
+                'technical': 'Technical Issue Report',
+                'general': 'General Inquiry',
+                'other': 'Other Inquiry'
+            };
+            
+            if (this.value && departmentOptions[this.value]) {
+                subjectField.placeholder = `Subject: ${departmentOptions[this.value]}`;
+            } else {
+                subjectField.placeholder = 'Subject';
+            }
+        });
+        
+        // File attachment validation
+        const fileInput = document.getElementById('attachment');
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
+                const maxSize = 5 * 1024 * 1024; // 5MB
+                
+                if (!validTypes.includes(file.type)) {
+                    alert('Invalid file type. Please upload PDF, DOC, JPG, or PNG files only.');
+                    this.value = '';
+                } else if (file.size > maxSize) {
+                    alert('File is too large. Maximum size is 5MB.');
+                    this.value = '';
+                }
+            }
+        });
+        
+        // Initialize page
+        console.log('Contact Us page loaded successfully.');
+    </script>
 </body>
 </html>

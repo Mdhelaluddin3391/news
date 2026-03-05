@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsHub - Premium News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <!-- BREAKING NEWS TICKER -->
+    <div class="breaking">
+        <div class="container breaking-flex">
+            <div class="breaking-label">BREAKING</div>
+            <div class="ticker">
+                <span id="breaking-ticker-content">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT (TWO COLUMNS) -->
+    <main class="container main-content">
+        <!-- LEFT COLUMN - MAIN NEWS -->
+        <div class="left-column">
+            <!-- FEATURED NEWS (DYNAMIC) -->
+            <section class="featured-news">
+                <div id="featured-news-container" class="featured-news-item">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- CATEGORY HEADING -->
+            <h1 class="category-heading" id="category-heading">General News</h1>
+
+            <!-- LOADER -->
+            <div class="loader" id="loader"></div>
+
+            <!-- ARTICLES GRID -->
+            <div class="articles-container" id="articles-container"></div>
+
+            <!-- PAGINATION -->
+            <div class="pagination" id="pagination">
+                <button class="page-btn" id="prev-page" disabled>← Previous</button>
+                <span class="page-info" id="page-info">Page 1</span>
+                <button class="page-btn" id="next-page">Next →</button>
+            </div>
+
+            <!-- ERROR MESSAGE -->
+            <div class="error-message" id="error-message"></div>
+        </div>
+
+        <!-- RIGHT COLUMN - SIDEBAR -->
+        <div class="right-column">
+            <!-- TRENDING NOW -->
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">TRENDING NOW</h3>
+                <div id="trending-container" class="trending-news">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- CATEGORIES -->
+            <section class="sidebar-section">
+                <h3 class="sidebar-title">CATEGORIES</h3>
+                <ul id="categories-container" class="category-list">
+                    <!-- Will be populated by JavaScript -->
+                </ul>
+            </section>
+
+            <!-- NEWSLETTER -->
+            <section class="sidebar-section">
+                <div class="newsletter-form">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for daily news updates.</p>
+                    <form id="newsletterForm">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe Now</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <div id="footer-placeholder"></div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/homepage.js"></script> 
+    <script src="js/index-ui.js"></script>
+    
+    <script src="js/loadComponents.js"></script>
+</body>
+</html>

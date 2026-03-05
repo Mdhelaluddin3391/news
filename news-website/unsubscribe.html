@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe - NewsHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="css/extra-pages.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main>
+        <div class="page-container">
+            <h1 class="page-title" style="text-align: center; border:none;">Unsubscribe from Newsletter</h1>
+            <p class="unsubscribe-message">Hume dukh hai ki aap ja rahe hain! Agar aap aage se daily news updates nahi chahte, toh apna email niche darj karein.</p>
+            
+            <div class="error-message" id="unsub-error" style="display:none; max-width: 500px; margin: 0 auto 1rem;"></div>
+            <div id="unsub-success" style="display:none; max-width: 500px; margin: 0 auto 1rem; background:#d1fae5; color:#065f46; padding:1rem; border-radius:8px; text-align:center;">
+                Aapko successfully unsubscribe kar diya gaya hai.
+            </div>
+
+            <form class="unsubscribe-form" id="unsubscribe-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="submit-btn" style="align-self: center; width: 100%;">Unsubscribe Me</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/homepage.js"></script> 
+    <script src="js/index-ui.js"></script>
+    
+    <script src="js/loadComponents.js"></script>
+    <script src="js/unsubscribe.js"></script>
+    
+</body>
+</html>

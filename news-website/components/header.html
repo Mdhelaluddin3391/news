@@ -1,0 +1,86 @@
+<div class="top-bar">
+    <div class="container top-flex">
+        <div id="dateTime" class="date-time"></div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</div>
+
+<header>
+    <div class="main-header">
+        <div class="container header-flex">
+            <a href="index.html" class="logo" style="text-decoration: none;">
+                <div class="logo-icon"><i class="fas fa-newspaper"></i></div>
+                <div>
+                    <div class="logo-text">Dharmanagar Live</div>
+                    <div class="logo-tagline">Trusted Worldwide</div>
+                </div>
+            </a>
+            <div class="ad-banner">Advertisement</div>
+        </div>
+    </div>
+
+    <nav>
+        <div class="container nav-flex">
+            <ul class="nav-links">
+                <li><a href="index.html?category=general" class="category-link">Home</a></li>
+                <li><a href="index.html?category=technology" class="category-link">Technology</a></li>
+                <li><a href="index.html?category=sports" class="category-link">Sports</a></li>
+                <li><a href="index.html?category=business" class="category-link">Business</a></li>
+                <li><a href="index.html?category=entertainment" class="category-link">Entertainment</a></li>
+                <li><a href="index.html?category=health" class="category-link">Health</a></li>
+                <li><a href="index.html?category=science" class="category-link">Science</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <div class="search-box">
+                    <form action="search.html" method="get" class="search-form-inline">
+                        <input type="text" name="q" placeholder="Search...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="auth">
+                    <a href="login.html" class="auth-link-item login-link">Login</a>
+                    <a href="register.html" class="auth-link-item register register-link">Register</a>
+                    <a href="profile.html" class="auth-link-item profile-link" style="display:none;">Profile</a>
+                    <a href="saved.html" class="auth-link-item saved-link" style="display:none;">Saved</a>
+                    <a href="#" id="logout-link" class="auth-link-item logout-link" style="display:none;">Logout</a>
+                    <span id="user-name" class="user-name"></span>
+                </div>
+            </div>
+
+            <button class="mobile-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <div class="close-btn" id="closeBtn"><i class="fas fa-times"></i></div>
+    <div class="mobile-search">
+        <form action="search.html" method="get" style="display: flex; width: 100%;">
+            <input type="text" name="q" placeholder="Search news..." style="flex: 1;">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+    <a href="index.html?category=general">Home</a>
+    <a href="index.html?category=technology">Technology</a>
+    <a href="index.html?category=sports">Sports</a>
+    <a href="index.html?category=business">Business</a>
+    <a href="index.html?category=entertainment">Entertainment</a>
+    <a href="index.html?category=health">Health</a>
+    <a href="index.html?category=science">Science</a>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 10px; padding-top: 10px;">
+        <a href="login.html" class="auth-link-item login-link">Login</a>
+        <a href="register.html" class="auth-link-item register-link">Register</a>
+        <a href="profile.html" class="auth-link-item profile-link" style="display:none;">Profile</a>
+        <a href="saved.html" class="auth-link-item saved-link" style="display:none;">Saved</a>
+        <a href="#" id="logout-link-mobile" class="auth-link-item logout-link" style="display:none;">Logout</a>
+    </div>
+</div>

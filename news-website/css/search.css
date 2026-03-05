@@ -1,0 +1,4 @@
+/* Search page specific adjustments */
+#search-query-heading {
+    word-break: break-word;
+}

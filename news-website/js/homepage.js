@@ -1,7 +1,7 @@
 // ==================== HOMEPAGE.JS ====================
 // Depends on auth.js, saved.js, script.js (for helpers)
 
-const HOME_API_URL = `${CONFIG.API_BASE_URL}/news`; // Backend URL
+const HOMEPAGE_API_URL = `${CONFIG.API_BASE_URL}/news`;
 
 // ==================== Render Functions ====================
 function renderFeatured(article) {

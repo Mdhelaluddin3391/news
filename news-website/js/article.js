@@ -1,6 +1,6 @@
 // ==================== CONFIGURATION ====================
 // Real API Endpoint pointing to your Django backend
-const API_BASE_URL = `${CONFIG.API_BASE_URL}/news/articles`;
+const ARTICLE_DETAIL_API_URL = `${CONFIG.API_BASE_URL}/news/articles`;
 
 // ==================== DOM Elements ====================
 const articleContainer = document.getElementById('article-detail');
@@ -160,7 +160,7 @@ async function fetchArticle(articleId) {
 
     try {
         // Fetch specific article by ID from Django backend
-        const response = await fetch(`${API_BASE_URL}/${articleId}/`);
+        const response = await fetch(`${ARTICLE_DETAIL_API_URL}/${articleId}/`);
         if (!response.ok) {
             throw new Error(`HTTP error ${response.status}`);
         }

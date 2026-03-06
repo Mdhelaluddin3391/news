@@ -1,11 +1,14 @@
 // js/auth.js
 // ==================== AUTHENTICATION & API HELPERS ====================
 
-const API_BASE_URL_AUTH = CONFIG.API_BASE_URL;
 const AUTH_STORAGE_KEY = 'newsHub_currentUser';
 const TOKEN_KEY = 'newsHub_accessToken';
 const REFRESH_KEY = 'newsHub_refreshToken';
 const BOOKMARKS_KEY = 'newsHub_bookmarks';
+const API_BASE_URL_AUTH = CONFIG.API_BASE_URL;
+
+
+
 
 // Register a new user via API
 async function registerUser(name, email, password) {

@@ -1,7 +1,7 @@
 // ==================== HOMEPAGE.JS ====================
 // Depends on auth.js, saved.js, script.js (for helpers)
 
-const API_BASE_URL = `${CONFIG.API_BASE_URL}/news`; // Backend URL
+const HOME_API_URL = `${CONFIG.API_BASE_URL}/news`; // Backend URL
 
 // ==================== Render Functions ====================
 function renderFeatured(article) {
@@ -107,7 +107,7 @@ async function renderAllCategoriesTop5(categories) {
     for (const cat of categories) {
         try {
             // Fetch latest articles for this category
-            const artRes = await fetch(`${API_BASE_URL}/articles/?category__slug=${cat.slug}`);
+            const artRes = await fetch(`${HOME_API_URL}/articles/?category__slug=${cat.slug}`);
             const artData = await artRes.json();
             const articles = (artData.results || artData).slice(0, 5); // Take exactly up to 5
             
@@ -166,10 +166,10 @@ async function initHomepage() {
         const currentCategory = urlParams.get('category') || 'general';
 
         const [featuredRes, trendingRes, breakingRes, categoriesRes] = await Promise.all([
-            fetch(`${API_BASE_URL}/articles/?is_featured=true`),
-            fetch(`${API_BASE_URL}/articles/?is_trending=true`),
-            fetch(`${API_BASE_URL}/articles/?is_breaking=true`),
-            fetch(`${API_BASE_URL}/categories/`)
+            fetch(`${HOME_API_URL}/articles/?is_featured=true`),
+            fetch(`${HOME_API_URL}/articles/?is_trending=true`),
+            fetch(`${HOME_API_URL}/articles/?is_breaking=true`),
+            fetch(`${HOME_API_URL}/categories/`)
         ]);
 
         const featuredData = await featuredRes.json();

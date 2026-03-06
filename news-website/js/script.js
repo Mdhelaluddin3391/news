@@ -213,6 +213,8 @@ if(categoryButtons) {
     });
 }
 
+
+
 // ==================== App Initialization ====================
 document.addEventListener('DOMContentLoaded', () => {
     if(articlesContainer) {
@@ -224,20 +226,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const homeContainer = document.getElementById('home-categories-container');
         const paginationContainer = document.getElementById('pagination');
+        // Naya code: Featured section ko pakadne ke liye
+        const featuredSection = document.querySelector('.featured-news'); 
         
         if (category === 'general') {
-            // WE ARE ON THE HOME PAGE: Hide pagination and single category title.
-            // Let homepage.js handle rendering the category blocks.
+            // WE ARE ON THE HOME PAGE
             articlesContainer.style.display = 'none';
             if(paginationContainer) paginationContainer.style.display = 'none';
             if(categoryHeading) categoryHeading.style.display = 'none';
             if(homeContainer) homeContainer.style.display = 'block';
+            if(featuredSection) featuredSection.style.display = 'block'; // Home page par show karein
         } else {
-            // WE ARE ON A CATEGORY PAGE (e.g. Technology): Show single paginated grid.
+            // WE ARE ON A CATEGORY PAGE (e.g. Technology)
             articlesContainer.style.display = 'grid'; 
             if(paginationContainer) paginationContainer.style.display = 'flex';
             if(categoryHeading) categoryHeading.style.display = 'block';
             if(homeContainer) homeContainer.style.display = 'none';
+            if(featuredSection) featuredSection.style.display = 'none'; // Category page par hide karein
             fetchNews(category, page);
         }
     }

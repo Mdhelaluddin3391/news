@@ -214,19 +214,20 @@ if(categoryButtons) {
 }
 
 
-
 // ==================== App Initialization ====================
 document.addEventListener('DOMContentLoaded', () => {
-    if(articlesContainer) {
+    // Check karega ki hum Index (Home) page par hain ya nahi
+    const homeContainer = document.getElementById('home-categories-container');
+    
+    // NAYI CONDITION: Sirf tabhi ye logic chalega jab articlesContainer AUR homeContainer dono page par maujood hon
+    if(articlesContainer && homeContainer) {
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category') || DEFAULT_CATEGORY;
         const page = parseInt(urlParams.get('page')) || 1;
         
         setActiveCategory(category);
 
-        const homeContainer = document.getElementById('home-categories-container');
         const paginationContainer = document.getElementById('pagination');
-        // Naya code: Featured section ko pakadne ke liye
         const featuredSection = document.querySelector('.featured-news'); 
         
         if (category === 'general') {
@@ -235,14 +236,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if(paginationContainer) paginationContainer.style.display = 'none';
             if(categoryHeading) categoryHeading.style.display = 'none';
             if(homeContainer) homeContainer.style.display = 'block';
-            if(featuredSection) featuredSection.style.display = 'block'; // Home page par show karein
+            if(featuredSection) featuredSection.style.display = 'block'; 
         } else {
             // WE ARE ON A CATEGORY PAGE (e.g. Technology)
             articlesContainer.style.display = 'grid'; 
             if(paginationContainer) paginationContainer.style.display = 'flex';
             if(categoryHeading) categoryHeading.style.display = 'block';
             if(homeContainer) homeContainer.style.display = 'none';
-            if(featuredSection) featuredSection.style.display = 'none'; // Category page par hide karein
+            if(featuredSection) featuredSection.style.display = 'none'; 
             fetchNews(category, page);
         }
     }

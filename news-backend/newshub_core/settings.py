@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -156,3 +157,10 @@ DEFAULT_FROM_EMAIL = 'noreply@newshub.com'
 
 # Change this to your frontend URL if you are hosting it elsewhere
 FRONTEND_URL = 'http://127.0.0.1:5500/news-website'
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=7),   # Token ab 5 minute ki jagah 7 din chalega
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30), # Refresh token 30 din tak chalega
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}

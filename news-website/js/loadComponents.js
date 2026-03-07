@@ -27,8 +27,15 @@ function initHeaderScripts() {
     const closeBtn = document.getElementById("closeBtn");
 
     if (menuBtn && mobileMenu && closeBtn) {
-        menuBtn.addEventListener("click", () => mobileMenu.classList.add("active"));
-        closeBtn.addEventListener("click", () => mobileMenu.classList.remove("active"));
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.add("active");
+            document.body.classList.add("no-scroll");
+        });
+        
+        closeBtn.addEventListener("click", () => {
+            mobileMenu.classList.remove("active");
+            document.body.classList.remove("no-scroll");
+        });
     }
 
     function updateDateTime() {
@@ -49,6 +56,41 @@ function initHeaderScripts() {
                 window.location.href = `search.html?q=${encodeURIComponent(query)}`;
             }
         });
+    }
+
+    // YAHAN HUMNE NAYA FUNCTION CALL KIYA HAI 👇
+    fetchAndRenderNavCategories();
+}
+
+// 🔴 NAYA FUNCTION: Categories ko backend se laakar Header me set karne ke liye 🔴
+async function fetchAndRenderNavCategories() {
+    try {
+        const response = await fetch(`${CONFIG.API_BASE_URL}/news/categories/`);
+        if (!response.ok) return;
+        const data = await response.json();
+        const categories = data.results || data;
+
+        const desktopNav = document.getElementById('desktop-nav-categories');
+        const mobileNav = document.getElementById('mobile-nav-categories');
+
+        // Check karte hain user kis category page par hai (taaki usko highlight kar sakein)
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentCategory = urlParams.get('category') || 'general';
+
+        let desktopHtml = `<li><a href="index.html?category=general" class="category-link ${currentCategory === 'general' ? 'active' : ''}">Home</a></li>`;
+        let mobileHtml = `<a href="index.html?category=general" class="${currentCategory === 'general' ? 'active' : ''}">Home</a>`;
+
+        categories.forEach(cat => {
+            const isActive = currentCategory === cat.slug ? 'active' : '';
+            desktopHtml += `<li><a href="index.html?category=${cat.slug}" class="category-link ${isActive}">${cat.name}</a></li>`;
+            mobileHtml += `<a href="index.html?category=${cat.slug}" class="${isActive}">${cat.name}</a>`;
+        });
+
+        if (desktopNav) desktopNav.innerHTML = desktopHtml;
+        if (mobileNav) mobileNav.innerHTML = mobileHtml;
+
+    } catch (error) {
+        console.error('Failed to load categories for nav:', error);
     }
 }
 

@@ -27,6 +27,12 @@ body {
     background-color: var(--light);
 }
 
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+
 /* ==================== Typography & Layout Containers ==================== */
 h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
@@ -137,6 +143,12 @@ nav {
 .nav-links {
     display: flex;
     list-style: none;
+    overflow-x: auto;          /* Scroll on karega */
+    white-space: nowrap;       /* Text ko next line me tutne nahi dega */
+    flex: 1;                   /* Bachi hui jagah le lega */
+    margin-right: 20px;
+    scrollbar-width: thin;     /* Firefox ke liye patla scrollbar */
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
 }
 
 .nav-links li a {
@@ -161,6 +173,20 @@ nav {
     align-items: center;
     gap: 20px;
     flex-shrink: 0; /* Updated: Taki right side content dab kar tut na jaye */
+}
+
+
+.nav-links::-webkit-scrollbar {
+    height: 1px;
+}
+.nav-links::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+/* Naya Active state taaki dynamic links highlight ho sakein */
+.nav-links a.active, .mobile-menu a.active {
+    background: var(--secondary);
 }
 
 /* ==================== Search & Auth (Navigation) ==================== */
@@ -262,6 +288,7 @@ nav {
     transition: 0.4s;
     z-index: 2000;
     box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+    overflow-y: auto;
 }
 
 .mobile-menu.active {
@@ -317,12 +344,17 @@ nav {
     cursor: pointer;
 }
 
+#mobile-nav-categories {
+    display: flex;
+    flex-direction: column;
+}
+
 /* ==================== Breaking News Ticker ==================== */
 .breaking {
     background: var(--secondary);
     color: white;
     padding: 10px 0;
-    margin: 20px 0;
+    margin: 1px 0;
 }
 
 .breaking-flex {

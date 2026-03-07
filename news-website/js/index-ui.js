@@ -5,15 +5,15 @@
 
 // ==================== GLOBAL UI FUNCTIONALITY ====================
 
-// Update date/time in top bar
-function updateDateTime() {
-    const dateTimeEl = document.getElementById("dateTime");
-    if (dateTimeEl) {
-        const now = new Date();
-        dateTimeEl.innerText = now.toDateString() + " | " + now.toLocaleTimeString();
-    }
-}
+// // Update date/time in top bar
+// function updateDateTime() {
+//     const dateTimeEl = document.getElementById("dateTime");
+//     if (dateTimeEl) {
+//         const now = new Date();
+//         dateTimeEl.innerText = now.toDateString() + " | " + now.toLocaleTimeString();
+//     }
+// }
 
-// Initial call and set interval
-updateDateTime();
-setInterval(updateDateTime, 1000);
+// // Initial call and set interval
+// updateDateTime();
+// setInterval(updateDateTime, 1000);

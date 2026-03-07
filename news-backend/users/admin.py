@@ -3,18 +3,41 @@ from .models import User
 
 @admin.register(User)
 class CustomUserAdmin(admin.ModelAdmin):
-    # Admin panel mein kaun-kaun se columns dikhane hain
-    list_display = ('email', 'name', 'is_staff', 'is_active', 'created_at')
+    # 'role' ko list_display me add kiya gaya hai taaki bahar se hi sabka role dikh jaye
+    list_display = ('email', 'name', 'role', 'is_staff', 'is_active', 'created_at')
     
-    # Search box kin fields par kaam karega
+    # Filter by role add kiya hai (Admin panel right side me filter aayega)
+    list_filter = ('role', 'is_staff', 'is_active', 'is_superuser')
+    
     search_fields = ('email', 'name')
-    
-    # Sorting (ordering) email ke basis par hogi, na ki username par
     ordering = ('email',)
     
-    # Admin panel mein user edit karte waqt fields kaise dikhenge
+    # Admin panel me jab kisi user ko edit/create karenge, tab 'role' select karne ka option aayega
     fieldsets = (
         ('Login Info', {'fields': ('email', 'password')}),
         ('Personal Info', {'fields': ('name', 'bio', 'profile_picture')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Role & Permissions', {'fields': (
+            'role', # Yahan role change karne ka dropdown aayega
+            'is_active', 
+            'is_staff', 
+            'is_superuser', 
+            'groups', 
+            'user_permissions'
+        )}),
     )
+    
+    # Admin panel se password hash form me save ho iske liye save_model use hota hai
+    def save_model(self, request, obj, form, change):
+        if obj.pk:
+            # Check if password was changed in admin panel
+            orig_obj = User.objects.get(pk=obj.pk)
+            if obj.password != orig_obj.password:
+                obj.set_password(obj.password)
+        else:
+            obj.set_password(obj.password)
+        
+        # Ek condition: Agar koi Admin ban raha hai toh use staff status milna chahiye
+        if obj.role in ['admin', 'editor']:
+            obj.is_staff = True
+            
+        super().save_model(request, obj, form, change)

@@ -2,6 +2,10 @@ from rest_framework import viewsets, permissions, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Article, Category
 from .serializers import ArticleSerializer, CategorySerializer
+from rest_framework import viewsets, permissions
+from .models import Article, Category
+from .serializers import ArticleSerializer, CategorySerializer
+from users.permissions import IsReporterAuthorOrAbove, IsOwnerOrEditorOrAdmin
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     """Frontend par categories dikhane ke liye (ReadOnly)"""
@@ -9,21 +13,29 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [permissions.AllowAny]
 
-class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
-    """Articles ko list aur retrieve karne ke liye"""
-    queryset = Article.objects.filter(status='published').order_by('-published_at')
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all().order_by('-published_at')
     serializer_class = ArticleSerializer
-    permission_classes = [permissions.AllowAny]
     
-    # Filtering aur Searching add kar rahe hain
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['category__slug', 'is_featured', 'is_trending', 'is_breaking']
-    search_fields = ['title', 'description', 'content']
-    ordering_fields = ['published_at', 'views']
+    def get_permissions(self):
+        # Anyone can read published articles
+        if self.action in ['list', 'retrieve']:
+            permission_classes = [permissions.AllowAny]
+        
+        # Only authors, reporters, editors, and admins can create
+        elif self.action == 'create':
+            permission_classes = [IsReporterAuthorOrAbove]
+        
+        # For edit/delete, check object ownership or if they are an editor/admin
+        elif self.action in ['update', 'partial_update', 'destroy']:
+            permission_classes = [IsOwnerOrEditorOrAdmin]
+            
+        else:
+            permission_classes = [permissions.IsAuthenticated]
+            
+        return [permission() for permission in permission_classes]
 
-    def retrieve(self, request, *args, **kwargs):
-        # Jab koi article read kare, toh views count badha dein
-        instance = self.get_object()
-        instance.views += 1
-        instance.save()
-        return super().retrieve(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        # Automatically set the author to the logged-in user when creating an article
+        # Assuming you link the Article to the Author profile
+        serializer.save(author=self.request.user.author_profile)

@@ -16,14 +16,25 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('role', 'admin') # Automatically make superusers 'admin'
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractUser, BaseModel):
-    username = None  # Username field ko remove kar diya
+    ROLE_CHOICES = (
+        ('admin', 'Admin'),
+        ('editor', 'Editor'),
+        ('reporter', 'Reporter'),
+        ('author', 'Author'),
+        ('subscriber', 'Subscriber'),
+    )
+
+    username = None
     email = models.EmailField(unique=True, verbose_name="Email Address")
     name = models.CharField(max_length=255)
     
-    # User ke profile fields
+    # NEW: Add the role field
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='subscriber')
+    
     profile_picture = models.ImageField(upload_to='users/avatars/', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
 
@@ -33,4 +44,4 @@ class User(AbstractUser, BaseModel):
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return f"{self.email} ({self.get_role_display()})"

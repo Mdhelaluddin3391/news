@@ -145,3 +145,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = 'users.User'
+
+
+
+# newshub_core/settings.py
+
+# Print emails to the terminal for testing purposes
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@newshub.com'
+
+# Change this to your frontend URL if you are hosting it elsewhere
+FRONTEND_URL = 'http://127.0.0.1:5500/news-website'

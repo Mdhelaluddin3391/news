@@ -20,6 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from interactions.views import SubscribeNewsletterView, UnsubscribeNewsletterView
+from core.views import ContactMessageCreateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +38,7 @@ urlpatterns = [
     # path('api/interactions/', include('interactions.urls')), # Ise next step mein banayenge
     path('api/newsletter/subscribe/', SubscribeNewsletterView.as_view(), name='newsletter_subscribe'),
     path('api/newsletter/unsubscribe/', UnsubscribeNewsletterView.as_view(), name='newsletter_unsubscribe'),
+    path('api/contact/', ContactMessageCreateView.as_view(), name='contact_api'),
 
     
 ]

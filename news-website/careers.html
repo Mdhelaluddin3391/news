@@ -4,31 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Careers - NewsHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/pages.css">
-    <link rel="stylesheet" href="css/extra-pages.css">
+    <link rel="stylesheet" href="css/extra-pages.css"> <style>
+        .coming-soon-container {
+            text-align: center;
+            padding: 100px 20px;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-color, #f8f9fa);
+        }
+        .coming-soon-icon {
+            font-size: 4rem;
+            color: var(--primary-color, #e63946);
+            margin-bottom: 20px;
+        }
+        .coming-soon-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--text-color, #333);
+        }
+        .coming-soon-text {
+            color: var(--text-light, #666);
+            max-width: 500px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        .back-home-btn {
+            margin-top: 30px;
+            padding: 12px 25px;
+            background-color: var(--primary-color, #e63946);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .back-home-btn:hover {
+            background-color: #c1121f;
+        }
+    </style>
 </head>
-<body>
+<body class="light-mode">
+
     <div id="header-placeholder"></div>
 
-    <main>
-        <div class="page-container coming-soon-container">
-            <i class="fas fa-briefcase coming-soon-icon"></i>
-            <h1 class="coming-soon-title">Careers at NewsHub</h1>
-            <h2 style="color: var(--secondary); margin-bottom: 1rem;">Coming Soon!</h2>
-            <p class="coming-soon-text">Humara careers portal abhi ban raha hai. Bahut jald aap yahan job openings dekh payenge aur humari team join karne ke liye apply kar sakenge.</p>
-            <a href="index.html" class="back-home">Return to Homepage</a>
-        </div>
+    <main class="coming-soon-container">
+        <i class="fas fa-briefcase coming-soon-icon"></i>
+        <h1 class="coming-soon-title">Join Our Team</h1>
+        <p class="coming-soon-text">We are currently building our careers page. Open positions for journalists, editors, and developers will be listed here soon!</p>
+        <a href="index.html" class="back-home-btn">Return to Homepage</a>
     </main>
 
     <div id="footer-placeholder"></div>
 
     <script src="js/config.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/homepage.js"></script> 
-    <script src="js/index-ui.js"></script>
     <script src="js/loadComponents.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html>

@@ -3,6 +3,12 @@
 
 const HOMEPAGE_API_URL = `${CONFIG.API_BASE_URL}/news`;
 
+// ==================== NEW: Lazy Load Categories State ====================
+let allCategoriesList = [];
+let currentCategoryIndex = 0;
+let isLoadingCategory = false;
+
+
 // ==================== Render Functions ====================
 function renderFeatured(article) {
     const container = document.getElementById('featured-news-container');
@@ -97,14 +103,25 @@ function formatTimeAgo(isoString) {
     return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
 }
 
-// ==================== NEW: Render All Categories Top 5 ====================
-async function renderAllCategoriesTop5(categories) {
-    const container = document.getElementById('home-categories-container');
-    if (!container) return;
+// ==================== Load Categories in Batches ====================
+async function loadNextCategories(count = 1) {
+    // Agar loading chal rahi hai ya saari categories load ho chuki hain, toh ruk jao
+    if (isLoadingCategory || currentCategoryIndex >= allCategoriesList.length) return;
+    
+    isLoadingCategory = true;
+    
+    // Niche wala scroll loader dikhayein
+    const scrollLoader = document.getElementById('category-scroll-loader');
+    if (scrollLoader) scrollLoader.style.display = 'block';
 
+    const container = document.getElementById('home-categories-container');
     let html = '';
 
-    for (const cat of categories) {
+    // Calculate kahan tak load karna hai
+    const endIndex = Math.min(currentCategoryIndex + count, allCategoriesList.length);
+
+    for (let i = currentCategoryIndex; i < endIndex; i++) {
+        const cat = allCategoriesList[i];
         try {
             // Fetch latest articles for this category
             const artRes = await fetch(`${HOMEPAGE_API_URL}/articles/?category__slug=${cat.slug}`);
@@ -156,8 +173,31 @@ async function renderAllCategoriesTop5(categories) {
         }
     }
 
-    container.innerHTML = html;
+    container.insertAdjacentHTML('beforeend', html); // Puraane categories ke niche naye add karega
+    
+    currentCategoryIndex = endIndex;
+    isLoadingCategory = false;
+    
+    // Load hone ke baad scroll loader chupa dein
+    if (scrollLoader) scrollLoader.style.display = 'none';
 }
+
+// ==================== Setup Intersection Observer for Scrolling ====================
+function setupScrollObserver() {
+    const scrollLoader = document.getElementById('category-scroll-loader');
+    if (!scrollLoader) return;
+
+    // Jab element view mein aayega, tab callback fire hoga
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            // Jaise hi user niche tak scroll karega, hum 1 nayi category fetch kar lenge
+            loadNextCategories(1);
+        }
+    }, { root: null, rootMargin: '100px', threshold: 0.1 }); // 100px pehle hi load karna shuru kar dega
+
+    observer.observe(scrollLoader);
+}
+
 
 // ==================== Initialize Homepage ====================
 async function initHomepage() {
@@ -193,9 +233,17 @@ async function initHomepage() {
         const breakingTitles = (breakingData.results || []).map(item => item.title);
         renderBreakingTicker(breakingTitles);
 
-        // Render Category Blocks (Only if we are on the Homepage / General)
+        // Render Category Blocks (Lazy Loading Setup)
         if (currentCategory === 'general') {
-            await renderAllCategoriesTop5(categoriesList);
+            allCategoriesList = categoriesList;
+            currentCategoryIndex = 0;
+            document.getElementById('home-categories-container').innerHTML = ''; // Container clean kiya
+            
+            // First load mein 2 categories load karein taaki page bhara hua lage
+            await loadNextCategories(2); 
+            
+            // Phir observer setup kar dein baki ki categories ke liye
+            setupScrollObserver();
         }
 
     } catch (error) {

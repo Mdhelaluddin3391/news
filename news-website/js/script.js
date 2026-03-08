@@ -213,7 +213,6 @@ if(categoryButtons) {
     });
 }
 
-
 // ==================== App Initialization ====================
 document.addEventListener('DOMContentLoaded', () => {
     // Check karega ki hum Index (Home) page par hain ya nahi
@@ -237,7 +236,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if(categoryHeading) categoryHeading.style.display = 'none';
             if(homeContainer) homeContainer.style.display = 'block';
             if(featuredSection) featuredSection.style.display = 'block'; 
-        } else {
+            
+            // 👇 YEH NAYI LINE ADD KAREIN 👇
+            if (typeof initHomepage === 'function') {
+                initHomepage();
+            }
+            
+        } else { // 👈 YEH ELSE YAHAN HONA CHAHIYE
             // WE ARE ON A CATEGORY PAGE (e.g. Technology)
             articlesContainer.style.display = 'grid'; 
             if(paginationContainer) paginationContainer.style.display = 'flex';

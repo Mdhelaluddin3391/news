@@ -72,6 +72,7 @@ async function fetchAndRenderNavCategories() {
 
         const desktopNav = document.getElementById('desktop-nav-categories');
         const mobileNav = document.getElementById('mobile-nav-categories');
+        const footerNav = document.getElementById('footer-categories');
 
         // Check karte hain user kis category page par hai (taaki usko highlight kar sakein)
         const urlParams = new URLSearchParams(window.location.search);
@@ -79,15 +80,18 @@ async function fetchAndRenderNavCategories() {
 
         let desktopHtml = `<li><a href="index.html?category=general" class="category-link ${currentCategory === 'general' ? 'active' : ''}">Home</a></li>`;
         let mobileHtml = `<a href="index.html?category=general" class="${currentCategory === 'general' ? 'active' : ''}">Home</a>`;
+        let footerHtml = `<li><a href="index.html?category=general">General News</a></li>`;
 
         categories.forEach(cat => {
             const isActive = currentCategory === cat.slug ? 'active' : '';
             desktopHtml += `<li><a href="index.html?category=${cat.slug}" class="category-link ${isActive}">${cat.name}</a></li>`;
             mobileHtml += `<a href="index.html?category=${cat.slug}" class="${isActive}">${cat.name}</a>`;
+            footerHtml += `<li><a href="index.html?category=${cat.slug}">${cat.name}</a></li>`;
         });
 
         if (desktopNav) desktopNav.innerHTML = desktopHtml;
         if (mobileNav) mobileNav.innerHTML = mobileHtml;
+        if (footerNav) footerNav.innerHTML = footerHtml;
 
     } catch (error) {
         console.error('Failed to load categories for nav:', error);

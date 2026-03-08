@@ -1,0 +1,81 @@
+/* css/authors.css */
+
+.authors-grid {
+    display: grid;
+    /* Grid system: Screen size ke hisab se cards set ho jayenge */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.author-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.author-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-color: var(--primary);
+}
+
+.author-card-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.2rem;
+    border: 3px solid var(--accent);
+    padding: 5px;
+}
+
+.author-card-name {
+    font-size: 1.3rem;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.author-card-role {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.author-card-social {
+    margin-top: auto; /* Buttons ko hamesha niche rakhega */
+    display: flex;
+    gap: 15px;
+}
+
+.author-card-social a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background-color: var(--light);
+    color: var(--gray);
+    border-radius: 50%;
+    font-size: 1rem;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.author-card-social a:hover {
+    background-color: var(--primary);
+    color: white;
+}

@@ -5,8 +5,11 @@ from .serializers import ContactMessageSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Advertisement
-from .serializers import AdvertisementSerializer
-
+from rest_framework.views import APIView
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from .models import ContactMessage, Advertisement
+from .serializers import ContactMessageSerializer, AdvertisementSerializer
 
 
 class ContactMessageCreateView(generics.CreateAPIView):
@@ -16,18 +19,18 @@ class ContactMessageCreateView(generics.CreateAPIView):
 
 
 class ActiveAdsAPIView(APIView):
+    # Active ads jaldi change nahi hote, isliye isko 10 minutes (60 * 10 seconds) ke liye cache karenge
+    @method_decorator(cache_page(60 * 10))
     def get(self, request):
         slots = ['header', 'sidebar', 'in_article']
         ads_data = {}
 
         for slot in slots:
-            # Priority 1: Pehle check karo ki koi Active Brand Ad hai kya?
             brand_ad = Advertisement.objects.filter(slot=slot, ad_type='brand', is_active=True).first()
             if brand_ad:
                 ads_data[slot] = AdvertisementSerializer(brand_ad).data
-                continue # Agar brand ad mil gaya, toh Google ad mat dhundho
+                continue 
             
-            # Priority 2: Agar Brand Ad nahi hai, toh Google Ad check karo
             google_ad = Advertisement.objects.filter(slot=slot, ad_type='google', is_active=True).first()
             if google_ad:
                 ads_data[slot] = AdvertisementSerializer(google_ad).data

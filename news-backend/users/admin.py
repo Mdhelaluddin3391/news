@@ -26,7 +26,6 @@ class CustomUserAdmin(admin.ModelAdmin):
         )}),
     )
     
-    # Admin panel se password hash form me save ho iske liye save_model use hota hai
     def save_model(self, request, obj, form, change):
         if obj.pk:
             # Check if password was changed in admin panel
@@ -36,8 +35,10 @@ class CustomUserAdmin(admin.ModelAdmin):
         else:
             obj.set_password(obj.password)
         
-        # Ek condition: Agar koi Admin ban raha hai toh use staff status milna chahiye
-        if obj.role in ['admin', 'editor']:
+        # --- NAYA CODE: Authors aur Reporters ko bhi staff access dein ---
+        if obj.role in ['admin', 'editor', 'author', 'reporter']:
             obj.is_staff = True
+        else:
+            obj.is_staff = False
             
         super().save_model(request, obj, form, change)

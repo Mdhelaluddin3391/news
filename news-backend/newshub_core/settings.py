@@ -179,12 +179,16 @@ TINYMCE_DEFAULT_CONFIG = {
 
 
 # ==========================================
-# CACHING SETUP (Performance Optimization)
+# CACHING SETUP (Industry Standard Redis)
 # ==========================================
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'newshub-cache',
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1", # Default Redis server address
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True, # Agar redis down ho toh app crash na ho, DB se data le le
+        }
     }
 }
 

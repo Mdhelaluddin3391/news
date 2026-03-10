@@ -8,6 +8,8 @@ from .models import NewsletterSubscriber
 from .models import Poll, PollOption
 from .serializers import PollSerializer
 from rest_framework import permissions, status
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
@@ -83,8 +85,8 @@ class UnsubscribeNewsletterView(APIView):
 class ActivePollView(APIView):
     permission_classes = [permissions.AllowAny]
 
+    @method_decorator(cache_page(60))
     def get(self, request):
-        # Sirf wo poll bhejo jo 'is_active=True' hai
         poll = Poll.objects.filter(is_active=True).first()
         if poll:
             return Response(PollSerializer(poll).data)

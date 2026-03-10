@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/auth.css">
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
@@ -34,6 +36,28 @@
                 </div>
                 <button type="submit" class="auth-btn">Login</button>
             </form>
+
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <p style="color: var(--gray); margin-bottom: 10px; font-size: 0.9rem;">OR</p>
+                
+                <div id="g_id_onload"
+                     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleGoogleLogin"
+                     data-auto_prompt="false">
+                </div>
+
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="rectangular"
+                     data-theme="outline"
+                     data-text="continue_with"
+                     data-size="large"
+                     data-logo_alignment="center"
+                     style="display: flex; justify-content: center;">
+                </div>
+            </div>
             <p class="auth-link">Don't have an account? <a href="register.html">Register here</a></p>
         </div>
     </main>
@@ -46,8 +70,7 @@
     <script src="js/homepage.js"></script>
     <script src="js/index-ui.js"></script>
     <script src="js/login.js"></script>
-</body>
-<script src="js/loadComponents.js"></script>
+    <script src="js/loadComponents.js"></script>
 </body>
 
 </html>

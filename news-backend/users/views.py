@@ -7,6 +7,10 @@ from django.conf import settings
 import jwt
 import datetime
 from .serializers import RegisterSerializer, UserSerializer
+from google.oauth2 import id_token
+from google.auth.transport import requests as google_requests
+from rest_framework_simplejwt.tokens import RefreshToken
+
 
 User = get_user_model()
 
@@ -84,3 +88,47 @@ class ResetPasswordView(APIView):
             return Response({"error": "The reset link has expired. Please request a new one."}, status=status.HTTP_400_BAD_REQUEST)
         except (jwt.InvalidTokenError, User.DoesNotExist):
             return Response({"error": "Invalid reset link."}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class GoogleLoginView(APIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request):
+        token = request.data.get('token')
+        if not token:
+            return Response({"error": "Token is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Google token verify karein
+            idinfo = id_token.verify_oauth2_token(
+                token, 
+                google_requests.Request(), 
+                settings.GOOGLE_CLIENT_ID
+            )
+
+            email = idinfo['email']
+            name = idinfo.get('name', 'Google User')
+            picture = idinfo.get('picture', '')
+
+            # Check karein ki user pehle se hai ya nahi
+            user, created = User.objects.get_or_create(email=email)
+            
+            if created:
+                # Naya user hai toh details save karein
+                user.name = name
+                user.role = 'subscriber'
+                user.set_unusable_password() # Kyunki password Google handle kar raha hai
+                user.save()
+
+            # Generate JWT tokens for our app
+            refresh = RefreshToken.for_user(user)
+
+            return Response({
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),
+                'user': UserSerializer(user).data
+            })
+
+        except ValueError:
+            # Invalid token
+            return Response({"error": "Invalid Google Token"}, status=status.HTTP_400_BAD_REQUEST)

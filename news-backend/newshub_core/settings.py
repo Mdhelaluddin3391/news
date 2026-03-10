@@ -187,3 +187,6 @@ CACHES = {
         'LOCATION': 'newshub-cache',
     }
 }
+
+
+GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'

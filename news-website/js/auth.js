@@ -151,3 +151,39 @@ async function unsaveArticle(articleId) {
     } catch (e) { console.error(e); }
     return false;
 }
+
+
+async function handleGoogleLogin(response) {
+    const googleToken = response.credential;
+    
+    try {
+        const res = await fetch(`${API_BASE_URL_AUTH}/users/google-login/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: googleToken })
+        });
+        
+        const data = await res.json();
+        
+        if (!res.ok) {
+            alert(data.error || 'Google login failed.');
+            return;
+        }
+
+        // Backend ne hume access/refresh tokens de diye hain
+        localStorage.setItem(TOKEN_KEY, data.access);
+        localStorage.setItem(REFRESH_KEY, data.refresh);
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data.user));
+
+        await syncBookmarks();
+        
+        // Login successful, redirect to home or previous page
+        const urlParams = new URLSearchParams(window.location.search);
+        const redirect = urlParams.get('redirect') || 'index.html';
+        window.location.href = redirect;
+
+    } catch (error) {
+        console.error('Google login network error:', error);
+        alert('Network error during Google Login. Please try again.');
+    }
+}

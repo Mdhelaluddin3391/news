@@ -294,6 +294,18 @@ async function initHomepage() {
                 await loadNextCategories(2); 
                 setupScrollObserver();
             }
+            
+            // === NAYA CODE YAHAN ADD KAREIN ===
+            // Homepage SEO Update
+            if (typeof updateSEOMetaTags === 'function') {
+                updateSEOMetaTags(
+                    'NewsHub - Premium Global News', 
+                    'Stay updated with the latest breaking news, trending stories, and in-depth articles from around the world on NewsHub.', 
+                    'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=1200&q=80', 
+                    window.location.href
+                );
+            }
+            // ===================================
         }
 
     } catch (error) {

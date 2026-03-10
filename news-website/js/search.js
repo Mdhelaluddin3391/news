@@ -142,11 +142,21 @@ async function fetchSearchResults(query, page = 1) {
         renderSearchArticles(results);
         updateSearchPagination(page, totalResults, query);
         
-        // NAYA: Badge Look for search heading
         searchHeading.innerHTML = `
             <i class="fas fa-search" style="font-size: 1rem; color: var(--primary); opacity: 0.7;"></i> 
             Results for <span class="highlight-search">${query}</span>
         `;
+
+        // === NAYA CODE YAHAN ADD KAREIN ===
+        // Search Page SEO Update
+        if (typeof updateSEOMetaTags === 'function') {
+            updateSEOMetaTags(
+                `"${query}" - Search Results | NewsHub`, 
+                `Explore news articles and stories related to "${query}" on NewsHub. Find the most relevant updates.`, 
+                'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=1200&q=80', 
+                window.location.href
+            );
+        }
 
         // Optional: Count display
         const countDiv = document.getElementById('results-count');
@@ -227,6 +237,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!query) {
         searchHeading.textContent = 'Search Results';
         searchArticlesContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Please enter a search term to find articles.</p>';
+        
+        // === NAYA CODE YAHAN ADD KAREIN ===
+        if (typeof updateSEOMetaTags === 'function') {
+            updateSEOMetaTags(
+                `Search News - NewsHub`, 
+                `Search our database for the latest news articles and stories on NewsHub.`, 
+                'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=1200&q=80', 
+                window.location.href
+            );
+        }
+        // ===================================
         return;
     }
 

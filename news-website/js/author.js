@@ -52,6 +52,17 @@ async function fetchAuthorAndArticles() {
             </div>
         `;
 
+        // === NAYA CODE YAHAN ADD KAREIN (Dynamic SEO for Author) ===
+        if (typeof updateSEOMetaTags === 'function') {
+            const seoBio = bio.length > 150 ? bio.substring(0, 150) + '...' : bio;
+            updateSEOMetaTags(
+                `${author.name} - NewsHub Author`, 
+                seoBio, 
+                avatar, 
+                window.location.href
+            );
+        }
+
         // 2. Ab is author ke likhe hue Articles fetch karenge
         const articlesResponse = await fetch(`${API_BASE_URL}/articles/?author=${authorId}`);
         const articleData = await articlesResponse.json();

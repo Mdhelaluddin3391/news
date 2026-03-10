@@ -60,6 +60,12 @@ function renderArticle(article) {
     const content = article.content || article.description || 'Full content is not available.';
     const categorySlug = article.category ? article.category.slug : 'general';
 
+    if (typeof updateSEOMetaTags === 'function') {
+        // Description lamba ho sakta hai, isliye hum use SEO ke liye thoda chota (truncate) kar lenge (approx 150 chars)
+        const seoDescription = description.length > 150 ? description.substring(0, 150) + '...' : description;
+        updateSEOMetaTags(title, seoDescription, imageUrl, window.location.href);
+    }
+
     // --- NAYA TAGS HTML BLOCK ---
     let tagsHTML = '';
     if (article.tags && article.tags.length > 0) {

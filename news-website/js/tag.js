@@ -104,6 +104,7 @@ function setupTagPagination(currentPage, totalItems, slug) {
     };
 }
 
+
 // Initial Load
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -113,14 +114,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!tagSlug) {
         tagHeading.textContent = "Invalid Tag or No Tag Selected";
+        
+        // === NAYA CODE YAHAN ADD KAREIN (Fallback) ===
+        if (typeof updateSEOMetaTags === 'function') {
+            updateSEOMetaTags(
+                `Tags - NewsHub`, 
+                `Browse our collection of news articles by topics and tags on NewsHub.`, 
+                'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=1200&q=80', 
+                window.location.href
+            );
+        }
+        // =============================================
         return;
     }
+
+    // Display ke liye naam set karein (agar name na mile toh slug use karein)
+    const displayTagName = tagName || tagSlug;
 
     // Title ko update kar diya!
     tagHeading.innerHTML = `
     <i class="fas fa-tags tag-icon"></i> 
     Articles tagged with 
-    <span class="highlight-tag">#${tagName || tagSlug}</span>
-`;
+    <span class="highlight-tag">#${displayTagName}</span>
+    `;
+
+    // === NAYA CODE YAHAN ADD KAREIN (SEO Update for specific tag) ===
+    if (typeof updateSEOMetaTags === 'function') {
+        updateSEOMetaTags(
+            `#${displayTagName} - Tagged Articles | NewsHub`, 
+            `Explore the latest news, updates, and deep-dive articles tagged with #${displayTagName} on NewsHub.`, 
+            'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=1200&q=80', 
+            window.location.href
+        );
+    }
+    // ================================================================
+
     fetchTagResults(tagSlug, 1);
 });

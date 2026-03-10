@@ -129,7 +129,21 @@ async function fetchNews(category = DEFAULT_CATEGORY, page = 1) {
         updatePagination(page, totalResults, category);
         
         if(categoryHeading) {
-            categoryHeading.textContent = category.charAt(0).toUpperCase() + category.slice(1) + ' News';
+            // Category ke pehle letter ko capital banate hain
+            const formattedCategoryName = category.charAt(0).toUpperCase() + category.slice(1);
+            categoryHeading.textContent = formattedCategoryName + ' News';
+            
+            // === NAYA CODE YAHAN ADD KAREIN ===
+            // Category Page SEO Update
+            if (typeof updateSEOMetaTags === 'function') {
+                updateSEOMetaTags(
+                    `${formattedCategoryName} News`, 
+                    `Read the latest breaking news, updates, and deep dives about ${formattedCategoryName} on NewsHub.`, 
+                    'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?auto=format&fit=crop&w=1200&q=80', // Aap chahein toh category ke hisaab se dynamic image pass kar sakte hain
+                    window.location.href
+                );
+            }
+            // ===================================
         }
         
     } catch (error) {
@@ -290,4 +304,42 @@ function showToast(message, type = 'success') {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 400); // Animation khatam hone ka wait
     }, 3000);
+}
+
+
+
+// ==================== SEO META TAGS UPDATER ====================
+// Yeh function dynamically page ka title, description aur social media tags update karta hai
+function updateSEOMetaTags(title, description, imageUrl, pageUrl) {
+    // 1. Page ka Title update karein
+    document.title = title ? `${title} - NewsHub` : 'NewsHub - Premium News';
+
+    // Helper function: Agar tag pehle se hai toh update karein, nahi toh naya banayein
+    function setMetaTag(attrName, attrValue, content) {
+        if (!content) return; // Agar content nahi hai toh skip karein
+        let element = document.querySelector(`meta[${attrName}="${attrValue}"]`);
+        if (!element) {
+            element = document.createElement('meta');
+            element.setAttribute(attrName, attrValue);
+            document.head.appendChild(element);
+        }
+        element.setAttribute('content', content);
+    }
+
+    // 2. Standard SEO Description
+    setMetaTag('name', 'description', description);
+
+    // 3. Open Graph Tags (Facebook, LinkedIn, WhatsApp ke liye)
+    setMetaTag('property', 'og:title', title);
+    setMetaTag('property', 'og:description', description);
+    setMetaTag('property', 'og:image', imageUrl);
+    setMetaTag('property', 'og:url', pageUrl);
+    setMetaTag('property', 'og:type', 'article');
+    setMetaTag('property', 'og:site_name', 'NewsHub');
+
+    // 4. Twitter Card Tags (Twitter / X preview ke liye)
+    setMetaTag('name', 'twitter:card', 'summary_large_image');
+    setMetaTag('name', 'twitter:title', title);
+    setMetaTag('name', 'twitter:description', description);
+    setMetaTag('name', 'twitter:image', imageUrl);
 }

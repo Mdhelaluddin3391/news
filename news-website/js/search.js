@@ -5,30 +5,34 @@ const SEARCH_API_BASE_URL = `${CONFIG.API_BASE_URL}/news/articles/`;
 const SEARCH_ARTICLES_PER_PAGE = 6;
 
 // ==================== DOM Elements ====================
-const searchHeading = document.getElementById('search-query-heading');
+// NAYA: Fallback IDs add kiye hain taaki agar ek ID na mile toh dusri try kare aur code crash na ho
+const searchHeading = document.getElementById('search-query') || document.getElementById('search-heading') || document.getElementById('search-query-heading');
+const searchSubtitle = document.querySelector('.search-subtitle') || document.getElementById('search-subtitle');
 const searchArticlesContainer = document.getElementById('articles-container');
 const searchLoader = document.getElementById('loader');
 const searchErrorDiv = document.getElementById('error-message');
 
 // ==================== Helper Functions ====================
 function showSearchLoader() {
-    searchLoader.style.display = 'block';
+    if (searchLoader) searchLoader.style.display = 'block';
 }
 
 function hideSearchLoader() {
-    searchLoader.style.display = 'none';
+    if (searchLoader) searchLoader.style.display = 'none';
 }
 
 function showSearchError(message) {
-    searchErrorDiv.textContent = message;
-    searchErrorDiv.style.display = 'block';
-    setTimeout(() => {
-        searchErrorDiv.style.display = 'none';
-    }, 5000);
+    if (searchErrorDiv) {
+        searchErrorDiv.textContent = message;
+        searchErrorDiv.style.display = 'block';
+        setTimeout(() => {
+            searchErrorDiv.style.display = 'none';
+        }, 5000);
+    }
 }
 
 function clearSearchError() {
-    searchErrorDiv.style.display = 'none';
+    if (searchErrorDiv) searchErrorDiv.style.display = 'none';
 }
 
 function formatSearchDate(isoString) {
@@ -41,9 +45,11 @@ function formatSearchDate(isoString) {
 }
 
 // ==================== Rendering ====================
-function renderSearchArticles(articles) {
+function renderSearchArticles(articles, query) {
+    if (!searchArticlesContainer) return; // Safety check
+
     if (!articles || articles.length === 0) {
-        // NAYA: Better "No Results" UI with Icon
+        // Better "No Results" UI with Icon
         searchArticlesContainer.innerHTML = `
             <div style="text-align: center; padding: 50px 20px; grid-column: 1 / -1;">
                 <i class="fas fa-search" style="font-size: 3rem; color: var(--border); margin-bottom: 20px;"></i>
@@ -54,20 +60,32 @@ function renderSearchArticles(articles) {
         return;
     }
 
-    const user = getCurrentUser(); // from auth.js
+    // Helper function to highlight keywords in text
+    const highlightText = (text, searchWord) => {
+        if (!searchWord || !text) return text;
+        // Escape special characters to prevent regex errors
+        const escapedWord = searchWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedWord})`, 'gi');
+        return text.replace(regex, '<span class="highlight-text">$1</span>');
+    };
+
+    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null; // from auth.js
     const html = articles.map(article => {
         // Map backend fields
         const imageUrl = article.featured_image || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80';
-        const title = article.title || 'Untitled';
         
-        // Truncation logic (User's requirement)
+        // Fetch Title & Description and apply Truncation and Highlighting
+        const rawTitle = article.title || 'Untitled';
         const rawDescription = article.description || '';
-        const description = rawDescription.length > 110 ? rawDescription.substring(0, 110) + '...' : rawDescription;
+        const shortDesc = rawDescription.length > 110 ? rawDescription.substring(0, 110) + '...' : rawDescription;
+        
+        const title = highlightText(rawTitle, query);
+        const description = highlightText(shortDesc, query);
         
         const source = article.source_name || 'NewsHub';
         const date = article.published_at ? formatSearchDate(article.published_at) : 'Unknown date';
         const articleId = article.id || '';
-        const isSaved = user ? isArticleSaved(articleId) : false;
+        const isSaved = user && typeof isArticleSaved === 'function' ? isArticleSaved(articleId) : false;
         
         const saveButton = user ? 
             `<button class="save-btn ${isSaved ? 'saved' : ''}" data-id="${articleId}">${isSaved ? 'Saved' : 'Save'}</button>` 
@@ -75,7 +93,7 @@ function renderSearchArticles(articles) {
 
         return `
             <div class="article-card">
-                <img src="${imageUrl}" alt="${title}" class="article-image" loading="lazy">
+                <img src="${imageUrl}" alt="${rawTitle}" class="article-image" loading="lazy">
                 <div class="article-content">
                     <h3 class="article-title">${title}</h3>
                     <p class="article-description">${description}</p>
@@ -102,12 +120,12 @@ function renderSearchArticles(articles) {
                 if (!article) return;
 
                 if (btn.classList.contains('saved')) {
-                    unsaveArticle(articleId);
+                    if(typeof unsaveArticle === 'function') unsaveArticle(articleId);
                     btn.classList.remove('saved');
                     btn.textContent = 'Save';
                     if(typeof showToast === 'function') showToast('Removed from saved articles', 'info');
                 } else {
-                    saveArticle(article);
+                    if(typeof saveArticle === 'function') saveArticle(article);
                     btn.classList.add('saved');
                     btn.textContent = 'Saved';
                     if(typeof showToast === 'function') showToast('Article saved successfully!', 'success');
@@ -121,7 +139,7 @@ function renderSearchArticles(articles) {
 async function fetchSearchResults(query, page = 1) {
     showSearchLoader();
     clearSearchError();
-    searchArticlesContainer.innerHTML = '';
+    if (searchArticlesContainer) searchArticlesContainer.innerHTML = '';
 
     try {
         const url = new URL(SEARCH_API_BASE_URL);
@@ -139,15 +157,21 @@ async function fetchSearchResults(query, page = 1) {
         const results = data.results || data; // Handle paginated DRF response
         const totalResults = data.count || results.length;
 
-        renderSearchArticles(results);
+        renderSearchArticles(results, query);
         updateSearchPagination(page, totalResults, query);
         
-        searchHeading.innerHTML = `
-            <i class="fas fa-search" style="font-size: 1rem; color: var(--primary); opacity: 0.7;"></i> 
-            Results for <span class="highlight-search">${query}</span>
-        `;
+        // NAYA: Yahan null check laga diya hai taaki TypeError na aaye
+        if (searchHeading) {
+            searchHeading.innerHTML = `
+                <i class="fas fa-search" style="font-size: 1rem; color: var(--primary); opacity: 0.7;"></i> 
+                Results for <span class="highlight-search">${query}</span>
+            `;
+        }
 
-        // === NAYA CODE YAHAN ADD KAREIN ===
+        if (searchSubtitle) {
+            searchSubtitle.style.display = 'none';
+        }
+
         // Search Page SEO Update
         if (typeof updateSEOMetaTags === 'function') {
             updateSEOMetaTags(
@@ -160,7 +184,7 @@ async function fetchSearchResults(query, page = 1) {
 
         // Optional: Count display
         const countDiv = document.getElementById('results-count');
-        if(countDiv) countDiv.textContent = `Found ${totalResults} articles matching your query`;
+        if (countDiv) countDiv.textContent = `Found ${totalResults} articles matching your query`;
         
     } catch (error) {
         console.error('Search failed:', error);
@@ -235,10 +259,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!query) {
-        searchHeading.textContent = 'Search Results';
-        searchArticlesContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Please enter a search term to find articles.</p>';
+        // NAYA: Null check added here
+        if (searchHeading) {
+            searchHeading.textContent = 'Search Results';
+        }
+        if (searchArticlesContainer) {
+            searchArticlesContainer.innerHTML = '<p style="text-align: center; margin-top: 50px;">Please enter a search term to find articles.</p>';
+        }
         
-        // === NAYA CODE YAHAN ADD KAREIN ===
         if (typeof updateSEOMetaTags === 'function') {
             updateSEOMetaTags(
                 `Search News - NewsHub`, 
@@ -247,7 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href
             );
         }
-        // ===================================
         return;
     }
 

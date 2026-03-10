@@ -33,10 +33,13 @@
 
             <div class="nav-right">
                 <div class="search-box">
-                    <form action="search.html" method="get" class="search-form-inline">
-                        <input type="text" name="q" placeholder="Search...">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </form>
+                    <div class="search-container-relative">
+                        <form action="search.html" method="get" class="search-form-inline" id="desktop-search-form">
+                            <input type="text" name="q" id="desktop-search-input" placeholder="Search news, topics, authors..." autocomplete="off">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                        <div class="search-suggestions" id="desktop-suggestions"></div>
+                    </div>
                 </div>
                 <div class="auth">
                     <a href="login.html" class="auth-link-item login-link">Login</a>
@@ -58,10 +61,13 @@
 <div class="mobile-menu" id="mobileMenu">
     <div class="close-btn" id="closeBtn"><i class="fas fa-times"></i></div>
     <div class="mobile-search">
-        <form action="search.html" method="get" style="display: flex; width: 100%;">
-            <input type="text" name="q" placeholder="Search news..." style="flex: 1;">
-            <button type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        <div class="search-container-relative" style="width: 100%;">
+            <form action="search.html" method="get" style="display: flex; width: 100%;" id="mobile-search-form">
+                <input type="text" name="q" id="mobile-search-input" placeholder="Search news..." style="flex: 1;" autocomplete="off">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="search-suggestions" id="mobile-suggestions"></div>
+        </div>
     </div>
     
     <div id="mobile-nav-categories">

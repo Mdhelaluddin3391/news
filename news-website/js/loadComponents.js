@@ -60,6 +60,8 @@ function initHeaderScripts() {
 
     // YAHAN HUMNE NAYA FUNCTION CALL KIYA HAI 👇
     fetchAndRenderNavCategories();
+    setupSearchAutocomplete('desktop-search-input', 'desktop-suggestions');
+    setupSearchAutocomplete('mobile-search-input', 'mobile-suggestions');
 }
 
 // 🔴 NAYA FUNCTION: Categories ko backend se laakar Header me set karne ke liye 🔴
@@ -109,5 +111,87 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
+
+// ==================== AUTO COMPLETE SEARCH LOGIC ====================
+function setupSearchAutocomplete(inputId, suggestionsId) {
+    const input = document.getElementById(inputId);
+    const suggestionsBox = document.getElementById(suggestionsId);
+    if (!input || !suggestionsBox) return;
+
+    let debounceTimer;
+
+    input.addEventListener('input', function() {
+        clearTimeout(debounceTimer);
+        const query = this.value.trim();
+
+        if (query.length < 2) {
+            suggestionsBox.style.display = 'none';
+            return;
+        }
+
+        // 300ms ka debounce taaki har keypress par API hit na ho (Industry Standard)
+        debounceTimer = setTimeout(async () => {
+            try {
+                const res = await fetch(`${CONFIG.API_BASE_URL}/news/articles/?search=${encodeURIComponent(query)}`);
+                if (!res.ok) return;
+                const data = await res.json();
+                const articles = data.results || data;
+
+                if (articles.length === 0) {
+                    suggestionsBox.innerHTML = '<div style="padding: 12px 15px; color: var(--gray); font-size: 0.9rem;">No matching articles found</div>';
+                    suggestionsBox.style.display = 'block';
+                    return;
+                }
+
+                // Top 5 results dikhayenge
+                const topMatches = articles.slice(0, 5);
+                let html = '';
+                
+                topMatches.forEach(article => {
+                    // Title mein query ko highlight karna (Case Insensitive)
+                    const regex = new RegExp(`(${query})`, 'gi');
+                    const highlightedTitle = article.title.replace(regex, '<span class="suggestion-highlight">$1</span>');
+                    
+                    html += `
+                        <a href="article.html?id=${article.id}" class="suggestion-item">
+                            <img src="${article.featured_image || 'https://images.unsplash.com/photo-1588681664899-f142ff2dc9b1?w=50&q=80'}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                            <div style="flex: 1; min-width: 0;">
+                                <div class="suggestion-title">${highlightedTitle}</div>
+                                <div style="font-size: 0.75rem; color: var(--gray);">${article.category ? article.category.name : 'News'}</div>
+                            </div>
+                        </a>
+                    `;
+                });
+                
+                // Sabhi results dekhne ka button
+                html += `
+                    <a href="search.html?q=${encodeURIComponent(query)}" class="suggestion-item" style="justify-content: center; color: var(--primary); font-size: 0.9rem; font-weight: 600; background: #f8fafc; border-top: 1px solid var(--border);">
+                        View all search results <i class="fas fa-arrow-right" style="font-size: 0.8rem; margin-left: 5px;"></i>
+                    </a>
+                `;
+
+                suggestionsBox.innerHTML = html;
+                suggestionsBox.style.display = 'block';
+            } catch (e) {
+                console.error('Autocomplete error:', e);
+            }
+        }, 300); 
+    });
+
+    // Agar kahin aur click kiya toh suggestion box band kar do
+    document.addEventListener('click', function(e) {
+        if (!input.contains(e.target) && !suggestionsBox.contains(e.target)) {
+            suggestionsBox.style.display = 'none';
+        }
+    });
+
+    // Input par dobara click karne se khul jaye
+    input.addEventListener('focus', function() {
+        if (this.value.trim().length >= 2 && suggestionsBox.innerHTML !== '') {
+            suggestionsBox.style.display = 'block';
+        }
+    });
+}
 
 document.addEventListener('DOMContentLoaded', loadComponents);

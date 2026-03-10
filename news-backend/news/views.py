@@ -30,7 +30,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
     
     # 'is_editors_pick' aur 'tags__slug' yahan filter mein hain
     filterset_fields = ['category__slug', 'author', 'is_featured', 'is_trending', 'is_breaking', 'is_editors_pick', 'tags__slug']
-    search_fields = ['title', 'content', 'description']
+    search_fields = ['title', 'content', 'description', 'author__user__name', 'category__name', 'tags__name']
     
     def get_permissions(self):
         # Yahan 'increment_view' add kiya gaya hai taaki public access ho

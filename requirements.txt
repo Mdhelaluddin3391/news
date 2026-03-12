@@ -82,3 +82,4 @@ wcwidth==0.6.0
 webencodings==0.5.1
 yarg==0.1.9
 yarl==1.23.0
+django-jazzmin==3.0.3

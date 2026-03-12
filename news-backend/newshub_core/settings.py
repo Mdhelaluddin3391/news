@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'tinymce',
     'django.contrib.sites',   
     'django.contrib.sitemaps',
+    
 
 
 
@@ -209,4 +211,115 @@ WEBPUSH_SETTINGS = {
     
     # Yahan apna koi bhi admin email daal dein (e.g., admin@yoursite.com)
     "VAPID_ADMIN_EMAIL": "admin@dharmanagarlive.com" 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ==========================================
+# JAZZMIN ADMIN DASHBOARD SETTINGS
+# ==========================================
+
+JAZZMIN_SETTINGS = {
+    # Window/Tab title
+    "site_title": "NewsHub Admin",
+    
+    # Login screen aur dashboard header ka naam
+    "site_header": "NewsHub",
+    
+    # Sidebar ka brand name
+    "site_brand": "NewsHub Dashboard",
+    
+    # Login screen ki welcome text
+    "welcome_sign": "Welcome to NewsHub Admin Panel",
+    
+    # Copyright text at the bottom
+    "copyright": "NewsHub by Dharmanagar Live",
+    
+    # Global search bar mein kin models ko search karna hai
+    "search_model": ["news.Article", "users.User"],
+
+    "custom_css": "css/admin_custom.css",
+
+    # Top menu links
+    "topmenu_links": [
+        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "View Frontend Site", "url": "http://127.0.0.1:5500/index.html", "new_window": True},
+    ],
+
+    # Sidebar menu ko customize karna aur FontAwesome icons lagana
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "users.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "news.Article": "fas fa-newspaper",
+        "news.Category": "fas fa-list-alt",
+        "news.Author": "fas fa-user-edit",
+        "news.Tag": "fas fa-tags",
+        "news.LiveUpdate": "fas fa-broadcast-tower",
+        "interactions.Comment": "fas fa-comments",
+        "interactions.Poll": "fas fa-poll",
+        "interactions.Bookmark": "fas fa-bookmark",
+        "interactions.NewsletterSubscriber": "fas fa-envelope-open-text",
+        "interactions.PushSubscription": "fas fa-bell",
+        "core.Advertisement": "fas fa-ad",
+        "core.ContactMessage": "fas fa-envelope",
+    },
+
+    # Sidebar open rahega ya collapsed
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    
+    # Related models ka dropdown kaisa dikhega
+    "related_modal_active": True,
+}
+# ==========================================
+# JAZZMIN THEME TWEAKS (MATCHING WEBSITE)
+# ==========================================
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    
+    # 🔴 TWEAKED COLORS 🔴
+    "brand_colour": "navbar-navy",        # Top left Logo background (Primary Navy)
+    "navbar": "navbar-navy navbar-dark",  # Top header background (Primary Navy)
+    "accent": "accent-danger",            # Hover & Accent elements (Secondary Red)
+    "sidebar": "sidebar-light-navy",      # Sidebar background (Light layout with Navy active items)
+    
+    "no_navbar_border": False,
+    "navbar_fixed": True,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": True,       # Flat design modern lagta hai
+    "theme": "default",                   # Default clean theme rakhein
+    "dark_mode_theme": "darkly",          # Night mode
+    "button_classes": {
+        "primary": "btn-primary",         # Save buttons wagaira
+        "secondary": "btn-danger",        # Secondary actions in Red
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
 }

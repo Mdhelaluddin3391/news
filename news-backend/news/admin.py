@@ -1,6 +1,14 @@
 from django.contrib import admin
 from django.contrib import messages
-from .models import Category, Author, Article, Tag
+from .models import Category, Author, Article, Tag, LiveUpdate
+
+
+
+class LiveUpdateInline(admin.StackedInline):
+    model = LiveUpdate
+    extra = 1 # Ek khali box hamesha dikhega naya update daalne ke liye
+    fields = ('title', 'timestamp', 'content')
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -18,11 +26,14 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'author', 'status', 'published_at', 'views', 'is_editors_pick', 'is_top_story')
+    list_display = ('title', 'category', 'author', 'status', 'published_at', 'views', 'is_editors_pick', 'is_top_story', 'is_live')
     list_filter = ('status', 'category', 'is_featured', 'is_trending', 'is_top_story')
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
     filter_horizontal = ('tags',)
+
+
+    inlines = [LiveUpdateInline]
 
     # ==========================================
     # AUTHOR DASHBOARD & PERMISSIONS LOGIC
@@ -33,7 +44,7 @@ class ArticleAdmin(admin.ModelAdmin):
             'fields': ('title', 'slug', 'category', 'author', 'source_name', 'description', 'content', 'featured_image', 'tags')
         }),
         ('⚙️ Settings & Flags', {
-            'fields': ('status', 'published_at', 'views', 'is_featured', 'is_trending', 'is_breaking', 'is_editors_pick', 'is_top_story')
+            'fields': ('status', 'published_at', 'views', 'is_featured', 'is_trending', 'is_breaking', 'is_editors_pick', 'is_top_story', 'is_live')
         }),
         ('🚀 Social Media Auto-Post', {
             'fields': ('post_to_facebook', 'post_to_twitter', 'post_to_telegram'),
@@ -100,3 +111,4 @@ class ArticleAdmin(admin.ModelAdmin):
             )
             
         return super().changelist_view(request, extra_context=extra_context)
+    

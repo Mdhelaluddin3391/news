@@ -2,6 +2,7 @@
 // ==================== CONFIGURATION ====================
 // Real API Endpoint pointing to your Django backend
 const ARTICLE_DETAIL_API_URL = `${CONFIG.API_BASE_URL}/news/articles`;
+let liveRefreshInterval;
 
 // ==================== DOM Elements ====================
 const articleContainer = document.getElementById('article-detail');
@@ -41,6 +42,17 @@ function formatArticleDate(isoString) {
     });
 }
 
+function formatLiveTime(isoString) {
+    const date = new Date(isoString);
+    return date.toLocaleString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+        month: 'short',
+        day: 'numeric'
+    });
+}
+
 // ==================== Render Article ====================
 function renderArticle(article) {
     if (!article) {
@@ -48,25 +60,27 @@ function renderArticle(article) {
         return;
     }
 
-    const user = getCurrentUser(); // Assuming this comes from auth.js
+    // Puraana refresh interval clear karein agar koi ho (Memory leak se bachne ke liye)
+    if (liveRefreshInterval) clearInterval(liveRefreshInterval);
+
+    const user = getCurrentUser(); 
     const isSaved = user ? isArticleSaved(article.id) : false;
     
-    // Mapping Django backend fields to frontend variables
     const imageUrl = article.featured_image || 'https://picsum.photos/1200/600?random=1';
     const title = article.title || 'Untitled';
     const source = article.source_name || 'NewsHub';
     const date = article.published_at ? formatArticleDate(article.published_at) : 'Unknown date';
     const description = article.description || '';
-    const content = article.content || article.description || 'Full content is not available.';
+    const content = article.content || article.description || '';
     const categorySlug = article.category ? article.category.slug : 'general';
 
+    // --- SEO META TAGS ---
     if (typeof updateSEOMetaTags === 'function') {
-        // Description lamba ho sakta hai, isliye hum use SEO ke liye thoda chota (truncate) kar lenge
         const seoDescription = description.length > 150 ? description.substring(0, 150) + '...' : description;
         updateSEOMetaTags(title, seoDescription, imageUrl, window.location.href);
     }
 
-    // === NAYA CODE: ARTICLE SCHEMA MARKUP ===
+    // --- ARTICLE SCHEMA MARKUP ---
     if (typeof injectSchema === 'function') {
         const authorName = article.author ? article.author.name : 'NewsHub Staff';
         const articleSchema = {
@@ -93,9 +107,8 @@ function renderArticle(article) {
         };
         injectSchema(articleSchema);
     }
-    // ========================================
 
-    // --- NAYA TAGS HTML BLOCK ---
+    // --- TAGS HTML BLOCK ---
     let tagsHTML = '';
     if (article.tags && article.tags.length > 0) {
         tagsHTML = '<div class="article-tags">';
@@ -104,13 +117,12 @@ function renderArticle(article) {
         });
         tagsHTML += '</div>';
     }
-    // ----------------------------
 
     const saveButton = user ? 
         `<button class="save-btn detail-save-btn ${isSaved ? 'saved' : ''}" data-id="${article.id}">${isSaved ? 'Saved' : 'Save for Later'}</button>` 
         : '';
 
-    // Social sharing buttons
+    // --- SOCIAL SHARING ---
     const backendShareUrl = `${CONFIG.API_BASE_URL}/news/articles/${article.id}/share/`;
     const shareUrl = encodeURIComponent(backendShareUrl);
     const shareTitle = encodeURIComponent(title);
@@ -126,26 +138,36 @@ function renderArticle(article) {
         </div>
     `;
 
-    // Related articles placeholder
-    const relatedHTML = `
-        <section class="related-articles">
-            <h3>Related Articles</h3>
-            <div id="related-container"></div>
-        </section>
-    `;
+    const relatedHTML = `<section class="related-articles"><h3>Related Articles</h3><div id="related-container"></div></section>`;
+    const commentsHTML = `<section class="comments-section"><h3>Comments</h3><div id="comments-list"></div><div id="comment-form-container"></div></section>`;
 
-    // Comments placeholder
-    const commentsHTML = `
-        <section class="comments-section">
-            <h3>Comments</h3>
-            <div id="comments-list"></div>
-            <div id="comment-form-container"></div>
-        </section>
-    `;
+    // ==================== LIVE UPDATES LOGIC ====================
+    const liveBadgeHTML = article.is_live ? `<div class="live-badge"><i class="fas fa-circle"></i> LIVE UPDATE</div>` : '';
+    
+    let liveUpdatesHTML = '';
+    if (article.is_live) {
+        liveUpdatesHTML = `
+            <div class="live-updates-container" id="live-updates-section">
+                <div class="live-updates-title">
+                    <i class="fas fa-broadcast-tower" style="color: #e11d48;"></i> Live Updates
+                </div>
+                <div class="auto-refresh-indicator">
+                    <i class="fas fa-sync-alt fa-spin"></i> Auto-refreshing every 30 seconds...
+                </div>
+                <div class="timeline" id="timeline-container">
+                    ${generateTimelineHTML(article.live_updates)}
+                </div>
+            </div>
+        `;
+        // Polling start karo agar article live hai
+        startLivePolling(article.id);
+    }
+    // ============================================================
 
-    // HTML ko inject karna
+    // --- MAIN HTML INJECTION ---
     const html = `
         <div class="detail-content" style="padding-bottom: 1rem;">
+            ${liveBadgeHTML}
             <h1 class="detail-title">${title}</h1>
             <div class="detail-meta" style="margin-bottom: 1rem; border-bottom: none;">
                 <span class="detail-source">${source}</span>
@@ -162,7 +184,10 @@ function renderArticle(article) {
                 ${content}
             </div>
             
-            ${tagsHTML} ${shareHTML}
+            ${liveUpdatesHTML}
+            
+            ${tagsHTML} 
+            ${shareHTML}
             ${relatedHTML}
             ${commentsHTML}
             <div class="detail-actions">
@@ -204,13 +229,61 @@ function renderArticle(article) {
     }
 }
 
+// ==================== LIVE UPDATES TIMELINE HELPER ====================
+function generateTimelineHTML(updates) {
+    if (!updates || updates.length === 0) {
+        return '<p style="color: var(--gray);">No live updates posted yet. Stay tuned!</p>';
+    }
+
+    let html = '';
+    updates.forEach(update => {
+        const timeStr = formatLiveTime(update.timestamp);
+        html += `
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-time"><i class="far fa-clock"></i> ${timeStr}</div>
+                <div class="timeline-content">
+                    ${update.title ? `<h4 class="timeline-title">${update.title}</h4>` : ''}
+                    <div class="timeline-body" style="line-height: 1.6; color: #334155;">${update.content}</div>
+                </div>
+            </div>
+        `;
+    });
+    return html;
+}
+
+// ==================== AUTO-REFRESH POLLING ====================
+function startLivePolling(articleId) {
+    liveRefreshInterval = setInterval(async () => {
+        try {
+            const response = await fetch(`${ARTICLE_DETAIL_API_URL}/${articleId}/`);
+            if (response.ok) {
+                const article = await response.json();
+                const timelineContainer = document.getElementById('timeline-container');
+                
+                // Agar timeline container exist karta hai aur naye updates aaye hain
+                if (timelineContainer && article.live_updates) {
+                    timelineContainer.innerHTML = generateTimelineHTML(article.live_updates);
+                }
+            }
+        } catch (error) {
+            console.error('Auto-refresh failed:', error);
+        }
+    }, 30000); // 30,000 ms = Har 30 seconds mein API hit karke update check karega
+}
+
+// Jab user kisi aur page par jaye, toh interval band kar dein
+window.addEventListener('beforeunload', () => {
+    if (liveRefreshInterval) clearInterval(liveRefreshInterval);
+});
+
+
 // ==================== Fetch Article ====================
 async function fetchArticle(articleId) {
     showArticleLoader();
     clearArticleError();
 
     try {
-        // Fetch specific article by ID from Django backend
         const response = await fetch(`${ARTICLE_DETAIL_API_URL}/${articleId}/`);
         if (!response.ok) {
             throw new Error(`HTTP error ${response.status}`);
@@ -221,7 +294,7 @@ async function fetchArticle(articleId) {
     } catch (error) {
         console.error('Failed to fetch article:', error);
         showArticleError('Could not load the article. Please try again later.');
-        articleContainer.innerHTML = ''; // clear any partial content
+        articleContainer.innerHTML = ''; 
     } finally {
         hideArticleLoader();
     }
@@ -245,17 +318,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Pehle article fetch aur render karo
     fetchArticle(articleId);
     
-    // NAYA CODE: View count ko silently badhao!
+    // View count ko silently badhao
     incrementArticleView(articleId);
 });
 
 // ==================== Increment Views ====================
 async function incrementArticleView(articleId) {
-    // 1. Check karein ki kya is session mein pehle hi view count ho chuka hai?
     const viewedKey = `viewed_article_${articleId}`;
     if (sessionStorage.getItem(viewedKey)) {
-        console.log("View already counted for this session.");
-        return; // Agar pehle hi count ho gaya, toh yahin se wapas laut jao
+        return; // Agar pehle hi count ho gaya is session me, toh wapas laut jao
     }
 
     try {
@@ -265,10 +336,7 @@ async function incrementArticleView(articleId) {
                 'Content-Type': 'application/json'
             }
         });
-        
-        // 2. API call success hone ke baad, browser ki memory mein likh do ki view count ho gaya
         sessionStorage.setItem(viewedKey, 'true');
-        
     } catch (error) {
         console.error('Failed to increment views:', error);
     }

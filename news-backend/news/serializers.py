@@ -1,5 +1,12 @@
 from rest_framework import serializers
-from .models import Article, Category, Author, Tag
+from .models import Article, Category, Author, Tag, LiveUpdate
+
+
+class LiveUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LiveUpdate
+        fields = ('id', 'title', 'content', 'timestamp')
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,11 +32,13 @@ class ArticleSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     author = AuthorSerializer(read_only=True)
     tags = TagSerializer(many=True, read_only=True)
+    live_updates = LiveUpdateSerializer(many=True, read_only=True)
 
     class Meta:
         model = Article
         fields = (
             'id', 'title', 'slug', 'category', 'author', 'source_name', 
             'description', 'content', 'featured_image', 'published_at', 
-            'views', 'is_featured', 'is_trending', 'is_breaking','is_editors_pick', 'tags', 'is_top_story' # <-- is_top_story yahan add kiya
+            'views', 'is_featured', 'is_trending', 'is_breaking',
+            'is_editors_pick', 'tags', 'is_top_story', 'is_live', 'live_updates'
         )

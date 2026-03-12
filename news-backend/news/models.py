@@ -8,6 +8,8 @@ from django.utils.text import slugify
 from tinymce.models import HTMLField
 from core.models import BaseModel
 from users.models import User
+from django.utils import timezone
+
 
 class Category(BaseModel):
     name = models.CharField(max_length=100, unique=True)
@@ -80,7 +82,7 @@ class Article(BaseModel):
     is_breaking = models.BooleanField(default=False, help_text="Show in breaking news ticker")
     is_editors_pick = models.BooleanField(default=False, help_text="Show in Editor's Picks section")
     is_top_story = models.BooleanField(default=False, help_text="Show in Top Stories section")
-
+    is_live = models.BooleanField(default=False, help_text="Tick if this is a Live Blog/Live Update article")
     post_to_facebook = models.BooleanField(default=False, help_text="Tick karein Facebook par post karne ke liye")
     post_to_twitter = models.BooleanField(default=False, help_text="Tick karein Twitter (X) par post karne ke liye")
     post_to_telegram = models.BooleanField(default=False, help_text="Tick karein Telegram channel par post karne ke liye")
@@ -124,3 +126,20 @@ class Article(BaseModel):
 
     def __str__(self):
         return self.title
+
+
+
+class LiveUpdate(BaseModel):
+    """
+    Har ek live article ke andar chote-chote updates (jaise cricket commentary ya election count)
+    """
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='live_updates')
+    title = models.CharField(max_length=255, blank=True, null=True, help_text="Optional short title for this update")
+    content = HTMLField(help_text="Update ka content (images, text, embeds)")
+    timestamp = models.DateTimeField(default=timezone.now, help_text="Har update ka exact time")
+    
+    class Meta:
+        ordering = ['-timestamp'] # Sabse naya update sabse upar dikhega
+
+    def __str__(self):
+        return f"Update for {self.article.title} at {self.timestamp}"

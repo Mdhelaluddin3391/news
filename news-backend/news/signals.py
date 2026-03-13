@@ -144,10 +144,12 @@ def send_bulk_emails_in_background(subject, message, recipient_list, html_messag
     except Exception as e:
         print(f"❌ Email sending error: {e}")
 
+
+        
 @receiver(post_save, sender=Article)
 def auto_send_newsletter_on_publish(sender, instance, created, **kwargs):
-    # Check karein: Status 'published' hona chahiye aur pehle email nahi gaya hona chahiye
-    if instance.status == 'published' and not instance.newsletter_sent:
+    # SIRF tab email bhejenge jab article PUBLISHED ho, pehle na bheja gaya ho, aur BREAKING NEWS ho!
+    if instance.status == 'published' and not instance.newsletter_sent and instance.is_breaking:
         
         # Sirf 'Active' subscribers ki email list nikalein
         subscribers = NewsletterSubscriber.objects.filter(is_active=True).values_list('email', flat=True)
@@ -155,69 +157,53 @@ def auto_send_newsletter_on_publish(sender, instance, created, **kwargs):
         
         if recipient_list:
             article_url = f"{settings.FRONTEND_URL}/article.html?id={instance.id}"
-            subject = f"📰 Naya Article: {instance.title}"
+            subject = f"🚨 BREAKING NEWS: {instance.title}"
             
             # Email ka body (Message)
-            message = (
-                f"Hello!\n\n"
-                f"NewsHub par ek naya article publish hua hai:\n\n"
-                f"📌 {instance.title}\n\n"
-                f"Pura article padhne ke liye yahan click karein:\n"
-                f"{article_url}\n\n"
-            )
-
+            message = f"🚨 BREAKING NEWS\n\n{instance.title}\n\nPadhne ke liye yahan click karein: {article_url}"
 
             html_content = f"""
             <!DOCTYPE html>
             <html>
             <head>
                 <style>
-                    body {{ font-family: Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }}
-                    .container {{ max-width: 600px; margin: 30px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }}
+                    body {{ font-family: Arial, sans-serif; background-color: #f8fafc; padding: 20px; }}
+                    .container {{ max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0; }}
                     .header {{ background-color: #d32f2f; padding: 20px; text-align: center; color: white; }}
                     .content {{ padding: 30px; color: #334155; line-height: 1.6; font-size: 16px; }}
-                    .article-title {{ font-size: 20px; color: #1a365d; margin-bottom: 10px; font-weight: bold; line-height: 1.4; }}
-                    .btn {{ display: inline-block; background-color: #1a365d; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 5px; font-weight: bold; margin-top: 15px; }}
+                    .article-title {{ font-size: 22px; color: #1a365d; margin-bottom: 10px; font-weight: bold; line-height: 1.4; }}
+                    .desc {{ color: #444; margin-bottom: 20px; }}
+                    .btn {{ display: inline-block; background-color: #d32f2f; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 5px; font-weight: bold; }}
                     .footer {{ background-color: #f1f5f9; padding: 15px; text-align: center; color: #64748b; font-size: 12px; }}
-                    .footer a {{ color: #d32f2f; text-decoration: none; }}
                 </style>
             </head>
             <body>
                 <div class="container">
                     <div class="header">
-                        <h1 style="margin:0; font-size: 22px;">🚨 Breaking News Alert</h1>
+                        <h1 style="margin:0; font-size: 24px;">🚨 BREAKING NEWS ALERT</h1>
                     </div>
                     <div class="content">
-                        <p>Hello Reader,</p>
-                        <p>A new story has just been published on <strong>NewsHub</strong>!</p>
-                        
-                        <div style="background: #f8fafc; padding: 20px; border-left: 4px solid #d32f2f; margin: 25px 0;">
-                            <div class="article-title">{instance.title}</div>
-                            <a href="{article_url}" class="btn" style="color: #ffffff;">Read Full Article &rarr;</a>
-                        </div>
-                        
-                        <p>Stay informed and keep reading!</p>
+                        <div class="article-title">{instance.title}</div>
+                        <p class="desc">{instance.description[:150] if instance.description else ''}...</p>
+                        <a href="{article_url}" class="btn" style="color: #ffffff;">Read Full Story</a>
                     </div>
                     <div class="footer">
-                        You are receiving this because you subscribed to NewsHub.<br><br>
-                        <a href="{settings.FRONTEND_URL}/unsubscribe.html">Click here to Unsubscribe</a>
+                        You received this because you are subscribed to NewsHub Breaking Alerts.<br>
+                        <a href="{settings.FRONTEND_URL}/unsubscribe.html" style="color: #d32f2f;">Unsubscribe</a>
                     </div>
                 </div>
             </body>
             </html>
             """
             
-            # Threading ka use karke email bhejne ka process start karein
-            email_thread = threading.Thread(
+            # Background me bhejein
+            threading.Thread(
                 target=send_bulk_emails_in_background, 
-                args=(subject, message, recipient_list, html_content) # html_content yahan bheja gaya hai
-            )
-            email_thread.start()
+                args=(subject, message, recipient_list, html_content) 
+            ).start()
 
-        # Database mein update kar dein ki is article ka email ja chuka hai
-        # .update() ka use isliye kiya hai taaki wapas save() call na ho aur infinite loop na bane
+        # Update database so we don't send it again
         Article.objects.filter(pk=instance.pk).update(newsletter_sent=True)
-
 
 @receiver(post_save, sender=Article)
 def handle_social_media_autopost(sender, instance, created, **kwargs):

@@ -40,17 +40,31 @@ def clear_cache_on_author_change(sender, instance, **kwargs):
     cache.clear()
 
 
+
 @receiver(post_save, sender=Article)
 def handle_article_publish(sender, instance, created, **kwargs):
     cache.clear()
     
-    # 🔴 NAYA: 'not instance.push_sent' add kiya gaya hai 
-    # Taaki check ho sake ki is article ka notification pehle toh nahi ja chuka
-    if instance.status == 'published' and (instance.is_breaking or instance.is_featured) and not instance.push_sent:
+    if instance.status == 'published' and not instance.push_sent:
         
+        # 1. Notification ka Title
+        if instance.is_breaking:
+            notif_title = f"🚨 Breaking News: {instance.title}"
+        elif instance.is_featured:
+            notif_title = f"⭐ Featured: {instance.title}"
+        else:
+            notif_title = f"📰 Naya Article: {instance.title}"
+            
+        # 2. Notification ki Body (Short Description)
+        if instance.description:
+            short_desc = instance.description[:120] + "..." if len(instance.description) > 120 else instance.description
+        else:
+            short_desc = "Iss naye article ko padhne ke liye yahan click karein..."
+
+        # 3. Payload
         payload = {
-            "title": "🚨 Breaking News" if instance.is_breaking else "⭐ Featured Article",
-            "body": instance.title,
+            "title": notif_title,
+            "body": short_desc,
             "url": f"{settings.FRONTEND_URL}/article.html?id={instance.id}",
             "icon": instance.featured_image.url if instance.featured_image else f"{settings.FRONTEND_URL}/images/logo.png"
         }
@@ -65,21 +79,19 @@ def handle_article_publish(sender, instance, created, **kwargs):
                     },
                     data=json.dumps(payload),
                     vapid_private_key=settings.WEBPUSH_SETTINGS['VAPID_PRIVATE_KEY'],
-                    vapid_claims={"sub": f"mailto:{settings.WEBPUSH_SETTINGS['VAPID_ADMIN_EMAIL']}"}
+                    vapid_claims={"sub": f"mailto:{settings.WEBPUSH_SETTINGS['VAPID_ADMIN_EMAIL']}"},
+                    ttl=86400  # 🔴 NAYA: TTL (Time To Live) - 86400 seconds (24 ghante)
+                    # Iska matlab agar device 24 ghante tak band raha, toh server wait karega. 
+                    # Jaise hi device 24 ghante ke andar on hoga, notification aa jayegi!
                 )
             except WebPushException as ex:
-                # Agar subscription invalid ho chuki hai (e.g., user ne permission hata di), toh DB se delete kar do
                 if ex.response and ex.response.status_code in [404, 410]:
                     sub.delete()
             except Exception as e:
-                # Any other general exceptions
                 print(f"Push error for subscription {sub.id}: {e}")
 
-        # 🔴 NAYA: Sabko notification bhejne ke baad database mein push_sent ko True kar dein.
-        # Hum `.update()` use kar rahe hain taaki wapas save() trigger na ho aur infinite loop na bane.
         Article.objects.filter(pk=instance.pk).update(push_sent=True)
         print(f"✅ Push notifications sent successfully for article: {instance.title}")
-
 
 @receiver(post_save, sender=Article)
 def handle_social_media_autopost(sender, instance, created, **kwargs):

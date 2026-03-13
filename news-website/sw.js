@@ -1,5 +1,4 @@
-// news-website/sw.js
-
+// news-website/sw.js (Pehle se hi aesa hona chahiye)
 self.addEventListener('push', function(event) {
     if (event.data) {
         const data = event.data.json();
@@ -7,10 +6,11 @@ self.addEventListener('push', function(event) {
             body: data.body,
             icon: data.icon || 'images/default-icon.png',
             data: {
-                url: data.url // URL store kar rahe hain taaki click par open kar sakein
+                url: data.url
             }
         };
 
+        // event.waitUntil yeh ensure karta hai ki browser background me sleep mode me na chala jaye
         event.waitUntil(
             self.registration.showNotification(data.title, options)
         );
@@ -18,9 +18,7 @@ self.addEventListener('push', function(event) {
 });
 
 self.addEventListener('notificationclick', function(event) {
-    event.notification.close(); // Notification click hone par close kar do
-
-    // Jo URL humne push bheje time set kiya tha, use naye tab me open karein
+    event.notification.close();
     event.waitUntil(
         clients.openWindow(event.notification.data.url)
     );

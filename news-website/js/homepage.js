@@ -405,7 +405,7 @@ function showCustomPushPrompt() {
                 Get Breaking News Alerts!
             </h4>
             <p style="margin: 0 0 15px 0; font-size: 0.95rem; color: var(--gray); line-height: 1.5;">
-                Subscribe to get notified instantly about major breaking news and featured stories.
+                Subscribe to get notified instantly about all our latest articles and breaking news!
             </p>
             <div style="display: flex; gap: 10px;">
                 <button id="push-allow-btn" style="background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: 600; flex: 1; transition: background 0.3s;">

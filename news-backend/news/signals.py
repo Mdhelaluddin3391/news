@@ -40,7 +40,6 @@ def clear_cache_on_author_change(sender, instance, **kwargs):
     cache.clear()
 
 
-
 @receiver(post_save, sender=Article)
 def handle_article_publish(sender, instance, created, **kwargs):
     cache.clear()
@@ -91,41 +90,6 @@ def handle_article_publish(sender, instance, created, **kwargs):
 
         Article.objects.filter(pk=instance.pk).update(push_sent=True)
         print(f"✅ Push notifications sent successfully for article: {instance.title}")
-
-@receiver(post_save, sender=Article)
-def handle_social_media_autopost(sender, instance, created, **kwargs):
-    # Check karein ki article published hai ya nahi
-    if instance.status == 'published':
-        article_url = f"{settings.FRONTEND_URL}/article.html?id={instance.id}"
-        message = f"📰 Naya Article: {instance.title}\n\nPadhne ke liye yahan click karein: {article_url}"
-
-        # 1. FACEBOOK AUTO POST
-        if instance.post_to_facebook:
-            print("🚀 Posting to Facebook...")
-            # Yahan Facebook Graph API ka code aayega
-            # requests.post(f"https://graph.facebook.com/PAGE_ID/feed?message={message}&access_token=YOUR_TOKEN")
-            
-            # Post hone ke baad checkbox wapas untick kar do taaki edit karne par dobara post na ho
-            Article.objects.filter(pk=instance.pk).update(post_to_facebook=False)
-
-        # 2. TWITTER AUTO POST
-        if instance.post_to_twitter:
-            print("🚀 Posting to Twitter...")
-            # Yahan Twitter API v2 (Tweepy) ka code aayega
-            
-            # Untick checkbox
-            Article.objects.filter(pk=instance.pk).update(post_to_twitter=False)
-
-        # 3. TELEGRAM AUTO POST
-        if instance.post_to_telegram:
-            print("🚀 Posting to Telegram...")
-            # Telegram bot API (Sabse aasan hoti hai)
-            # BOT_TOKEN = 'your_bot_token'
-            # CHANNEL_ID = '@your_channel_username'
-            # requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={CHANNEL_ID}&text={message}")
-            
-            # Untick checkbox
-            Article.objects.filter(pk=instance.pk).update(post_to_telegram=False)
 
 
 def send_bulk_emails_in_background(subject, message, recipient_list, html_message=None):
@@ -203,6 +167,7 @@ def auto_send_newsletter_on_publish(sender, instance, created, **kwargs):
 
         # Update database so we don't send it again
         Article.objects.filter(pk=instance.pk).update(newsletter_sent=True)
+
 
 @receiver(post_save, sender=Article)
 def handle_social_media_autopost(sender, instance, created, **kwargs):

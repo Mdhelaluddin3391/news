@@ -1,6 +1,7 @@
 // js/author.js
 
-const API_BASE_URL = `${CONFIG.API_BASE_URL}/news`;
+// NAYA: Variable ka naam change kar diya gaya hai taaki clash na ho
+const AUTHOR_API_URL = `${CONFIG.API_BASE_URL}/news`;
 
 // Get Author ID from URL (e.g., author.html?id=1)
 function getAuthorIdFromUrl() {
@@ -25,7 +26,7 @@ async function fetchAuthorAndArticles() {
 
     try {
         // 1. Sabse pehle API se sirf Author ki details fetch karenge
-        const authorResponse = await fetch(`${API_BASE_URL}/authors/${authorId}/`);
+        const authorResponse = await fetch(`${AUTHOR_API_URL}/authors/${authorId}/`);
         if (!authorResponse.ok) throw new Error('Author not found');
         
         const author = await authorResponse.json();
@@ -88,7 +89,7 @@ async function fetchAuthorAndArticles() {
         // =======================================
 
         // 2. Ab is author ke likhe hue Articles fetch karenge
-        const articlesResponse = await fetch(`${API_BASE_URL}/articles/?author=${authorId}`);
+        const articlesResponse = await fetch(`${AUTHOR_API_URL}/articles/?author=${authorId}`);
         const articleData = await articlesResponse.json();
         const articles = articleData.results || articleData;
 

@@ -940,6 +940,11 @@ footer {
     .nav-links, .nav-right {
         display: none;
     }
+
+    .nav-flex {
+        padding: 12px 0; /* Isse aapki mobile nav ki height thodi badi aur professional ho jayegi */
+    }
+    
     .mobile-btn {
         display: block;
     }

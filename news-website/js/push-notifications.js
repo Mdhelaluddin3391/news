@@ -1,6 +1,6 @@
 // news-website/js/push-notifications.js
 
-const PUBLIC_VAPID_KEY = 'BL_wQ4AU0MABrcB7uQc5dX7d725RZmGktXdlp9YD6m1MWopxpFcFMLjiBdF8pMjuAKOJmwX4a596wC0mj4HlMQ8'; // Exact wahi jo backend mein dali hai
+const PUBLIC_VAPID_KEY = CONFIG.VAPID_PUBLIC_KEY;
 
 function urlB64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);

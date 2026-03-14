@@ -121,7 +121,8 @@ header {
 /* ==================== Desktop Navigation ==================== */
 nav {
     background: var(--primary);
-    position: relative;
+    position: sticky;  /* relative ko hatakar sticky kar dein */
+    top: 0;            /* ye batata hai ki top se kitna chipakna hai */
     z-index: 1001;
 }
 
